@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="Εφαρμογή Ηλεκτρονικών Αιτήσεων για το 'Επίδομα ΝΕΕ'">
+    <meta name="keywords" content="Επίδομα ΝΕΕ, Κοινωνικά Επιδόματα, Προνοιακό Επίδομα, ΗΔΙΚΑ, Ηλεκτρονική Διακυβέρνηση, Κοινωνική Ασφάλιση">
+    <title>Επίδομα ΝΕΕ - Διαχειριστικό Περιβάλλον</title>
+
+    @Styles.Render("~/Content/css/font-awesome")
+    @Styles.Render("~/Content/kendo/2019.1.115/css")
+    @Styles.Render("~/Content/css")
+
+    <script>_js_root_url = "@(Url.Content("~/"))";</script>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        @Html.Partial("_AppHeaderPartial")
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("RedirectToHome", "Home")">
+                    <div class="hb-logo-menu hidden-sm hidden-xs"></div>
+                    <div class="hb-logo-menu-sm hidden-md hidden-lg"></div>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("NEEUsers") || User.IsInRole("ReadOnly") || User.IsInRole("OpekaNEEUsers"))
+                        {
+                            <li class="dropdown dropdown-submenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Αιτήσεις <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Νέα Αίτηση", "Find", "AdminApplication")</li>
+                                    <li>@Html.ActionLink("Αναζήτηση Αιτήσεων", "Search", "Admin")</li>
+                                    @if (User.IsInRole("Managers"))
+                                    {
+                                        <li>@Html.ActionLink("Διαχείριση Ποινών", "ManageMemberPenalties", "Application")</li>
+                                    }
+                                    <li>@Html.ActionLink("Στοιχεία Πληρωμών", "Index", "Payments")</li>
+                                </ul>
+                            </li>
+                        }
+
+                        if (User.IsInRole("Administrators") || User.IsInRole("DEV_Team") || User.IsInRole("Managers"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Διαχείριση <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    @if (User.IsInRole("Managers"))
+                                    {
+                                        <li>@Html.ActionLink("Dashboards", "Index", "Dashboards")</li>
+                                    }
+                                    @if (User.IsInRole("Administrators"))
+                                    {
+                                        <li>@Html.ActionLink("Διαχείριση Χρηστών", "Index", "UserAdmin")</li>
+                                    }
+
+                                    @if (User.IsInRole("DEV_Team"))
+                                    {
+                                        <li role="separator" class="divider"></li>
+                                        <li class="dropdown-header">Dev Team</li>
+                                        <li>@Html.ActionLink("ResendConfirmationEmails", "ResendConfirmationEmails", "UserAdmin")</li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
+                    <li>@Html.ActionLink("Πληροφορίες", "Info", "Home")</li>
+                    <li>@Html.ActionLink("Συχνές Ερωτήσεις", "AdminFAQ", "Home")</li>
+                </ul>
+                @Html.Partial("Admin/_AdminLoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <br />
+
+    <div class="empty-space"></div>
+    @Html.Partial("Admin/_AdminFooterPartial")
+    @Html.Partial("_LoaderPartial")
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/neeApplication")
+    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/kendo")
+    @Scripts.Render("~/bundles/editSupport")
+    @Scripts.Render("~/bundles/editManualContractSupport")
+
+    @RenderSection("scripts", required: false)
+
+
+
+
+</body>
+</html>

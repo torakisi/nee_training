@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:tns="http://gsis.ggps.interoperability/taxSeniorHouseAssistInfoInterface" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="taxSeniorHouseAssistInfoInterface" targetNamespace="http://gsis.ggps.interoperability/taxSeniorHouseAssistInfoInterface" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy xmlns:wssecurity="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" wssecurity:Id="Http-UsernameToken-Policy">
+    <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+      <wsp:Policy>
+        <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+          <wsp:Policy />
+        </sp:UsernameToken>
+      </wsp:Policy>
+    </sp:SupportingTokens>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://gsis.ggps.interoperability/taxSeniorHouseAssistInfoInterface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="getMisthwthrioShaRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getMisthwthrioShaInputRecord" type="tns:getMisthwthrioShaInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="auditRecord">
+        <xs:sequence>
+          <xs:element name="auditTransactionId" type="xs:string" />
+          <xs:element name="auditTransactionDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="auditUnit" type="xs:string" />
+          <xs:element minOccurs="0" name="auditProtocol" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserId" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserIp" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMisthwthrioShaInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+          <xs:element name="misthwthrio" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMisthwthrioShaResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getMisthwthrioShaOutputRecord" type="tns:getMisthwthrioShaReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMisthwthrioShaReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="misthwthrio" type="xs:decimal" />
+          <xs:element minOccurs="0" name="tropopoihtikh" type="xs:decimal" />
+          <xs:element minOccurs="0" name="startDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="endDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="terminationDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="monthlyRent" type="xs:decimal" />
+          <xs:element minOccurs="0" name="list1" type="tns:ekmisthList" />
+          <xs:element minOccurs="0" name="list2" type="tns:misthList" />
+          <xs:element minOccurs="0" name="list3" type="tns:akinList" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ekmisthList">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ekmisthRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ekmisthRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="aaEkmisthwth" type="xs:decimal" />
+          <xs:element minOccurs="0" name="afmEkmisthwth" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="misthList">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:misthRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="misthRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="aaMisthwth" type="xs:decimal" />
+          <xs:element minOccurs="0" name="afmMisthwth" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="akinList">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:akinRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="akinRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="aaAkinhtou" type="xs:decimal" />
+          <xs:element minOccurs="0" name="addressAkinhtoy" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="errorRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="errorCode" type="xs:string" />
+          <xs:element minOccurs="0" name="errorDescr" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEndeixhEisodhmaShaRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getEndeixhEisodhmaShaInputRecord" type="tns:getEndeixhEisodhmaShaInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEndeixhEisodhmaShaInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+          <xs:element name="forolEtos" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEndeixhEisodhmaShaResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getEndeixhEisodhmaShaOutputRecord" type="tns:getEndeixhEisodhmaShaReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEndeixhEisodhmaShaReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="endeixhEisodhma" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getIncomeMobValueExpatShaRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getIncomeMobValueExpatShaInputRecord" type="tns:getIncomeMobValueExpatShaInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getIncomeMobValueExpatShaInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+          <xs:element name="forolEtos" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getIncomeMobValueExpatShaResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getIncomeMobValueExpatShaOutputRecord" type="tns:getIncomeMobValueExpatShaReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getIncomeMobValueExpatShaReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="coupleOtherAfm" type="xs:string" />
+          <xs:element minOccurs="0" name="amkaSyz" type="xs:string" />
+          <xs:element minOccurs="0" name="eisodhma" type="xs:decimal" />
+          <xs:element minOccurs="0" name="tekmhrioKinhtwn" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getTwelveYearsShaRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getTwelveYearsShaInputRecord" type="tns:getTwelveYearsShaInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getTwelveYearsShaInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+          <xs:element name="forolEtos" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getTwelveYearsShaResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getTwelveYearsShaOutputRecord" type="tns:getTwelveYearsShaReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getTwelveYearsShaReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="afmAitountos" type="xs:string" />
+          <xs:element minOccurs="0" name="dateYpobolhsArxikhsA" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="katoikosAllodaphsA" type="xs:decimal" />
+          <xs:element minOccurs="0" name="coupleOtherAfm" type="xs:string" />
+          <xs:element minOccurs="0" name="dateYpobolhsArxikhsC" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="katoikosAllodaphsC" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getFiloxShaRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getFiloxShaInputRecord" type="tns:getFiloxShaInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getFiloxShaInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+          <xs:element name="forolEtos" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getFiloxShaResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getFiloxShaOutputRecord" type="tns:getFiloxShaReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getFiloxShaReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="endeixhFilox" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getKyriaKatoikiaShaRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getKyriaKatoikiaShaInputRecord" type="tns:getKyriaKatoikiaShaInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getKyriaKatoikiaShaInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+          <xs:element name="forolEtos" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getKyriaKatoikiaShaResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getKyriaKatoikiaShaOutputRecord" type="tns:getKyriaKatoikiaShaReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getKyriaKatoikiaShaReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:kyriaKatoikiaRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="kyriaKatoikiaRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="afmYpoxreouE1" type="xs:string" />
+          <xs:element minOccurs="0" name="ownerAfm" type="xs:string" />
+          <xs:element minOccurs="0" name="pososto" type="xs:decimal" />
+          <xs:element minOccurs="0" name="street0Descr" type="xs:string" />
+          <xs:element minOccurs="0" name="txk" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getInterestShaRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getInterestShaInputRecord" type="tns:getInterestShaInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getInterestShaInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+          <xs:element name="forolEtos" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getInterestShaResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getInterestShaOutputRecord" type="tns:getInterestShaReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getInterestShaReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="coupleOtherAfm" type="xs:string" />
+          <xs:element minOccurs="0" name="interest" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEisodhmaShaRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getEisodhmaShaInputRecord" type="tns:getEisodhmaShaInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEisodhmaShaInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+          <xs:element name="forolEtos" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEisodhmaShaResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getEisodhmaShaOutputRecord" type="tns:getEisodhmaShaReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEisodhmaShaReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="coupleOtherAfm" type="xs:string" />
+          <xs:element minOccurs="0" name="eisodhma" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getMisthwthrioShaRequest" nillable="true" type="tns:getMisthwthrioShaRequest" />
+      <xs:element name="getMisthwthrioShaResponse" nillable="true" type="tns:getMisthwthrioShaResponse" />
+      <xs:element name="getEndeixhEisodhmaShaRequest" nillable="true" type="tns:getEndeixhEisodhmaShaRequest" />
+      <xs:element name="getEndeixhEisodhmaShaResponse" nillable="true" type="tns:getEndeixhEisodhmaShaResponse" />
+      <xs:element name="getIncomeMobValueExpatShaRequest" nillable="true" type="tns:getIncomeMobValueExpatShaRequest" />
+      <xs:element name="getIncomeMobValueExpatShaResponse" nillable="true" type="tns:getIncomeMobValueExpatShaResponse" />
+      <xs:element name="getTwelveYearsShaRequest" nillable="true" type="tns:getTwelveYearsShaRequest" />
+      <xs:element name="getTwelveYearsShaResponse" nillable="true" type="tns:getTwelveYearsShaResponse" />
+      <xs:element name="getFiloxShaRequest" nillable="true" type="tns:getFiloxShaRequest" />
+      <xs:element name="getFiloxShaResponse" nillable="true" type="tns:getFiloxShaResponse" />
+      <xs:element name="getKyriaKatoikiaShaRequest" nillable="true" type="tns:getKyriaKatoikiaShaRequest" />
+      <xs:element name="getKyriaKatoikiaShaResponse" nillable="true" type="tns:getKyriaKatoikiaShaResponse" />
+      <xs:element name="getInterestShaRequest" nillable="true" type="tns:getInterestShaRequest" />
+      <xs:element name="getInterestShaResponse" nillable="true" type="tns:getInterestShaResponse" />
+      <xs:element name="getEisodhmaShaRequest" nillable="true" type="tns:getEisodhmaShaRequest" />
+      <xs:element name="getEisodhmaShaResponse" nillable="true" type="tns:getEisodhmaShaResponse" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getFiloxSha">
+    <wsdl:part name="getFiloxShaRequest" element="tns:getFiloxShaRequest" />
+  </wsdl:message>
+  <wsdl:message name="getIncomeMobValueExpatShaResponse">
+    <wsdl:part name="getIncomeMobValueExpatShaResponse" element="tns:getIncomeMobValueExpatShaResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEndeixhEisodhmaSha">
+    <wsdl:part name="getEndeixhEisodhmaShaRequest" element="tns:getEndeixhEisodhmaShaRequest" />
+  </wsdl:message>
+  <wsdl:message name="getMisthwthrioShaResponse">
+    <wsdl:part name="getMisthwthrioShaResponse" element="tns:getMisthwthrioShaResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEisodhmaShaResponse">
+    <wsdl:part name="getEisodhmaShaResponse" element="tns:getEisodhmaShaResponse" />
+  </wsdl:message>
+  <wsdl:message name="getIncomeMobValueExpatSha">
+    <wsdl:part name="getIncomeMobValueExpatShaRequest" element="tns:getIncomeMobValueExpatShaRequest" />
+  </wsdl:message>
+  <wsdl:message name="getFiloxShaResponse">
+    <wsdl:part name="getFiloxShaResponse" element="tns:getFiloxShaResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMisthwthrioSha">
+    <wsdl:part name="getMisthwthrioShaRequest" element="tns:getMisthwthrioShaRequest" />
+  </wsdl:message>
+  <wsdl:message name="getKyriaKatoikiaSha">
+    <wsdl:part name="getKyriaKatoikiaShaRequest" element="tns:getKyriaKatoikiaShaRequest" />
+  </wsdl:message>
+  <wsdl:message name="getEndeixhEisodhmaShaResponse">
+    <wsdl:part name="getEndeixhEisodhmaShaResponse" element="tns:getEndeixhEisodhmaShaResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEisodhmaSha">
+    <wsdl:part name="getEisodhmaShaRequest" element="tns:getEisodhmaShaRequest" />
+  </wsdl:message>
+  <wsdl:message name="getInterestSha">
+    <wsdl:part name="getInterestShaRequest" element="tns:getInterestShaRequest" />
+  </wsdl:message>
+  <wsdl:message name="getTwelveYearsSha">
+    <wsdl:part name="getTwelveYearsShaRequest" element="tns:getTwelveYearsShaRequest" />
+  </wsdl:message>
+  <wsdl:message name="getKyriaKatoikiaShaResponse">
+    <wsdl:part name="getKyriaKatoikiaShaResponse" element="tns:getKyriaKatoikiaShaResponse" />
+  </wsdl:message>
+  <wsdl:message name="getInterestShaResponse">
+    <wsdl:part name="getInterestShaResponse" element="tns:getInterestShaResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTwelveYearsShaResponse">
+    <wsdl:part name="getTwelveYearsShaResponse" element="tns:getTwelveYearsShaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="taxSeniorHouseAssistInfoInterface">
+    <wsdl:operation name="getMisthwthrioSha">
+      <wsdl:input name="getMisthwthrioSha" message="tns:getMisthwthrioSha" />
+      <wsdl:output name="getMisthwthrioShaResponse" message="tns:getMisthwthrioShaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getEndeixhEisodhmaSha">
+      <wsdl:input name="getEndeixhEisodhmaSha" message="tns:getEndeixhEisodhmaSha" />
+      <wsdl:output name="getEndeixhEisodhmaShaResponse" message="tns:getEndeixhEisodhmaShaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getIncomeMobValueExpatSha">
+      <wsdl:input name="getIncomeMobValueExpatSha" message="tns:getIncomeMobValueExpatSha" />
+      <wsdl:output name="getIncomeMobValueExpatShaResponse" message="tns:getIncomeMobValueExpatShaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getTwelveYearsSha">
+      <wsdl:input name="getTwelveYearsSha" message="tns:getTwelveYearsSha" />
+      <wsdl:output name="getTwelveYearsShaResponse" message="tns:getTwelveYearsShaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getFiloxSha">
+      <wsdl:input name="getFiloxSha" message="tns:getFiloxSha" />
+      <wsdl:output name="getFiloxShaResponse" message="tns:getFiloxShaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getKyriaKatoikiaSha">
+      <wsdl:input name="getKyriaKatoikiaSha" message="tns:getKyriaKatoikiaSha" />
+      <wsdl:output name="getKyriaKatoikiaShaResponse" message="tns:getKyriaKatoikiaShaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getInterestSha">
+      <wsdl:input name="getInterestSha" message="tns:getInterestSha" />
+      <wsdl:output name="getInterestShaResponse" message="tns:getInterestShaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getEisodhmaSha">
+      <wsdl:input name="getEisodhmaSha" message="tns:getEisodhmaSha" />
+      <wsdl:output name="getEisodhmaShaResponse" message="tns:getEisodhmaShaResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="taxSeniorHouseAssistInfoInterfaceSoapBinding" type="tns:taxSeniorHouseAssistInfoInterface">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:operation name="getEndeixhEisodhmaSha">
+      <soap:operation soapAction="getEndeixhEisodhmaSha" style="document" />
+      <wsdl:input name="getEndeixhEisodhmaSha">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getEndeixhEisodhmaShaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMisthwthrioSha">
+      <soap:operation soapAction="getMisthwthrioSha" style="document" />
+      <wsdl:input name="getMisthwthrioSha">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMisthwthrioShaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getIncomeMobValueExpatSha">
+      <soap:operation soapAction="getIncomeMobValueExpatSha" style="document" />
+      <wsdl:input name="getIncomeMobValueExpatSha">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getIncomeMobValueExpatShaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTwelveYearsSha">
+      <soap:operation soapAction="getTwelveYearsSha" style="document" />
+      <wsdl:input name="getTwelveYearsSha">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getTwelveYearsShaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFiloxSha">
+      <soap:operation soapAction="getFiloxSha" style="document" />
+      <wsdl:input name="getFiloxSha">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getFiloxShaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getInterestSha">
+      <soap:operation soapAction="getInterestSha" style="document" />
+      <wsdl:input name="getInterestSha">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getInterestShaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getKyriaKatoikiaSha">
+      <soap:operation soapAction="getKyriaKatoikiaSha" style="document" />
+      <wsdl:input name="getKyriaKatoikiaSha">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getKyriaKatoikiaShaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEisodhmaSha">
+      <soap:operation soapAction="getEisodhmaSha" style="document" />
+      <wsdl:input name="getEisodhmaSha">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getEisodhmaShaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="taxSeniorHouseAssistInfoInterface">
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:port name="taxSeniorHouseAssistInfoInterfacePort" binding="tns:taxSeniorHouseAssistInfoInterfaceSoapBinding">
+      <soap:address location="https://test.gsis.gr/esbpilot/taxSeniorHouseAssistInfoService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

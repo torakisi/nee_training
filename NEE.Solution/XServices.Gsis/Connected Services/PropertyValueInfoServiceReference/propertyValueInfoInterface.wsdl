@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:tns="http://gsis.ggps.interoperability/propertyValueInfoInterface" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="propertyValueInfoInterface" targetNamespace="http://gsis.ggps.interoperability/propertyValueInfoInterface" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy xmlns:wssecurity="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" wssecurity:Id="Http-UsernameToken-Policy">
+    <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+      <wsp:Policy>
+        <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+          <wsp:Policy />
+        </sp:UsernameToken>
+      </wsp:Policy>
+    </sp:SupportingTokens>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://gsis.ggps.interoperability/propertyValueInfoInterface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="getPropertyValueE9Request">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getPropertyValueE9InputRecord" type="tns:getPropertyValueE9Input" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="auditRecord">
+        <xs:sequence>
+          <xs:element name="auditTransactionId" type="xs:string" />
+          <xs:element name="auditTransactionDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="auditUnit" type="xs:string" />
+          <xs:element minOccurs="0" name="auditProtocol" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserId" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserIp" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPropertyValueE9Input">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+          <xs:element name="etos" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPropertyValueE9Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getPropertyValueE9OutputRecord" type="tns:getPropertyValueE9Return" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPropertyValueE9Return">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="axiaEnfia" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="errorRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="errorCode" type="xs:string" />
+          <xs:element minOccurs="0" name="errorDescr" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getPropertyValueE9Request" nillable="true" type="tns:getPropertyValueE9Request" />
+      <xs:element name="getPropertyValueE9Response" nillable="true" type="tns:getPropertyValueE9Response" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPropertyValueE9Response">
+    <wsdl:part name="getPropertyValueE9Response" element="tns:getPropertyValueE9Response" />
+  </wsdl:message>
+  <wsdl:message name="getPropertyValueE9">
+    <wsdl:part name="getPropertyValueE9Request" element="tns:getPropertyValueE9Request" />
+  </wsdl:message>
+  <wsdl:portType name="propertyValueInfoInterface">
+    <wsdl:operation name="getPropertyValueE9">
+      <wsdl:input name="getPropertyValueE9" message="tns:getPropertyValueE9" />
+      <wsdl:output name="getPropertyValueE9Response" message="tns:getPropertyValueE9Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="propertyValueInfoInterfaceSoapBinding" type="tns:propertyValueInfoInterface">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:operation name="getPropertyValueE9">
+      <soap:operation soapAction="getPropertyValueE9" style="document" />
+      <wsdl:input name="getPropertyValueE9">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getPropertyValueE9Response">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="propertyValueInfoInterface">
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:port name="propertyValueInfoInterfacePort" binding="tns:propertyValueInfoInterfaceSoapBinding">
+      <soap:address location="https://test.gsis.gr/esbpilot/propertyValueInfoService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

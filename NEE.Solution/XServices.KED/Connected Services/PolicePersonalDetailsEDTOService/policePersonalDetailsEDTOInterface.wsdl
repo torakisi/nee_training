@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:tns="http://gsis.ggps.interoperability/policePersonalDetailsEDTOInterface" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="policePersonalDetailsEDTOInterface" targetNamespace="http://gsis.ggps.interoperability/policePersonalDetailsEDTOInterface" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy xmlns:wssecurity="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" wssecurity:Id="Http-UsernameToken-Policy">
+    <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+      <wsp:Policy>
+        <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+          <wsp:Policy />
+        </sp:UsernameToken>
+      </wsp:Policy>
+    </sp:SupportingTokens>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://gsis.ggps.interoperability/policePersonalDetailsEDTOInterface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="getPersonDetailsEDTORequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getPersonDetailsEDTOInputRecord" type="tns:getPersonDetailsEDTOInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="auditRecord">
+        <xs:sequence>
+          <xs:element name="auditTransactionId" type="xs:string" />
+          <xs:element name="auditTransactionDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="auditUnit" type="xs:string" />
+          <xs:element minOccurs="0" name="auditProtocol" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserId" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserIp" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPersonDetailsEDTOInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="permitNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="lastName" type="xs:string" />
+          <xs:element minOccurs="0" name="firstName" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersName" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersName" type="xs:string" />
+          <xs:element minOccurs="0" name="birthDate" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPersonDetailsEDTOResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getPersonDetailsEDTOOutputRecord" type="tns:getPersonDetailsEDTOReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPersonDetailsEDTOReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="returns" type="tns:returns" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="returns">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:returnRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="returnRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="folderNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="morfh" type="xs:string" />
+          <xs:element minOccurs="0" name="lastName" type="xs:string" />
+          <xs:element minOccurs="0" name="firstName" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersName" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersName" type="xs:string" />
+          <xs:element minOccurs="0" name="birthDate" type="xs:string" />
+          <xs:element minOccurs="0" name="birthPlace" type="xs:string" />
+          <xs:element minOccurs="0" name="gender" type="xs:string" />
+          <xs:element minOccurs="0" name="citizenships" type="tns:citizenships" />
+          <xs:element minOccurs="0" name="occupation" type="xs:string" />
+          <xs:element minOccurs="0" name="nationality" type="xs:string" />
+          <xs:element minOccurs="0" name="maritalStatus" type="xs:string" />
+          <xs:element minOccurs="0" name="phoneNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="email" type="xs:string" />
+          <xs:element minOccurs="0" name="homeAddress" type="xs:string" />
+          <xs:element minOccurs="0" name="additionalResidenceData" type="xs:string" />
+          <xs:element minOccurs="0" name="workAddress" type="xs:string" />
+          <xs:element minOccurs="0" name="additionalWorkData" type="xs:string" />
+          <xs:element minOccurs="0" name="type" type="xs:string" />
+          <xs:element minOccurs="0" name="efkaPermitCaseDTOS" type="tns:efkaPermitCase" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="citizenships">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="efkaPermitCase">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:efkaPermitCaseRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="efkaPermitCaseRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="permitType" type="xs:string" />
+          <xs:element minOccurs="0" name="permitReason" type="xs:string" />
+          <xs:element minOccurs="0" name="protocolId" type="xs:string" />
+          <xs:element minOccurs="0" name="protocolDate" type="xs:string" />
+          <xs:element minOccurs="0" name="permitStatus" type="xs:string" />
+          <xs:element minOccurs="0" name="officeBookId" type="xs:string" />
+          <xs:element minOccurs="0" name="officeFolder" type="xs:string" />
+          <xs:element minOccurs="0" name="permitNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="effectiveDate" type="xs:string" />
+          <xs:element minOccurs="0" name="expiryDate" type="xs:string" />
+          <xs:element minOccurs="0" name="administrationDate" type="xs:string" />
+          <xs:element minOccurs="0" name="formerResidenceCountry" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="errorRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="errorCode" type="xs:string" />
+          <xs:element minOccurs="0" name="errorDescr" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getPersonDetailsEDTORequest" nillable="true" type="tns:getPersonDetailsEDTORequest" />
+      <xs:element name="getPersonDetailsEDTOResponse" nillable="true" type="tns:getPersonDetailsEDTOResponse" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPersonDetailsEDTOResponse">
+    <wsdl:part name="getPersonDetailsEDTOResponse" element="tns:getPersonDetailsEDTOResponse" />
+  </wsdl:message>
+  <wsdl:message name="getPersonDetailsEDTO">
+    <wsdl:part name="getPersonDetailsEDTORequest" element="tns:getPersonDetailsEDTORequest" />
+  </wsdl:message>
+  <wsdl:portType name="policePersonalDetailsEDTOInterface">
+    <wsdl:operation name="getPersonDetailsEDTO">
+      <wsdl:input name="getPersonDetailsEDTO" message="tns:getPersonDetailsEDTO" />
+      <wsdl:output name="getPersonDetailsEDTOResponse" message="tns:getPersonDetailsEDTOResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="policePersonalDetailsEDTOInterfaceSoapBinding" type="tns:policePersonalDetailsEDTOInterface">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:operation name="getPersonDetailsEDTO">
+      <soap:operation soapAction="getPersonDetailsEDTO" style="document" />
+      <wsdl:input name="getPersonDetailsEDTO">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getPersonDetailsEDTOResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="policePersonalDetailsEDTOInterface">
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:port name="policePersonalDetailsEDTOInterfacePort" binding="tns:policePersonalDetailsEDTOInterfaceSoapBinding">
+      <soap:address location="https://test.gsis.gr/esbpilot/policePersonalDetailsEDTOService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

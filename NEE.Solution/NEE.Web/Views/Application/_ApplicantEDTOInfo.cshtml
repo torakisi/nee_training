@@ -1,0 +1,8 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+<h3>Στοιχεία Ομογένειας</h3>
+<fieldset>
+    <legend></legend>
+    @Html.IdikaHtml().FieldFor(m => m.EDTOInfo.EDTONumber).FormGroup().Id("edtoNumber")
+    @Html.IdikaHtml().FieldFor(m => m.EDTOInfo.EDTOIssuingDate).FormGroup()
+</fieldset>

@@ -1,0 +1,90 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@{
+    var luxClass = "idika-readonly invisible";
+    var disabledClass = "idika-readonly invisible";
+    var readonlyClass = "";
+    var disabledDropdown = false;
+    if (!Model.CanBeFinalSubmitted)
+    {
+        readonlyClass = "idika-readonly invisible";
+        disabledDropdown = true;
+    }
+}
+
+<fieldset>
+    <h3>Στοιχεία Συζύγου</h3>
+    <legend></legend>
+    <div class="@luxClass">
+        @Html.IdikaHtml().FieldFor(m => m.SpouseInfo.LastName).FormGroup("col-md-4")
+        @Html.IdikaHtml().FieldFor(m => m.SpouseInfo.FatherName).FormGroup("col-md-4")
+        @Html.IdikaHtml().FieldFor(m => m.SpouseInfo.AFM).FormGroup("col-md-4")
+        @Html.IdikaHtml().FieldFor(m => m.SpouseInfo.FirstName).FormGroup("col-md-4")
+        @Html.IdikaHtml().FieldFor(m => m.SpouseInfo.MotherName).FormGroup("col-md-4")
+        @Html.IdikaHtml().FieldFor(m => m.SpouseInfo.AMKA).FormGroup("col-md-4")
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend></legend>
+    @*row 1*@
+    <div class="@luxClass">
+        <div class="col-md-4 idika-field-form-group form-group" style="padding-bottom: 2%; padding-top: 30px">
+            @Html.CheckBoxFor(m => m.SpouseInfo.PensionFromGreece, new { @checked = Model.SpouseInfo.PensionFromGreece, @style = "height: 25px; width: 10%" })
+            @Html.DisplayNameFor(m => m.SpouseInfo.PensionFromGreece)
+        </div>
+        @Html.IdikaHtml().FieldFor(m => m.SpouseInfo.PensionAmount).FormGroup("col-md-4").ReadOnly()
+        <div style="height:30px; width:100%; clear:both;"></div>
+    </div>
+    <legend></legend>
+
+    @*row 2*@
+    <div class="@readonlyClass">
+        <div class="col-md-4 idika-field-form-group form-group" style="padding-bottom: 2%; padding-top: 30px">
+            @Html.IdikaHtml().FieldFor(m => m.SpouseInfo.PensionFromAlbania, new SelectList(Model.YesNoList, Model.SpouseInfo.PensionFromAlbania)).Id("spouseReceivesPensionAlbania")
+        </div>
+
+        @*row 3*@
+        @*<div style="width:100%; clear:both;"></div>
+            <div class="col-md-4" style="padding-bottom: 2%; height: 30px;"></div>*@
+        <div class="col-md-4" style="padding-bottom: 2%; padding-top: 30px" id="spousePensionFromAlbania">
+            @Html.DisplayNameFor(m => m.SpouseInfo.PensionCertification)
+            <span style="padding-left: 20px">
+                <button class="btn btn-info" type="button" data-toggle="collapse" aria-expanded="false" href="#SpousePensionCertification_InfoMessage" aria-controls="SpousePensionCertification_InfoMessage">
+                    <i class="fa fa-info-circle"></i>
+                </button>
+            </span>
+            <div class="idika-field-info-message collapse" id="SpousePensionCertification_InfoMessage">
+                <div class="alert alert-info">
+                    Παρακαλώ επισυνάψτε βεβαίωση τελευταίου εξαμήνου που επιβεβαιώνει τα στοιχεία που καταχωρείτε, δηλαδή βεβαίωση σύνταξης όπου θα αναγράφεται το Μηνιαίο ποσό σύνταξης και η ημερομηνία έναρξης συνταξιοδότησης.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding-bottom: 2%; padding-top: 30px" id="spouseNoPensionFromAlbania">
+            Δεν λαμβάνω σύνταξη από φορέα του εξωτερικού
+            <span style="padding-left: 20px">
+                <button class="btn btn-info" type="button" data-toggle="collapse" aria-expanded="false" href="#SpouseNoPensionCertification_InfoMessage" aria-controls="SpouseNoPensionCertification_InfoMessage">
+                    <i class="fa fa-info-circle"></i>
+                </button>
+            </span>
+            <div class="idika-field-info-message collapse" id="SpouseNoPensionCertification_InfoMessage">
+                <div class="alert alert-info">
+                    Παρακαλώ επισυνάψτε υπεύθυνη δήλωση ότι δε λαμβάνετε σύνταξη από ασφαλιστικό φορέα του εξωτερικού.
+                </div>
+            </div>
+        </div>
+        @Html.Partial("_UploadSpousePensionCertificationFile", Model)
+
+        <div id="spousePensionFromAlbaniaValues" style="padding-top: 120px">
+            <div class="col-md-4" style="padding-bottom: 2%">
+                @Html.IdikaHtml().FieldFor(m => m.SpouseInfo.PensionAmountAlbania).FormGroup("col-md-8")
+                @*<div class="@disabledClass idika-field-form-group form-group">*@
+                <div>
+                    @Html.IdikaHtml().FieldFor(m => m.SpouseInfo.Currency, new SelectList(Model.EurLekList, Model.SpouseInfo.Currency)).FormGroup("col-md-4").Id("spouseCurrency")
+                </div>
+            </div>
+            @Html.IdikaHtml().FieldFor(m => m.SpouseInfo.PensionStartDateAlbania).FormGroup("col-md-4").Id("PensionStartDateAlbaniaSpouse")
+        </div>
+    </div>
+</fieldset>
+

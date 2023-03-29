@@ -1,0 +1,96 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@{
+    Layout = null;
+}
+
+<fieldset>
+    <div class="form-group col-md-12">
+        <input type="file" accept="application/pdf" id="uploadMaritalStatusFile" name="MaritalStatusFileUpload" class="file" style="visibility:hidden">
+        <div class="input-group col-xs-12">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+            <input type="text" class="form-control" disabled placeholder="Επιλογή αρχείου">
+            <span class="input-group-btn">
+                <button class="browse btn btn-primary" type="button" disabled="@Model.FileUploadDisabled"><i class="fa fa-upload"></i> Προσθήκη</button>
+            </span>
+        </div>
+        @Model.ApplicantPersonalInfo.MaritalStatusDocumentName
+    </div>
+    <div class="form-group">
+        <div class="col-md-12" style="padding-left: 230px;">
+            <button type="submit" name="command" value="MaritalStatusUpload" id="uploadMaritalStatusBtn" disabled class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Αποθήκευση</button>
+        </div>
+    </div>
+
+    @if (Model.MaritalStatusId != null)
+    {
+        <div class="form-group">
+            <div class="col-md-12" style="padding-left: 255px; padding-top: 15px">
+                <button type="submit" CausesValidation="False" name="command" value="FileDownload" id="MaritalStatusDocumentName" class="btn btn-primary" onclick="window.open('@Url.Action("GetDocumentById", "Application", new { appId = Model.Id, fileId = Model.MaritalStatusId })')"><i class="glyphicon glyphicon-download"></i> Προβολή</button>
+            </div>
+        </div>
+        if (Model.IsAdminUser && Model.IsMaritalStatusDocumentApproved == null && ViewBag.CanEditResults && Model.CanBeFinalSubmitted)
+        {
+            <div class="form-group">
+                <div class="col-md-12" style="padding-left: 279px; padding-top: 15px">
+                    <button type="submit" name="command" value="ApproveMaritalStatus" id="approveBtn"
+                            class="btn btn-primary btn-success" title="Αποδοχή εγγράφου"
+                            confirm-dialog
+                            confirm-title="Αποδοχή εγγράφου" confirm-prompt="Είστε σίγουρος ότι έχετε καταχωρήσει την σωστή οικογενειακή κατάσταση σύμφωνα με την βεβαίωση οικογενειακής μερίδας από Αλβανία;"
+                            confirm-cancel-text="Ακύρωση" confirm-ok-text="Οκ">
+                        <i class="glyphicon glyphicon-ok"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger cancel"
+                            data-toggle="modal"
+                            data-target="#rejectMaritalStatusModal"
+                            name="@Model.IsRequiredRejectReason" value="true">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </button>
+                </div>
+            </div>
+        }
+    }
+</fieldset>
+
+
+<div id="rejectMaritalStatusModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Απόρριψη εγγράφου</h4>
+			</div>
+			<div class="modal-body">
+
+				@Html.HiddenFor(m => m.ReturnUrl)
+				Παρακαλώ συμπληρώστε αιτία απόρριψης
+				<br>
+				<br>
+
+				<div id="errorMessageReject" class="alert alert-warning hidden">
+					<font color="black"><i class="glyphicon glyphicon-warning-sign"></i> <b>Παρακαλώ συμπληρώστε αιτία απόρριψης!</b></font>
+				</div>
+
+                <div>
+
+                    @Html.TextAreaFor(m => m.MaritalStatusRejectionReason, 3, 400, new { @id = "maritalStatusRejectionReason", maxlength = 500, @class = "form-control", required = "required", data_val_required = "test", data_val = "true", value = "" })
+                    @Html.ValidationMessageFor(m => m.MaritalStatusRejectionReason, "", new { @class = "text-danger  " })
+                </div>
+				<i>μέχρι 500 χαρακτήρες</i>
+
+				<br>
+				<br>
+
+                <div class="alert alert-danger">Η αιτία απόρριψης είναι <b>υποχρεωτική</b>.</div>
+			</div>
+
+			<div class="modal-footer">
+
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ακύρωση</button>
+				<button id="rejectBtn" type="submit" class="btn btn-danger cancel" name="command" value="RejectMaritalStatus">
+					<i class="glyphicon glyphicon-remove"></i> Απόρριψη εγγράφου
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+

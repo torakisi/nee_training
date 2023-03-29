@@ -1,0 +1,73 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@using NEE.Web.Models.Core
+
+
+@Html.Hidden("fromView")
+<h3>Επισημάνσεις Αίτησης <a data-toggle="collapse" href="#RemarksInfo" aria-expanded="false" aria-controls="RemarksInfo"><small><i class="glyphicon glyphicon-info-sign text-info" style="width:10px;padding-left: 5px;"></i></small></a></h3>
+<div id="RemarksInfo" class="collapse">
+    <div class="alert alert-info">
+        <p class="lead">
+            Κάθε επισήμανση έχει μια τιμή βαρύτητας
+        </p>
+        <ul>            
+            <li>Επισημάνσεις με ένδειξη <b>Χαμηλή</b> αποτελούν λόγους ελέγχου της αίτησης. Κατόπιν ελέγχου ο αιτών θα ενημερωθεί από το μενού "οι αιτήσεις μου" για το αποτέλεσμα του ελέγχου.</li>
+            <li>Επισημάνσεις με ένδειξη <b>Μεσαία</b> αποτελούν κριτήρια διαμόρφωσης του πληρωτέου ποσού του επιδόματος. Οι αιτήσεις που εγκρίνονται, ελέγχονται κατά την διαδικασία της εκκαθάρισης και αντιλογίζονται ποσά συντάξεων και άλλων επιδομάτων που λαμβάνει ο δικαιούχος.</li>
+            <li>Επισημάνσεις με ένδειξη <b>Υψηλή</b> αποτελούν λόγους απόρριψης της αίτησης. Ο χρήστης δύναται να υποβάλλει νέα αίτηση στην εφαρμογή, αν αλλάξει κάποιο κριτήριο απόρριψης και θέλει να επανεξεταστεί το αίτημά του.</li>
+        </ul>
+    </div>
+</div>
+<table class="table table-hover table-bordered table-condensed table-responsive member-table">
+    <thead>
+        <tr>
+            <th scope="col">Σπουδαιότητα</th>
+            <th scope="col">Περιγραφή</th>
+            <th scope="col">Αναφερόμενος ΑΦΜ</th>
+            <th scope="col">Αναφερόμενος ΑΜΚΑ</th>
+            <th scope="col">ReleaseText</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Remarks.Any())
+        {
+            foreach (RemarkViewModel remark in Model.Remarks.OrderBy(x => x.Severity))
+            {
+                var idxInModel = Model.Remarks.IndexOf(remark);
+                @Html.HiddenFor(x => Model.Remarks[idxInModel].RemarkCode);
+                @Html.HiddenFor(x => Model.Remarks[idxInModel].RelatedAMKA);
+                @Html.HiddenFor(x => remark.ReleaseSelection);
+                @Html.HiddenFor(x => Model.Remarks[idxInModel].Description);
+                @Html.HiddenFor(x => Model.Remarks[idxInModel].Message);
+                @Html.HiddenFor(x => Model.Remarks[idxInModel].RelatedAFM);
+                @Html.HiddenFor(x => Model.Remarks[idxInModel].Severity);
+                <tr title="@remark.Message">
+                    <th scope="row">@remark.Severity</th>
+                    <td>@remark.Description</td>
+                    <td>@remark.RelatedAFM</td>
+                    <td>@remark.RelatedAMKA</td>
+                    <td>
+                        @if (Model.IsAdminUser)
+                        {
+                            @Html.Partial("_RemarksForAdmin", remark)
+                        }
+                        else
+                        {
+                            @Html.Partial("_RemarksForPublic", remark)
+                        }
+
+
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4"> Δεν υπάρχουν επισημάνσεις</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+    </tfoot>
+</table>
+

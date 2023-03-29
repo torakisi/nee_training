@@ -1,0 +1,46 @@
+﻿@model NEE.Web.Models.Core.RemarkViewModel
+
+@if ((Model.ReleaseSelection == null) && ((Model.Severity == (int)NEE.Core.Contracts.NEERemarkSeverity.Low)))
+{
+    <span class="label label-info">Αιτία ελέγχου</span>
+}
+@if (Model.ReleaseSelection != null)
+{
+    if (Model.Severity == (int)NEE.Core.Contracts.NEERemarkSeverity.Low)
+    {
+        if (Model.ReleaseSelection.Value == NEE.Core.Contracts.Enumerations.RemarkSelection.Reject)
+        {
+            var releasedText = $" Η ΜΗ Αποδοχή έγινε στις {Model.ReleasedAt} ";
+            <span title="@releasedText" class="label label-noapproveKK">ΜΗ Αποδοχή δηλούμενου στοιχείου</span>
+
+        }
+        if (Model.ReleaseSelection.Value == NEE.Core.Contracts.Enumerations.RemarkSelection.Approve)
+        {
+            var releasedText = $" Η Αποδοχή έγινε στις {Model.ReleasedAt} ";
+            <span title="@releasedText" class="label label-success">Αποδοχή δηλούμενου στοιχείου</span>
+
+        }
+    }
+}
+@if (Model.Severity == (int)NEE.Core.Contracts.NEERemarkSeverity.LowMedium)
+{
+    var releasedText = $" Αιτιολογία απόρριψης: {Model.Message}";
+    <span class="label label-success">Αιτία Επανελέγχου</span>
+    <span title="@releasedText">  <i class="fa fa-info-circle" style="vertical-align: sub; font-size: large;"></i> </span>
+}
+@if (Model.Severity == (int)NEE.Core.Contracts.NEERemarkSeverity.Medium)
+{
+    <span class="label label-warning">Απαιτείται</span>
+}
+@if ((NEE.Core.Contracts.NEERemarkSeverity)Model.Severity == NEE.Core.Contracts.NEERemarkSeverity.MediumHigh)
+{
+    var releasedText = $" Αιτιολογία απόρριψης: {Model.Message}";
+    <span class="label label-noapprove">Αιτία μη έγκρισης</span>
+    <span title="@releasedText">  <i class="fa fa-info-circle" style="vertical-align: sub; font-size: large;"></i> </span>
+
+}
+@if (Model.Severity == (int)NEE.Core.Contracts.NEERemarkSeverity.High)
+{
+    <span class="label label-noapprove">Αιτία μη έγκρισης</span>
+
+}

@@ -1,0 +1,114 @@
+﻿@model List<NEE.Web.Models.Core.PaymentsWebViewViewModel>
+
+@using NEE.Core
+@using NEE.Web.Models.Core
+
+@{
+    var captionMsg = "";
+}
+
+<div class="application-user-info small">
+    <div class="panel panel-primary">
+        <div class="panel-heading collapse-next" data-toggle="collapse-next">
+            <span class="capt">Ιστορικό Πληρωμών @captionMsg</span>
+        </div>
+        <div class="panel-collapse ">
+            <div class="panel-body">
+
+                <table class="table table-hover table-bordered table-condensed table-responsive member-table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Ημ/νία Πίστωσης</th>
+                            <th scope="col">Αίτηση</th>
+                            <th scope="col">ΑΦΜ</th>
+                            <th scope="col">ΙΒΑΝ</th>
+                            <th scope="col">Ποσό</th>
+                            <th scope="col">Κατάσταση</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (!Model.Any())
+                        {
+                            <tr style="text-align: center">
+                                <td colspan="7">
+                                    Δε βρέθηκαν στοιχεία πληρωμών.
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (PaymentsWebViewViewModel paymentTransactionMaster in Model.OrderBy(x => x.CreatedAt))
+                            {
+                                <tr>
+                                    <td scope="row" style="width:100px;">
+                                        <span style="cursor: pointer;" data-toggle="collapse" data-target="#@paymentTransactionMaster.MasterTransactionId">
+                                            <i class="glyphicon glyphicon-plus"></i>	Ανάλυση
+                                        </span>
+
+                                    </td>
+                                    <td scope="row">@paymentTransactionMaster.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        @paymentTransactionMaster.Id
+                                    </td>
+                                    <td>
+                                        @paymentTransactionMaster.AFM
+                                    </td>
+                                    <td>
+                                        @paymentTransactionMaster.IBAN
+                                    </td>
+                                    <td style="text-align: right;" nowrap>
+                                        @paymentTransactionMaster.Amount.FmtEuros()
+                                    </td>
+                                    <td style="vertical-align:middle">
+                                        @if (paymentTransactionMaster.PaymentResult == NEE.Core.Contracts.Enumerations.PaymentResult.PaymentFailed)
+                                        {
+                                            <i class="glyphicon glyphicon-remove" style="color: red;"></i>
+                                        }
+                                        else if (paymentTransactionMaster.PaymentResult == NEE.Core.Contracts.Enumerations.PaymentResult.PaymentSucceded)
+                                        {
+                                            <i class="glyphicon glyphicon-ok" style="color: green;"></i>
+                                        }
+                                        else if (paymentTransactionMaster.PaymentResult == NEE.Core.Contracts.Enumerations.PaymentResult.SendToDIAS)
+                                        {
+                                            <i class="glyphicon glyphicon-transfer" style="color: blue;"></i>
+                                        }
+                                        else if (paymentTransactionMaster.PaymentResult == NEE.Core.Contracts.Enumerations.PaymentResult.PaymentNotIncluded)
+                                        {
+                                            <i class="glyphicon glyphicon-alert" style="color: orangered;"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="glyphicon glyphicon-time"></i>
+                                        }
+
+                                        <span style="opacity:0.7; ">
+                                            <b>
+                                                @paymentTransactionMaster.PaymentResult.GetDisplayName()
+                                            </b>
+                                        </span>
+                                        @if (!string.IsNullOrEmpty(paymentTransactionMaster.Description))
+                                        {
+                                            <br>
+                                            <span style="font-size:12px;">@paymentTransactionMaster.Description</span>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr id="@paymentTransactionMaster.MasterTransactionId" class="collapse">
+                                    <td colspan="7" style="padding-left:100px;">
+                                        @Html.Partial("Payments/_ApplicationPaymentTransactions", paymentTransactionMaster)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

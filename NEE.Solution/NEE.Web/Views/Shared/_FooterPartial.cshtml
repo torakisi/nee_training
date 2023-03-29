@@ -1,0 +1,38 @@
+﻿<footer>
+    <div class="footerGroup">
+        <div class="footerUp">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5 class="yeka">
+                            ΥΠΟΥΡΓΕΙΟ ΕΡΓΑΣΙΑΣ
+                            ΚΑΙ ΚΟΙΝΩΝΙΚΩΝ ΥΠΟΘΕΣΕΩΝ
+                        </h5>
+                    </div>
+                    <div class="col-md-offset-1 col-md-4">
+                        <h5>Χρήσιμες Πληροφορίες</h5>
+                        <ul class="list-unstyled latestPosts">
+                            <li>@Html.ActionLink("Πληροφορίες", "Info", "Home")</li>
+                            <li>@Html.ActionLink("Συχνές Ερωτήσεις", "Faqs", "Home")</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-offset-1 col-md-3">
+                        <h5>Επικοινωνία</h5>
+                        <ul class="list-unstyled">
+                            @*<li><span class="fa fa-envelope dark-blue" aria-hidden="true" style="margin-right: 7px"></span><a href="mailto:test@test.gr">epidomavoreiohpeiroton@yeka.gr</a></li>*@
+                            <li><span class="fa fa-globe dark-blue" aria-hidden="true" style="margin-right: 7px"></span><a href="https://www.anasfalistoi-ellinikimeionotita.gr">www.anasfalistoi-ellinikimeionotita.gr</a></li>
+                            @*<li><span class="fa fa-phone dark-blue" aria-hidden="true" style="margin-right: 7px"></span><a>Τηλ. Κέντρο: 11131</a></li>*@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="footerDown">
+        <div class="container idika-logo-w">
+            <p>@DateTime.Now.Year.ToString() &copy; Ηλεκτρονική Διακυβέρνηση Κοινωνικής Ασφάλισης ΑΕ. </p>
+        </div>
+    </div>
+</footer>
+

@@ -1,0 +1,19 @@
+﻿@using NEE.Core.Security
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (Html.IsAdminEnabled())
+    {
+        Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+        if (User.Identity.IsAuthenticated)
+        {
+            if (User.Identity.IsAfmUser())
+            {
+                Layout = "~/Views/Shared/_Layout.cshtml";
+            }
+        }
+
+    }
+}
+

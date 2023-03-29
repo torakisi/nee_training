@@ -1,0 +1,86 @@
+﻿@using NEE.Web
+
+@if (Html.IsDEBUG())
+{
+    <div class="combo-header-hb hidden-sm hidden-xs">
+        <div class="pull-right" style="margin-right: 5px;">
+
+            @if (Html.IsAdminEnabled())
+            {
+                <div class="pull-right" style="color: black; font-weight: bold; margin-right: 8px;">
+                    @Html.ActionLink("Διαχείριση Αιτήσεων (Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας)", "Login", "AdminAccount")
+                </div>
+            }
+            else
+            {
+                @*<div style="text-align: center; background-color: red; font-size: large; margin: 4px; border: 1px solid black;">
+                    @Html.ActionLink("DEBUG-TEST", "Index", "DebugTest") : <strong title="WARNING: this is the current DB schema/user you are using!">@Html.ConnectionStringInfo()</strong>
+                </div>*@
+            }
+
+            @if (NEE.Web.Code.NEE_Environment.IsDBDev())
+            {
+                <div class="pull-right" style="color: red; font-weight: bold; font-size:large; ">
+                    <i class="glyphicon glyphicon-remove-sign"></i> Δοκιμαστικό Περιβάλλον
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="combo-header-hb hidden-sm hidden-xs">
+        <div class="pull-right" style="margin-right: 5px;">
+            @if (NEE.Web.Code.NEE_Environment.IsDBDev())
+            {
+                <div class="pull-right" style="color: red; font-weight: bold; font-size:large; ">
+                    <i class="glyphicon glyphicon-remove-sign"></i> Δοκιμαστικό Περιβάλλον
+                </div>
+            }
+        </div>
+    </div>
+}
+
+
+<link rel="stylesheet" type="text/css" href="https://www.idika.org.gr/cookieconsent/css/cookieconsent.min.css" />
+<script src="https://www.idika.org.gr/cookieconsent/js/cookieconsent.min.js"></script>
+
+<script>
+    window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#edeff5",
+                    "text": "#838391"
+                },
+                "button": {
+                    "background": "#005f83",
+                    "text": "#ffffff"
+                }
+            },
+            "cookie": {
+                "name": 'cookieconsent_status'
+            },
+            "law": {
+                "regionalLaw": false,
+            },
+            "revokable": true,
+            "content": {
+                "header": 'Η εφαρμογή κάνει χρήση Cookies!',
+                "message": 'Για την αλληλεπίδραση με τον ιστότοπο χρησιμοποιούνται cookies που ανήκουν αποκλειστικά στις κατηγορίες των Βασικών και Λειτουργικών cookies, τα οποία είναι αναγκαία στο σύνολό τους για την ορθή λειτουργία των παρεχόμενων υπηρεσιών και την απρόσκοπτη πλοήγησή σας. Για πληροφορίες σχετικά με τα cookies και συναφείς ρυθμίσεις, συμβουλευτείτε την <a href="http://www.idika.gr/files/policies/cookies_policy.pdf" target="_blank">Πολιτική Cookies</a>, λαμβάνοντας υπόψη ότι τυχόν απενεργοποίησή τους θα καθιστά τον ιστότοπο μη λειτουργικό και αποδοτικό. Για πληροφορίες σε σχέση με τα προσωπικά σας δεδομένα ανατρέξτε στην  ',
+                "dismiss": 'ΚΛΕΙΣΙΜΟ',
+                "allow": 'Allow cookies',
+                "deny": 'ΑΠΟΡΡΙΨΗ',
+                "link": 'Πολιτική Προστασίας Δεδομένων Προσωπικού Χαρακτήρα.',
+                "href": 'http://www.idika.gr/files/policies/personal_data_protection_policy.pdf',
+                "close": '&#x274c;',
+                "policy": 'Πολιτική Cookies',
+                "target": '_blank',
+            }
+        })
+    });
+</script>
+
+
+
+

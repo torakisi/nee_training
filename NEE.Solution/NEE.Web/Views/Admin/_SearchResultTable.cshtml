@@ -1,0 +1,95 @@
+﻿@model NEE.Web.Models.Admin.SearchViewModel
+
+@using (Html.BeginForm("ManageApplications", "Application", FormMethod.Post))
+{
+
+    @Html.AntiForgeryToken()
+
+    <table id="searchResultTableId" class="table table-hover table-bordered table-condensed table-responsive member-table">
+        <thead>
+            <tr class="bg-primary">
+                <td>#</td>
+                <td>Κωδικός Αίτησης</td>
+                <td>Κατάσταση</td>
+                <td>Αιτών/Αιτούσα</td>
+                <td>Δήμος</td>
+                <td>ΤΚ</td>
+                <td>ΑΜΚΑ</td>
+                <td>ΑΦΜ</td>
+                <td>Ονοματεπώνυμο</td>
+                @if (Model.IsOpekaUser && Model.IsCentralRegionUser)
+                {
+                    <td>Περιφέρεια ΟΠΕΚΑ</td>
+                }
+                <td>Διαχείριση</td>
+                @if (Model.IsOpekaUser && Model.IsCentralRegionUser)
+                {
+                    <td>Ανάθεση</td>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var app in Model.Results)
+                {
+                    var id = Model.Results.IndexOf(app) + 1;
+
+                    var rowClass = "";
+                    if (app.State == NEE.Core.Contracts.Enumerations.AppState.Canceled)
+                    {
+                        rowClass = "Deleted";
+                    }
+                    <tr class="@rowClass">
+                        <td class="text-nowrap text-right" style="vertical-align:middle;">@id</td>
+                        <td class="text-nowrap" style="vertical-align:middle;">
+                            @app.Id
+                        </td>
+                        <td class="" style="vertical-align:middle;">@app.StateDescription</td>
+                        <td class="" style="vertical-align:middle;">@app.Applicant_FullName</td>
+                        <td class="" style="vertical-align:middle;">@app.Municipality</td>
+                        <td class="" style="vertical-align:middle;">@app.Zip</td>
+                        <td class="" style="vertical-align:middle;">@app.AMKA</td>
+                        <td class="" style="vertical-align:middle;">@app.AFM</td>
+                        <td class="" style="vertical-align:middle;">@app.FullName</td>
+                        @if (Model.IsOpekaUser && Model.IsCentralRegionUser)
+                        {
+                            <td class="" style="vertical-align:middle;">@app.DistrictName</td>
+
+                        }
+                    <td class="text-nowrap fit-width" style="width:1%;vertical-align:middle;">
+                        @if (app.IsEditableApplicationSearch)
+                        {
+                            if (Model.CanEditResults)
+                            {
+                                <button type="submit" name="command" value="EditApplication:@app.Id:@Model.GetUrlForSearch()" class="btn btn-primary btn-xs btn-block cancel"><i class="fa fa-edit"></i> Επεξεργασία</button>
+                            }
+                            else
+                            {
+                                <button type="submit" name="command" value="ViewApplicationReadOnly:@app.Id:@Model.GetUrlForSearch()" class="btn btn-primary btn-xs btn-block cancel"><i class="fa fa-eye"></i> Προβολή</button>
+                            }
+                        }
+                        else if (app.CanViewOnlyApplicationSearch)
+                        {
+                            <button type="submit" name="command" value="ViewApplicationReadOnly:@app.Id:@Model.GetUrlForSearch()" class="btn btn-primary btn-xs btn-block cancel"><i class="fa fa-eye"></i> Προβολή</button>
+                        }
+                    </td>
+                        @if (Model.IsOpekaUser && Model.IsCentralRegionUser)
+                        {
+                            <td>
+                                <button type="button" class="btn btn-primary btn-info selectDistrictBtn"
+                                        data-toggle="modal"
+                                        data-target="#selectDistrict"
+                                        value="true">
+                                    <i class="glyphicon glyphicon-map-marker"></i>
+                                </button>
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+
+

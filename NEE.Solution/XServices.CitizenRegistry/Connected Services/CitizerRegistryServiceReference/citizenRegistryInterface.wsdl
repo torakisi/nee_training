@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:tns="http://gsis.ggps.interoperability/CitizenRegistryInterface" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="citizenRegistryInterface" targetNamespace="http://gsis.ggps.interoperability/CitizenRegistryInterface" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy xmlns:wssecurity="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" wssecurity:Id="Http-UsernameToken-Policy">
+    <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+      <wsp:Policy>
+        <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+          <wsp:Policy />
+        </sp:UsernameToken>
+      </wsp:Policy>
+    </sp:SupportingTokens>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://gsis.ggps.interoperability/CitizenRegistryInterface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="getMaritalStatusChildrenRecsRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getMaritalStatusChildrenRecsInputRecord" type="tns:getMaritalStatusChildrenRecsInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="auditRecord">
+        <xs:sequence>
+          <xs:element name="auditTransactionId" type="xs:string" />
+          <xs:element name="auditTransactionDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="auditUnit" type="xs:string" />
+          <xs:element minOccurs="0" name="auditProtocol" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserId" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserIp" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusChildrenRecsInput">
+        <xs:sequence>
+          <xs:element name="firstname" type="xs:string" />
+          <xs:element name="lastname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathername" type="xs:string" />
+          <xs:element minOccurs="0" name="mothername" type="xs:string" />
+          <xs:element name="birthdate" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusChildrenRecsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getMaritalStatusChildrenRecsOutputRecord" type="tns:getMaritalStatusChildrenRecsReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusChildrenRecsReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="list" type="tns:registryRecordsArray" />
+          <xs:element minOccurs="0" name="faultCode" type="xs:string" />
+          <xs:element minOccurs="0" name="faultString" type="xs:string" />
+          <xs:element minOccurs="0" name="serviceCallId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="registryRecordsArray">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="errorRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="errorCode" type="xs:string" />
+          <xs:element minOccurs="0" name="errorDescr" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusElasCertificateRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getMaritalStatusElasCertificateInputRecord" type="tns:getMaritalStatusElasCertificateInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusElasCertificateInput">
+        <xs:sequence>
+          <xs:element name="firstname" type="xs:string" />
+          <xs:element minOccurs="0" name="secondname" type="xs:string" />
+          <xs:element minOccurs="0" name="thirdname" type="xs:string" />
+          <xs:element name="lastname" type="xs:string" />
+          <xs:element minOccurs="0" name="secondsurname" type="xs:string" />
+          <xs:element name="birthdate" type="xs:string" />
+          <xs:element minOccurs="0" name="fatherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersecondname" type="xs:string" />
+          <xs:element minOccurs="0" name="motherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersecondname" type="xs:string" />
+          <xs:element name="username" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusElasCertificateResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getMaritalStatusElasCertificateOutputRecord" type="tns:getMaritalStatusElasCertificateReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusElasCertificateReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="list" type="tns:maritalStatusElasCertArray" />
+          <xs:element minOccurs="0" name="faultCode" type="xs:string" />
+          <xs:element minOccurs="0" name="faultString" type="xs:string" />
+          <xs:element minOccurs="0" name="serviceCallId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="maritalStatusElasCertArray">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:maritalStatusElasCertRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="maritalStatusElasCertRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="municipalrecordid" type="xs:string" />
+          <xs:element minOccurs="0" name="reckindletter" type="xs:string" />
+          <xs:element minOccurs="0" name="genderid" type="xs:string" />
+          <xs:element minOccurs="0" name="reckindid" type="xs:string" />
+          <xs:element minOccurs="0" name="membertypeid" type="xs:string" />
+          <xs:element minOccurs="0" name="birthcountryid" type="xs:string" />
+          <xs:element minOccurs="0" name="birthmunicipalid" type="xs:string" />
+          <xs:element minOccurs="0" name="birthcurrentmunicipal" type="xs:string" />
+          <xs:element minOccurs="0" name="birthcurrentmunicipalid" type="xs:string" />
+          <xs:element minOccurs="0" name="birthcurrentmunicipalcode" type="xs:string" />
+          <xs:element minOccurs="0" name="birthmunicipalunitid" type="xs:string" />
+          <xs:element minOccurs="0" name="birthmuniccommid" type="xs:string" />
+          <xs:element minOccurs="0" name="agreementactdate" type="xs:string" />
+          <xs:element minOccurs="0" name="maradate" type="xs:string" />
+          <xs:element minOccurs="0" name="amka" type="xs:string" />
+          <xs:element minOccurs="0" name="agrcountry" type="xs:string" />
+          <xs:element minOccurs="0" name="agrdate" type="xs:string" />
+          <xs:element minOccurs="0" name="agreementactno" type="xs:string" />
+          <xs:element minOccurs="0" name="agreementactro" type="xs:string" />
+          <xs:element minOccurs="0" name="agreementacttomos" type="xs:string" />
+          <xs:element minOccurs="0" name="agreementactyear" type="xs:string" />
+          <xs:element minOccurs="0" name="agreementrank" type="xs:string" />
+          <xs:element minOccurs="0" name="agrmuniccomm" type="xs:string" />
+          <xs:element minOccurs="0" name="agrmunicipality" type="xs:string" />
+          <xs:element minOccurs="0" name="agrnotarycity" type="xs:string" />
+          <xs:element minOccurs="0" name="agrprefecture" type="xs:string" />
+          <xs:element minOccurs="0" name="birthcountry" type="xs:string" />
+          <xs:element minOccurs="0" name="birthdate" type="xs:string" />
+          <xs:element minOccurs="0" name="birthforeigncity" type="xs:string" />
+          <xs:element minOccurs="0" name="birthmuniccomm" type="xs:string" />
+          <xs:element minOccurs="0" name="birthmunicipal" type="xs:string" />
+          <xs:element minOccurs="0" name="birthmunicipalunit" type="xs:string" />
+          <xs:element minOccurs="0" name="birthoikismos" type="xs:string" />
+          <xs:element minOccurs="0" name="birthplacedescr" type="xs:string" />
+          <xs:element minOccurs="0" name="birthprefecture" type="xs:string" />
+          <xs:element minOccurs="0" name="deletereasonPriv" type="xs:string" />
+          <xs:element minOccurs="0" name="deceasedate" type="xs:string" />
+          <xs:element minOccurs="0" name="deletiondate" type="xs:string" />
+          <xs:element minOccurs="0" name="eklspecialno" type="xs:string" />
+          <xs:element minOccurs="0" name="fatherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersecondname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersecondsurname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersurname" type="xs:string" />
+          <xs:element minOccurs="0" name="firstname" type="xs:string" />
+          <xs:element minOccurs="0" name="gainmunrecdate" type="xs:string" />
+          <xs:element minOccurs="0" name="gender" type="xs:string" />
+          <xs:element minOccurs="0" name="grnatgaindate" type="xs:string" />
+          <xs:element minOccurs="0" name="grnatgainway" type="xs:string" />
+          <xs:element minOccurs="0" name="mainnationality" type="xs:string" />
+          <xs:element minOccurs="0" name="mansdecentraladmin" type="xs:string" />
+          <xs:element minOccurs="0" name="mansmuniccommname" type="xs:string" />
+          <xs:element minOccurs="0" name="mansmunicipalityname" type="xs:string" />
+          <xs:element minOccurs="0" name="mansmunicipalunitname" type="xs:string" />
+          <xs:element minOccurs="0" name="mansreckind" type="xs:string" />
+          <xs:element minOccurs="0" name="mansrecordaa" type="xs:string" />
+          <xs:element minOccurs="0" name="mansrecordyear" type="xs:string" />
+          <xs:element minOccurs="0" name="maracity" type="xs:string" />
+          <xs:element minOccurs="0" name="maracountry" type="xs:string" />
+          <xs:element minOccurs="0" name="maramuniccomm" type="xs:string" />
+          <xs:element minOccurs="0" name="maramunicipality" type="xs:string" />
+          <xs:element minOccurs="0" name="maraprefecture" type="xs:string" />
+          <xs:element minOccurs="0" name="marriageactdate" type="xs:string" />
+          <xs:element minOccurs="0" name="marriageactno" type="xs:string" />
+          <xs:element minOccurs="0" name="marriageactro" type="xs:string" />
+          <xs:element minOccurs="0" name="marriageacttomos" type="xs:string" />
+          <xs:element minOccurs="0" name="marriageactyear" type="xs:string" />
+          <xs:element minOccurs="0" name="marriagerank" type="xs:string" />
+          <xs:element minOccurs="0" name="member" type="xs:string" />
+          <xs:element minOccurs="0" name="memberold" type="xs:string" />
+          <xs:element minOccurs="0" name="membertype" type="xs:string" />
+          <xs:element minOccurs="0" name="merida" type="xs:string" />
+          <xs:element minOccurs="0" name="meridaold" type="xs:string" />
+          <xs:element minOccurs="0" name="motherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothergenos" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersecondname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersecondsurname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersurname" type="xs:string" />
+          <xs:element minOccurs="0" name="municipalityname" type="xs:string" />
+          <xs:element minOccurs="0" name="municipalunitname" type="xs:string" />
+          <xs:element minOccurs="0" name="reckind" type="xs:string" />
+          <xs:element minOccurs="0" name="secondname" type="xs:string" />
+          <xs:element minOccurs="0" name="secondsurname" type="xs:string" />
+          <xs:element minOccurs="0" name="spouseagreementrank" type="xs:string" />
+          <xs:element minOccurs="0" name="spousemarriagerank" type="xs:string" />
+          <xs:element minOccurs="0" name="surname" type="xs:string" />
+          <xs:element minOccurs="0" name="thirdname" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusCertByBirthYearRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getMaritalStatusCertByBirthYearInput" type="tns:getMaritalStatusCertByBirthYearInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusCertByBirthYearInput">
+        <xs:sequence>
+          <xs:element name="firstname" type="xs:string" />
+          <xs:element minOccurs="0" name="secondname" type="xs:string" />
+          <xs:element minOccurs="0" name="thirdname" type="xs:string" />
+          <xs:element name="lastname" type="xs:string" />
+          <xs:element minOccurs="0" name="secondsurname" type="xs:string" />
+          <xs:element name="birthyear" type="xs:string" />
+          <xs:element minOccurs="0" name="fatherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersecondname" type="xs:string" />
+          <xs:element minOccurs="0" name="motherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersecondname" type="xs:string" />
+          <xs:element name="username" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusCertByBirthYearResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getMaritalStatusCertByBirthYearReturn" type="tns:getMaritalStatusCertByBirthYearReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusCertByBirthYearReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="list" type="tns:maritalStatusCertificateArray" />
+          <xs:element minOccurs="0" name="faultCode" type="xs:string" />
+          <xs:element minOccurs="0" name="faultString" type="xs:string" />
+          <xs:element minOccurs="0" name="serviceCallId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="maritalStatusCertificateArray">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:maritalStatusCertificateRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="maritalStatusCertificateRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="agreementactdate" type="xs:string" />
+          <xs:element minOccurs="0" name="maradate" type="xs:string" />
+          <xs:element minOccurs="0" name="agrcountry" type="xs:string" />
+          <xs:element minOccurs="0" name="agrdate" type="xs:string" />
+          <xs:element minOccurs="0" name="agreementactno" type="xs:string" />
+          <xs:element minOccurs="0" name="agreementactro" type="xs:string" />
+          <xs:element minOccurs="0" name="agreementacttomos" type="xs:string" />
+          <xs:element minOccurs="0" name="agreementactyear" type="xs:string" />
+          <xs:element minOccurs="0" name="agreementrank" type="xs:string" />
+          <xs:element minOccurs="0" name="agrmuniccomm" type="xs:string" />
+          <xs:element minOccurs="0" name="agrmunicipality" type="xs:string" />
+          <xs:element minOccurs="0" name="agrnotarycity" type="xs:string" />
+          <xs:element minOccurs="0" name="agrprefecture" type="xs:string" />
+          <xs:element minOccurs="0" name="amka" type="xs:string" />
+          <xs:element minOccurs="0" name="birthcountry" type="xs:string" />
+          <xs:element minOccurs="0" name="birthdate" type="xs:string" />
+          <xs:element minOccurs="0" name="birthforeigncity" type="xs:string" />
+          <xs:element minOccurs="0" name="birthmuniccomm" type="xs:string" />
+          <xs:element minOccurs="0" name="birthmunicipal" type="xs:string" />
+          <xs:element minOccurs="0" name="birthmunicipalunit" type="xs:string" />
+          <xs:element minOccurs="0" name="birthoikismos" type="xs:string" />
+          <xs:element minOccurs="0" name="birthplacedescr" type="xs:string" />
+          <xs:element minOccurs="0" name="birthprefecture" type="xs:string" />
+          <xs:element minOccurs="0" name="deceasedate" type="xs:string" />
+          <xs:element minOccurs="0" name="deletereasonPriv" type="xs:string" />
+          <xs:element minOccurs="0" name="deletiondate" type="xs:string" />
+          <xs:element minOccurs="0" name="eklspecialno" type="xs:string" />
+          <xs:element minOccurs="0" name="fatherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersecondname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersecondsurname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersurname" type="xs:string" />
+          <xs:element minOccurs="0" name="firstname" type="xs:string" />
+          <xs:element minOccurs="0" name="gainmunrecdate" type="xs:string" />
+          <xs:element minOccurs="0" name="gender" type="xs:string" />
+          <xs:element minOccurs="0" name="grnatgaindate" type="xs:string" />
+          <xs:element minOccurs="0" name="grnatgainway" type="xs:string" />
+          <xs:element minOccurs="0" name="mainnationality" type="xs:string" />
+          <xs:element minOccurs="0" name="mansdecentraladmin" type="xs:string" />
+          <xs:element minOccurs="0" name="mansmuniccommname" type="xs:string" />
+          <xs:element minOccurs="0" name="mansmunicipalityname" type="xs:string" />
+          <xs:element minOccurs="0" name="mansmunicipalunitname" type="xs:string" />
+          <xs:element minOccurs="0" name="mansreckind" type="xs:string" />
+          <xs:element minOccurs="0" name="mansrecordaa" type="xs:string" />
+          <xs:element minOccurs="0" name="mansrecordyear" type="xs:string" />
+          <xs:element minOccurs="0" name="maracity" type="xs:string" />
+          <xs:element minOccurs="0" name="maracountry" type="xs:string" />
+          <xs:element minOccurs="0" name="maramuniccomm" type="xs:string" />
+          <xs:element minOccurs="0" name="maramunicipality" type="xs:string" />
+          <xs:element minOccurs="0" name="maraprefecture" type="xs:string" />
+          <xs:element minOccurs="0" name="marriageactdate" type="xs:string" />
+          <xs:element minOccurs="0" name="marriageactno" type="xs:string" />
+          <xs:element minOccurs="0" name="marriageactro" type="xs:string" />
+          <xs:element minOccurs="0" name="marriageacttomos" type="xs:string" />
+          <xs:element minOccurs="0" name="marriageactyear" type="xs:string" />
+          <xs:element minOccurs="0" name="marriagerank" type="xs:string" />
+          <xs:element minOccurs="0" name="member" type="xs:string" />
+          <xs:element minOccurs="0" name="memberold" type="xs:string" />
+          <xs:element minOccurs="0" name="membertype" type="xs:string" />
+          <xs:element minOccurs="0" name="merida" type="xs:string" />
+          <xs:element minOccurs="0" name="meridaold" type="xs:string" />
+          <xs:element minOccurs="0" name="motherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothergenos" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersecondname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersecondsurname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersurname" type="xs:string" />
+          <xs:element minOccurs="0" name="municipalityname" type="xs:string" />
+          <xs:element minOccurs="0" name="municipalunitname" type="xs:string" />
+          <xs:element minOccurs="0" name="reckind" type="xs:string" />
+          <xs:element minOccurs="0" name="secondname" type="xs:string" />
+          <xs:element minOccurs="0" name="secondsurname" type="xs:string" />
+          <xs:element minOccurs="0" name="spouseagreementrank" type="xs:string" />
+          <xs:element minOccurs="0" name="spousemarriagerank" type="xs:string" />
+          <xs:element minOccurs="0" name="surname" type="xs:string" />
+          <xs:element minOccurs="0" name="thirdname" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalRegByMeridaRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getMaritalRegByMeridaInputRecord" type="tns:getMaritalRegByMeridaInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalRegByMeridaInput">
+        <xs:sequence>
+          <xs:element name="merida" type="xs:string" />
+          <xs:element name="municipalregistryid" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalRegByMeridaResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getMaritalRegByMeridaOutputRecord" type="tns:getMaritalRegByMeridaReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalRegByMeridaReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="list" type="tns:maritalStatusCertificateArray" />
+          <xs:element minOccurs="0" name="faultCode" type="xs:string" />
+          <xs:element minOccurs="0" name="faultString" type="xs:string" />
+          <xs:element minOccurs="0" name="serviceCallId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getClosestRelativesRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getClosestRelativesInputRecord" type="tns:getClosestRelativesInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getClosestRelativesInput">
+        <xs:sequence>
+          <xs:element name="amka" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getClosestRelativesResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getClosestRelativesOutputRecord" type="tns:getClosestRelativesReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getClosestRelativesReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="list" type="tns:registryRecordsArray" />
+          <xs:element minOccurs="0" name="faultCode" type="xs:string" />
+          <xs:element minOccurs="0" name="faultString" type="xs:string" />
+          <xs:element minOccurs="0" name="serviceCallId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusCertificateRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getMaritalStatusCertificateInputRecord" type="tns:getMaritalStatusCertificateInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusCertificateInput">
+        <xs:sequence>
+          <xs:element name="firstname" type="xs:string" />
+          <xs:element minOccurs="0" name="secondname" type="xs:string" />
+          <xs:element minOccurs="0" name="thirdname" type="xs:string" />
+          <xs:element name="lastname" type="xs:string" />
+          <xs:element minOccurs="0" name="secondsurname" type="xs:string" />
+          <xs:element name="birthdate" type="xs:string" />
+          <xs:element minOccurs="0" name="fatherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersecondname" type="xs:string" />
+          <xs:element minOccurs="0" name="motherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersecondname" type="xs:string" />
+          <xs:element name="username" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusCertificateResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getMaritalStatusCertificateOutputRecord" type="tns:getMaritalStatusCertificateReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getMaritalStatusCertificateReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="list" type="tns:maritalStatusCertificateArray" />
+          <xs:element minOccurs="0" name="faultCode" type="xs:string" />
+          <xs:element minOccurs="0" name="faultString" type="xs:string" />
+          <xs:element minOccurs="0" name="serviceCallId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getBirthCertificateRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getBirthCertificateInputRecord" type="tns:getBirthCertificateInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getBirthCertificateInput">
+        <xs:sequence>
+          <xs:element name="firstname" type="xs:string" />
+          <xs:element minOccurs="0" name="secondname" type="xs:string" />
+          <xs:element name="lastname" type="xs:string" />
+          <xs:element minOccurs="0" name="thirdname" type="xs:string" />
+          <xs:element minOccurs="0" name="secondsurname" type="xs:string" />
+          <xs:element name="birthdate" type="xs:string" />
+          <xs:element minOccurs="0" name="fatherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersecondname" type="xs:string" />
+          <xs:element minOccurs="0" name="motherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersecondname" type="xs:string" />
+          <xs:element name="username" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getBirthCertificateResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getBirthCertificateOutputRecord" type="tns:getBirthCertificateReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getBirthCertificateReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="list" type="tns:birthCertificateArray" />
+          <xs:element minOccurs="0" name="faultCode" type="xs:string" />
+          <xs:element minOccurs="0" name="faultString" type="xs:string" />
+          <xs:element minOccurs="0" name="serviceCallId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="birthCertificateArray">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" nillable="true" type="tns:item" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="item">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="municipalregistryname" type="xs:string" />
+          <xs:element minOccurs="0" name="member" type="xs:string" />
+          <xs:element minOccurs="0" name="merida" type="xs:string" />
+          <xs:element minOccurs="0" name="municipalrecordid" type="xs:string" />
+          <xs:element minOccurs="0" name="amka" type="xs:string" />
+          <xs:element minOccurs="0" name="birthdate" type="xs:string" />
+          <xs:element minOccurs="0" name="surname" type="xs:string" />
+          <xs:element minOccurs="0" name="secondsurname" type="xs:string" />
+          <xs:element minOccurs="0" name="firstname" type="xs:string" />
+          <xs:element minOccurs="0" name="secondname" type="xs:string" />
+          <xs:element minOccurs="0" name="thirdname" type="xs:string" />
+          <xs:element minOccurs="0" name="gender" type="xs:string" />
+          <xs:element minOccurs="0" name="fatherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersecondname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersurname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathersecondsurname" type="xs:string" />
+          <xs:element minOccurs="0" name="motherfirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersecondname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersurname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothersecondsurname" type="xs:string" />
+          <xs:element minOccurs="0" name="mothergenos" type="xs:string" />
+          <xs:element minOccurs="0" name="eklspecialno" type="xs:string" />
+          <xs:element minOccurs="0" name="birthoikismos" type="xs:string" />
+          <xs:element minOccurs="0" name="birthmuniccomm" type="xs:string" />
+          <xs:element minOccurs="0" name="birthmunicipalunit" type="xs:string" />
+          <xs:element minOccurs="0" name="birthmunicipal" type="xs:string" />
+          <xs:element minOccurs="0" name="birthprefecture" type="xs:string" />
+          <xs:element minOccurs="0" name="birthregion" type="xs:string" />
+          <xs:element minOccurs="0" name="birthcountry" type="xs:string" />
+          <xs:element minOccurs="0" name="mainnationality" type="xs:string" />
+          <xs:element minOccurs="0" name="grnatgaindate" type="xs:string" />
+          <xs:element minOccurs="0" name="gainmunrecdate" type="xs:string" />
+          <xs:element minOccurs="0" name="mansdecentraladmin" type="xs:string" />
+          <xs:element minOccurs="0" name="mansmunicipalityname" type="xs:string" />
+          <xs:element minOccurs="0" name="mansmunicipalunitname" type="xs:string" />
+          <xs:element minOccurs="0" name="mansmuniccommname" type="xs:string" />
+          <xs:element minOccurs="0" name="mansregion" type="xs:string" />
+          <xs:element minOccurs="0" name="mansrecordaa" type="xs:string" />
+          <xs:element minOccurs="0" name="mansrecordyear" type="xs:string" />
+          <xs:element minOccurs="0" name="mansreckind" type="xs:string" />
+          <xs:element minOccurs="0" name="spousefirstname" type="xs:string" />
+          <xs:element minOccurs="0" name="spousesurname" type="xs:string" />
+          <xs:element minOccurs="0" name="spousegenos" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="findFamilyRegParentRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="findFamilyRegParentInputRecord" type="tns:findFamilyRegParentInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="findFamilyRegParentInput">
+        <xs:sequence>
+          <xs:element name="firstname" type="xs:string" />
+          <xs:element name="lastname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathername" type="xs:string" />
+          <xs:element minOccurs="0" name="mothername" type="xs:string" />
+          <xs:element name="birthdate" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="findFamilyRegParentResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="findFamilyRegParentOutputRecord" type="tns:findFamilyRegParentReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="findFamilyRegParentReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="list" type="tns:registryRecordsArray" />
+          <xs:element minOccurs="0" name="faultCode" type="xs:string" />
+          <xs:element minOccurs="0" name="faultString" type="xs:string" />
+          <xs:element minOccurs="0" name="serviceCallId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getClosestRelativesByPersonRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getClosestRelativesByPersonInputRecord" type="tns:getClosestRelativesByPersonInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getClosestRelativesByPersonInput">
+        <xs:sequence>
+          <xs:element name="firstname" type="xs:string" />
+          <xs:element name="lastname" type="xs:string" />
+          <xs:element minOccurs="0" name="fathername" type="xs:string" />
+          <xs:element minOccurs="0" name="mothername" type="xs:string" />
+          <xs:element minOccurs="0" name="birthdate" type="xs:string" />
+          <xs:element minOccurs="0" name="deceasedate" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getClosestRelativesByPersonResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getClosestRelativesByPersonOutputRecord" type="tns:getClosestRelativesByPersonReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getClosestRelativesByPersonReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="list" type="tns:registryRecordsArray" />
+          <xs:element minOccurs="0" name="faultCode" type="xs:string" />
+          <xs:element minOccurs="0" name="faultString" type="xs:string" />
+          <xs:element minOccurs="0" name="serviceCallId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getChildrenCountRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getChildrenCountInputRecord" type="tns:getChildrenCountInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getChildrenCountInput">
+        <xs:sequence>
+          <xs:element name="lastname" type="xs:string" />
+          <xs:element name="firstname" type="xs:string" />
+          <xs:element name="birthdate" type="xs:string" />
+          <xs:element minOccurs="0" name="fathername" type="xs:string" />
+          <xs:element minOccurs="0" name="mothername" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getChildrenCountResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getChildrenCountOutputRecord" type="tns:getChildrenCountReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getChildrenCountReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="response" type="xs:string" />
+          <xs:element minOccurs="0" name="faultCode" type="xs:string" />
+          <xs:element minOccurs="0" name="faultString" type="xs:string" />
+          <xs:element minOccurs="0" name="serviceCallId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getMaritalStatusChildrenRecsRequest" nillable="true" type="tns:getMaritalStatusChildrenRecsRequest" />
+      <xs:element name="getMaritalStatusChildrenRecsResponse" nillable="true" type="tns:getMaritalStatusChildrenRecsResponse" />
+      <xs:element name="getMaritalStatusElasCertificateRequest" nillable="true" type="tns:getMaritalStatusElasCertificateRequest" />
+      <xs:element name="getMaritalStatusElasCertificateResponse" nillable="true" type="tns:getMaritalStatusElasCertificateResponse" />
+      <xs:element name="getMaritalStatusCertByBirthYearRequest" nillable="true" type="tns:getMaritalStatusCertByBirthYearRequest" />
+      <xs:element name="getMaritalStatusCertByBirthYearResponse" nillable="true" type="tns:getMaritalStatusCertByBirthYearResponse" />
+      <xs:element name="getMaritalRegByMeridaRequest" nillable="true" type="tns:getMaritalRegByMeridaRequest" />
+      <xs:element name="getMaritalRegByMeridaResponse" nillable="true" type="tns:getMaritalRegByMeridaResponse" />
+      <xs:element name="getClosestRelativesRequest" nillable="true" type="tns:getClosestRelativesRequest" />
+      <xs:element name="getClosestRelativesResponse" nillable="true" type="tns:getClosestRelativesResponse" />
+      <xs:element name="getMaritalStatusCertificateRequest" nillable="true" type="tns:getMaritalStatusCertificateRequest" />
+      <xs:element name="getMaritalStatusCertificateResponse" nillable="true" type="tns:getMaritalStatusCertificateResponse" />
+      <xs:element name="getBirthCertificateRequest" nillable="true" type="tns:getBirthCertificateRequest" />
+      <xs:element name="getBirthCertificateResponse" nillable="true" type="tns:getBirthCertificateResponse" />
+      <xs:element name="findFamilyRegParentRequest" nillable="true" type="tns:findFamilyRegParentRequest" />
+      <xs:element name="findFamilyRegParentResponse" nillable="true" type="tns:findFamilyRegParentResponse" />
+      <xs:element name="getClosestRelativesByPersonRequest" nillable="true" type="tns:getClosestRelativesByPersonRequest" />
+      <xs:element name="getClosestRelativesByPersonResponse" nillable="true" type="tns:getClosestRelativesByPersonResponse" />
+      <xs:element name="getChildrenCountRequest" nillable="true" type="tns:getChildrenCountRequest" />
+      <xs:element name="getChildrenCountResponse" nillable="true" type="tns:getChildrenCountResponse" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getMaritalStatusElasCertificateResponse">
+    <wsdl:part name="getMaritalStatusElasCertificateResponse" element="tns:getMaritalStatusElasCertificateResponse" />
+  </wsdl:message>
+  <wsdl:message name="getBirthCertificateResponse">
+    <wsdl:part name="getBirthCertificateResponse" element="tns:getBirthCertificateResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMaritalStatusCertificate">
+    <wsdl:part name="getMaritalStatusCertificateRequest" element="tns:getMaritalStatusCertificateRequest" />
+  </wsdl:message>
+  <wsdl:message name="getClosestRelatives">
+    <wsdl:part name="getClosestRelativesRequest" element="tns:getClosestRelativesRequest" />
+  </wsdl:message>
+  <wsdl:message name="getMaritalRegByMerida">
+    <wsdl:part name="getMaritalRegByMeridaRequest" element="tns:getMaritalRegByMeridaRequest" />
+  </wsdl:message>
+  <wsdl:message name="getClosestRelativesByPersonResponse">
+    <wsdl:part name="getClosestRelativesByPersonResponse" element="tns:getClosestRelativesByPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="getClosestRelativesByPerson">
+    <wsdl:part name="getClosestRelativesByPersonRequest" element="tns:getClosestRelativesByPersonRequest" />
+  </wsdl:message>
+  <wsdl:message name="getMaritalStatusChildrenRecsResponse">
+    <wsdl:part name="getMaritalStatusChildrenRecsResponse" element="tns:getMaritalStatusChildrenRecsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getClosestRelativesResponse">
+    <wsdl:part name="getClosestRelativesResponse" element="tns:getClosestRelativesResponse" />
+  </wsdl:message>
+  <wsdl:message name="getChildrenCount">
+    <wsdl:part name="getChildrenCountRequest" element="tns:getChildrenCountRequest" />
+  </wsdl:message>
+  <wsdl:message name="getMaritalStatusCertByBirthYearResponse">
+    <wsdl:part name="getMaritalStatusCertByBirthYearResponse" element="tns:getMaritalStatusCertByBirthYearResponse" />
+  </wsdl:message>
+  <wsdl:message name="findFamilyRegParentResponse">
+    <wsdl:part name="findFamilyRegParentResponse" element="tns:findFamilyRegParentResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMaritalStatusChildrenRecs">
+    <wsdl:part name="getMaritalStatusChildrenRecsRequest" element="tns:getMaritalStatusChildrenRecsRequest" />
+  </wsdl:message>
+  <wsdl:message name="getMaritalStatusCertificateResponse">
+    <wsdl:part name="getMaritalStatusCertificateResponse" element="tns:getMaritalStatusCertificateResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMaritalRegByMeridaResponse">
+    <wsdl:part name="getMaritalRegByMeridaResponse" element="tns:getMaritalRegByMeridaResponse" />
+  </wsdl:message>
+  <wsdl:message name="getChildrenCountResponse">
+    <wsdl:part name="getChildrenCountResponse" element="tns:getChildrenCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMaritalStatusCertByBirthYear">
+    <wsdl:part name="getMaritalStatusCertByBirthYearRequest" element="tns:getMaritalStatusCertByBirthYearRequest" />
+  </wsdl:message>
+  <wsdl:message name="getBirthCertificate">
+    <wsdl:part name="getBirthCertificateRequest" element="tns:getBirthCertificateRequest" />
+  </wsdl:message>
+  <wsdl:message name="getMaritalStatusElasCertificate">
+    <wsdl:part name="getMaritalStatusElasCertificateRequest" element="tns:getMaritalStatusElasCertificateRequest" />
+  </wsdl:message>
+  <wsdl:message name="findFamilyRegParent">
+    <wsdl:part name="findFamilyRegParentRequest" element="tns:findFamilyRegParentRequest" />
+  </wsdl:message>
+  <wsdl:portType name="citizenRegistry">
+    <wsdl:operation name="getMaritalStatusChildrenRecs">
+      <wsdl:input name="getMaritalStatusChildrenRecs" message="tns:getMaritalStatusChildrenRecs" />
+      <wsdl:output name="getMaritalStatusChildrenRecsResponse" message="tns:getMaritalStatusChildrenRecsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getMaritalStatusElasCertificate">
+      <wsdl:input name="getMaritalStatusElasCertificate" message="tns:getMaritalStatusElasCertificate" />
+      <wsdl:output name="getMaritalStatusElasCertificateResponse" message="tns:getMaritalStatusElasCertificateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getMaritalStatusCertByBirthYear">
+      <wsdl:input name="getMaritalStatusCertByBirthYear" message="tns:getMaritalStatusCertByBirthYear" />
+      <wsdl:output name="getMaritalStatusCertByBirthYearResponse" message="tns:getMaritalStatusCertByBirthYearResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getMaritalRegByMerida">
+      <wsdl:input name="getMaritalRegByMerida" message="tns:getMaritalRegByMerida" />
+      <wsdl:output name="getMaritalRegByMeridaResponse" message="tns:getMaritalRegByMeridaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getClosestRelatives">
+      <wsdl:input name="getClosestRelatives" message="tns:getClosestRelatives" />
+      <wsdl:output name="getClosestRelativesResponse" message="tns:getClosestRelativesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getMaritalStatusCertificate">
+      <wsdl:input name="getMaritalStatusCertificate" message="tns:getMaritalStatusCertificate" />
+      <wsdl:output name="getMaritalStatusCertificateResponse" message="tns:getMaritalStatusCertificateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getBirthCertificate">
+      <wsdl:input name="getBirthCertificate" message="tns:getBirthCertificate" />
+      <wsdl:output name="getBirthCertificateResponse" message="tns:getBirthCertificateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="findFamilyRegParent">
+      <wsdl:input name="findFamilyRegParent" message="tns:findFamilyRegParent" />
+      <wsdl:output name="findFamilyRegParentResponse" message="tns:findFamilyRegParentResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getClosestRelativesByPerson">
+      <wsdl:input name="getClosestRelativesByPerson" message="tns:getClosestRelativesByPerson" />
+      <wsdl:output name="getClosestRelativesByPersonResponse" message="tns:getClosestRelativesByPersonResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getChildrenCount">
+      <wsdl:input name="getChildrenCount" message="tns:getChildrenCount" />
+      <wsdl:output name="getChildrenCountResponse" message="tns:getChildrenCountResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="citizenRegistryInterfaceSoapBinding" type="tns:citizenRegistry">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:operation name="getMaritalStatusChildrenRecs">
+      <soap:operation soapAction="getMaritalStatusChildrenRecs" style="document" />
+      <wsdl:input name="getMaritalStatusChildrenRecs">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMaritalStatusChildrenRecsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMaritalStatusElasCertificate">
+      <soap:operation soapAction="getMaritalStatusElasCertificate" style="document" />
+      <wsdl:input name="getMaritalStatusElasCertificate">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMaritalStatusElasCertificateResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getClosestRelatives">
+      <soap:operation soapAction="getClosestRelatives" style="document" />
+      <wsdl:input name="getClosestRelatives">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getClosestRelativesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMaritalRegByMerida">
+      <soap:operation soapAction="getMaritalRegByMerida" style="document" />
+      <wsdl:input name="getMaritalRegByMerida">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMaritalRegByMeridaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMaritalStatusCertByBirthYear">
+      <soap:operation soapAction="getMaritalStatusCertByBirthYear" style="document" />
+      <wsdl:input name="getMaritalStatusCertByBirthYear">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMaritalStatusCertByBirthYearResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMaritalStatusCertificate">
+      <soap:operation soapAction="getMaritalStatusCertificate" style="document" />
+      <wsdl:input name="getMaritalStatusCertificate">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMaritalStatusCertificateResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBirthCertificate">
+      <soap:operation soapAction="getBirthCertificate" style="document" />
+      <wsdl:input name="getBirthCertificate">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getBirthCertificateResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findFamilyRegParent">
+      <soap:operation soapAction="findFamilyRegParent" style="document" />
+      <wsdl:input name="findFamilyRegParent">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="findFamilyRegParentResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getClosestRelativesByPerson">
+      <soap:operation soapAction="getClosestRelativesByPerson" style="document" />
+      <wsdl:input name="getClosestRelativesByPerson">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getClosestRelativesByPersonResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getChildrenCount">
+      <soap:operation soapAction="getChildrenCount" style="document" />
+      <wsdl:input name="getChildrenCount">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getChildrenCountResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="citizenRegistryInterface">
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:port name="citizenRegistryPort" binding="tns:citizenRegistryInterfaceSoapBinding">
+      <soap:address location="https://www1.gsis.gr/esb/citizenRegistryService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

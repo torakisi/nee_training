@@ -1,0 +1,53 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "Πληροφορίες για το Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας";
+
+}
+
+<h2>Πληροφορίες για το Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας</h2>
+<p>Το Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας είναι προνοιακό πρόγραμμα επιδότησης.</p>
+
+<h2>Χρήσιμα έντυπα και σύνδεσμοι</h2>
+
+<h3>Νομοθετικό Πλαίσιο</h3>
+
+@*<span class="fa fa-file-pdf-o" style="color:red"></span>  <a href="~/Content/Documents/common/fek-2022b.pdf" download>Κοινή Υπουργική Απόφαση για το Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας</a>*@
+<br />
+<span class="fa fa-file-pdf-o" style="color:red"></span>  <a href="~/Content/Documents/common/fek-2023b.pdf" download>FEK-2023-Tefxos B-01148</a>
+<br />
+
+
+    @if (Html.IsAdminEnabled() && Request.IsAuthenticated)
+    {
+        <h3>Ενημερωτικά Έντυπα</h3>
+        <span class="fa fa-file-pdf-o" style="color:red"></span> <a href="~/Content/Documents/gov/nee_manual_2023.pdf" download>Οδηγός Εφαρμογής</a>
+    }
+    else
+    {
+        
+        <h3>Ενημερωτικά Έντυπα</h3>
+        <span class="fa fa-file-pdf-o" style="color:red"></span> <a href="~/Content/Documents/pub/nee_manual_pub_2023.pdf" download>Οδηγός Εφαρμογής</a>
+    }
+
+    @*<h3>Έντυπα για τη λειτουργία του Επιδόματος NEE</h3>
+    <span class="fa fa-file-pdf-o" style="color:red"></span>  <a href="~/Content/Documents/common/HBConsentForm2021.pdf" download>Έντυπο Συναίνεσης</a>
+    <br />
+    <span class="fa fa-file-pdf-o" style="color:red"></span>  <a href="~/Content/Documents/common/HBRecallForm2021.pdf" download>Έντυπο Ανάκλησης Εγκεκριμένης Αίτησης</a>
+    <br />
+    @if (Html.IsAdminEnabled())
+    {
+        <span class="fa fa-file-word-o" style="color:#738bc4"></span> <a href="~/Content/Documents/gov/Aithma_Epanaforas_Aithshs_2021.docx" download>Έντυπο Επαναφοράς Αίτησης από Ανάκληση</a>
+        <br />
+        <span class="fa fa-file-word-o" style="color:#738bc4"></span> <a href="~/Content/Documents/gov/Aithma_Arshs_Poinhs_2021.docx" download>Έντυπο Αιτήματος Άρσης Ποινής</a>
+    }*@
+
+<h3>Σύνδεσμοι</h3>
+<span class="fa fa-external-link" style="color:royalblue"></span> <a href="http://www.yeka.gr" target="_blank">Υπουργείο Εργασίας και Κοινωνικών Υποθέσεων</a>
+<br />
+<span class="fa fa-external-link" style="color:royalblue"></span> <a href="https://opeka.gr/" target="_blank">ΟΠΕΚΑ</a>
+<br />
+@*<span class="fa fa-external-link" style="color:royalblue"></span> <a href="https://www.aade.gr/" target="_blank">Α.Α.Δ.Ε.</a>
+<br />
+<span class="fa fa-external-link" style="color:royalblue"></span> <a href="http://www.astegoi.gov.gr" target="_blank">Φροντίδα Αστέγων</a>
+<br />*@

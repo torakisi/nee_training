@@ -1,0 +1,406 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@using NEE.Core
+
+@{
+    var myClass = "";
+    if (Model.CanViewOnlyApplication)
+    {
+        myClass = "idika-readonly invisible";
+    }
+    Model.CanEditResults = ViewBag.CanEditResults;
+    var cannotEditClass = "";
+    if (!Model.CanEditResults || Model.LockedByKK)
+    {
+        cannotEditClass = "idika-readonly invisible";
+    }
+    var IsFromPrint = ViewBag.IsFromPrint;
+    var IsFromPrintWholeApplication = ViewBag.IsFromPrintWholeApplication;
+    var returnUrl = Url.Action("ManageApplications", "Application", new { }, protocol: Request.Url.Scheme);
+
+    if (Model.IsNormalUser)
+    {
+        returnUrl = ViewBag.ReturnUrl;
+    }
+}
+
+@using (Html.BeginForm("Edit", "Application", FormMethod.Post, new { enctype = "multipart/form-data", @id = "editForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    @Html.HiddenFor(x => x.Revision)
+
+
+    if (Model.LockedByKK)
+    {
+        <div class="alert alert-info">
+            <strong>Προσοχή!</strong> Η αίτησή σας έχει <strong>δημιουργηθεί</strong> από Δήμο/Κέντρο Κοινότητας συνεπώς δεν έχετε δικαίωμα επεξεργασίας της. Για οποιαδήποτε μεταβολή σε στοιχεία της αίτησή σας παρακαλούμε απευθυνθείτε στα Κέντρα Κοινότητας.
+        </div>
+    }
+    if (Model.State == NEE.Core.Contracts.Enumerations.AppState.Draft && Model.CanBeApproved && Model.CanBeSubmitted)
+    {
+        <div class="alert alert-info">
+            <strong>Επιλέξτε</strong> το κουμπί <strong>Οριστική Υποβολή Αίτησης</strong> ώστε η αίτησή σας <strong>να εγκριθεί</strong>. Διαφορετικά η αίτηση παραμένει εκκρεμής σε κατάσταση Νέα.
+        </div>
+    }
+    if (!Model.CanEditResults)
+    {
+        <div class="alert alert-info">
+            <strong>Δεν μπορείτε</strong> να τροποιήσετε αίτηση από διαφορετικό υποκατάστημα του ΟΠΕΚΑ από το οποίο ανήκετε.
+        </div>
+    }
+
+    if (Model.State == NEE.Core.Contracts.Enumerations.AppState.Approved || 
+        Model.State == NEE.Core.Contracts.Enumerations.AppState.Submitted || 
+        Model.State == NEE.Core.Contracts.Enumerations.AppState.PendingDocumentsApproval ||
+        Model.State == NEE.Core.Contracts.Enumerations.AppState.RejectedDocuments)
+    {
+        <fieldset>
+            <legend></legend>
+            @Html.IdikaHtml().FieldFor(m => m.Id).FormGroup("col-md-4").ReadOnly(true)
+            @Html.IdikaHtml().FieldFor(m => m.SubmittedAt).FormGroup("col-md-4").ReadOnly(true)
+        </fieldset>
+    }
+    <div class="@cannotEditClass">
+        @Html.Partial("_ApplicantPersonalInfo", Model)
+    </div>
+    <div class="@myClass">
+        @Html.Partial("_ApplicantEDTOInfo", Model)
+    </div>
+    <div id="FEKInfo" class="@cannotEditClass">
+        @Html.Partial("_ApplicantFEKInfo", Model)
+    </div>
+    <div class="@cannotEditClass">
+        @Html.Partial("_ApplicantFinancialInfo", Model)
+    </div>
+    <div class="@cannotEditClass">
+        @Html.Partial("_ApplicantMaritalStatusInfo", Model)
+    </div>
+    <div id="SpouseInfo" class="@cannotEditClass">
+        @Html.Partial("_SpouseInfo", Model)
+    </div>
+    <br />
+    <div class="@cannotEditClass">
+        @Html.Partial("_ApplicationFormActions", Model)
+    </div>
+
+    if (Model.Remarks.Count > 0)
+    {
+        <div class="@myClass">
+            @Html.Partial("_ApplicationRemarks", Model)
+        </div>
+    }
+    <br />
+    <br />
+    <br />
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+		$(function () {
+			if ('@IsFromPrint' == 'True') {
+				$("#btnPrintActual")[0].click();
+            }
+
+            if ('@IsFromPrintWholeApplication' == 'True') {
+                $("#btnPrintApp")[0].click();
+            }
+        });
+
+        $('#uploadFile').on('change', function () {
+            myfile = $(this).val();
+            if (this.files[0].size > 3300000) {
+                $(this).val('');
+                alert("Παρακαλώ επιλέξτε αρχείο μεγέθους έως 3 Mb.");
+            }
+            var ext = myfile.split('.').pop();
+            if (ext != "pdf") {
+                alert("Επιτρέπονται μόνο αρχεία pdf.");
+                $(this).val() = "";
+            }
+        });
+
+        $('#uploadSpouseFile').on('change', function () {
+            myfile = $(this).val();
+            if (this.files[0].size > 3300000) {
+                $(this).val('');
+                alert("Παρακαλώ επιλέξτε αρχείο μεγέθους έως 3 Mb.");
+            }
+            var ext = myfile.split('.').pop();
+            if (ext != "pdf") {
+                alert("Επιτρέπονται μόνο αρχεία pdf.");
+                $(this).val() = "";
+            }
+        });
+
+        $('#uploadMaritalStatusFile').on('change', function () {
+            myfile = $(this).val();
+            if (this.files[0].size > 3300000) {
+                $(this).val('');
+                alert("Παρακαλώ επιλέξτε αρχείο μεγέθους έως 3 Mb.");
+            }
+            var ext = myfile.split('.').pop();
+            if (ext != "pdf") {
+                alert("Επιτρέπονται μόνο αρχεία pdf.");
+                $(this).val() = "";
+            }
+        });
+
+        $('#uploadFEKFile').on('change', function () {
+            myfile = $(this).val();
+            if (this.files[0].size > 3300000) {
+                $(this).val('');
+                alert("Παρακαλώ επιλέξτε αρχείο μεγέθους έως 3 Mb.");
+            }
+            var ext = myfile.split('.').pop();
+            if (ext != "pdf") {
+                alert("Επιτρέπονται μόνο αρχεία pdf.");
+                $(this).val() = "";
+            }
+        });
+
+        $("#uploadFile").on("change", function (e) {
+            $("#uploadBtn").removeAttr('disabled');
+        });
+
+        $("#uploadSpouseFile").on("change", function (e) {
+            $("#uploadSpouseBtn").removeAttr('disabled');
+        });
+
+        $("#uploadMaritalStatusFile").on("change", function (e) {
+            $("#uploadMaritalStatusBtn").removeAttr('disabled');
+        });
+
+        $("#uploadFEKFile").on("change", function (e) {
+            $("#uploadFEKBtn").removeAttr('disabled');
+        });
+
+        $("#receivesPensionAlbania").on("change", function (e) {
+            if (this.value == 'Ναι') {
+                $("#pensionFromAlbania").show();
+                $("#pensionFromAlbaniaValues").show();
+                $("#noPensionFromAlbania").hide();
+            }
+            else {
+                $("#pensionFromAlbania").hide();
+                $("#pensionFromAlbaniaValues").hide();
+                $("#noPensionFromAlbania").show();
+            }
+        });
+
+        $("#spouseReceivesPensionAlbania").on("change", function (e) {
+            if (this.value == 'Ναι') {
+                $("#spousePensionFromAlbania").show();
+                $("#spousePensionFromAlbaniaValues").show();
+                $("#spouseNoPensionFromAlbania").hide();
+            }
+            else {
+                $("#spousePensionFromAlbania").hide();
+                $("#spousePensionFromAlbaniaValues").hide();
+                $("#spouseNoPensionFromAlbania").show();
+            }
+        });
+
+        $(function () {
+
+            var browseHandler = function () {
+                var file = $(this).parent().parent().parent().find('.file');
+                file.trigger('click');
+            };
+
+            var $browse = $(document).find('.browse');
+            $browse.unbind('click', browseHandler);
+            $browse.bind('click', browseHandler);
+
+            var fileHandler = function () {
+                $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+            };
+
+            var $file = $(document).find('.file');
+            $file.unbind('change', fileHandler);
+            $file.bind('change', fileHandler);
+
+        });
+
+        $(function () {
+            if ("@Model.ApplicantPersonalInfo.HasSpouse" == "True") {
+                $("#SpouseInfo").show();
+            }
+            else {
+                $("#SpouseInfo").hide();
+            }
+        });
+
+        //temp fix
+        $(function () {
+            if ($("#receivesPensionAlbania").val() == "Ναι") {
+                $("#pensionFromAlbania").show();
+                $("#pensionFromAlbaniaValues").show();
+                $("#noPensionFromAlbania").hide();
+            }
+            else {
+                $("#pensionFromAlbania").hide();
+                $("#pensionFromAlbaniaValues").hide();
+                $("#noPensionFromAlbania").show();
+            }
+            if ($("#spouseReceivesPensionAlbania").val() == "Ναι") {
+                $("#spousePensionFromAlbania").show();
+                $("#spousePensionFromAlbaniaValues").show();
+                $("#spouseNoPensionFromAlbania").hide();
+            }
+            else {
+                $("#spousePensionFromAlbania").hide();
+                $("#spousePensionFromAlbaniaValues").hide();
+                $("#spouseNoPensionFromAlbania").show();
+            }
+        });
+
+        // temp fix PRODUCES ERROR
+        $(function () {
+            if ($("#edtoNumber").val() != "") {
+                $("#FEKInfo").hide();
+            }
+        });
+
+        $(document).ready(function () {
+
+            var financialInfoModel = @Html.Raw(Json.Encode(Model.ApplicantFinancialInfo));
+            // create DatePicker from input HTML element
+            $("#PensionStartDateAlbaniaApplicant").kendoDatePicker({
+                // defines the start view
+                //start: "day",
+                value: financialInfoModel.PensionStartDateAlbania != null ? financialInfoModel.PensionStartDateAlbania : new Date(),
+
+                //// defines when the calendar should return date
+                //depth: "day",
+
+                // display month and year in the input
+                format: "dd/MM/yyyy",
+
+                // specifies that DateInput is used for masking the input element
+                dateInput: true
+            });
+
+            var spouseInfoModel = @Html.Raw(Json.Encode(Model.SpouseInfo));
+            // create DatePicker from input HTML element
+            $("#PensionStartDateAlbaniaSpouse").kendoDatePicker({
+                // defines the start view
+                //start: "day",
+                value: spouseInfoModel.PensionStartDateAlbania != null ? spouseInfoModel.PensionStartDateAlbania : new Date(),
+
+                //// defines when the calendar should return date
+                //depth: "day",
+
+                // display month and year in the input
+                format: "dd/MM/yyyy",
+
+                // specifies that DateInput is used for masking the input element
+                dateInput: true
+            });
+
+            $("#suspendButton").off('click').on("click", function (e) {
+
+			    var changeReason = $('#changeReason').val();
+
+			    if (changeReason == '') {
+				    $('#errorMessageSuspend').removeClass('hidden');
+				    e.preventDefault();
+				    return;
+			    }
+			    $('#errorMessageSuspend').addClass('hidden');
+			    $('editForm').submit();
+            });
+
+
+		    $("#recallButton").off('click').on("click", function (e) {
+
+			    var changeReason = $('#recallReason').val();
+			    if (changeReason == '') {
+				    $('#errorMessageRecall').removeClass('hidden');
+				    e.preventDefault();
+				    return;
+			    }
+			    $('#errorMessageRecall').addClass('hidden');
+			    $('editForm').submit();
+		    });
+
+
+		    $(".suspendClearClass").each(function () {
+			    $(this).off('click').on('click', function () {
+				    $('#errorMessageSuspend').addClass('hidden');
+
+				    var my_id_value = $(this).data('id');
+
+
+			    });
+		    });
+
+		    $(".recallClearClass").each(function () {
+			    $(this).off('click').on('click', function () {
+				    $('#errorMessageRecall').addClass('hidden');
+
+				    var my_id_value = $(this).data('id');
+
+
+			    });
+            });
+
+            $("#MaritalStatus").change(function () {
+                var status = this.value;
+                if (status == @((int)NEE.Core.Contracts.Enumerations.MaritalStatus.Married)
+                    || status == @((int)NEE.Core.Contracts.Enumerations.MaritalStatus.CivilUnion)) {
+                    $("#SpouseInfo").show();
+                }
+                else
+                    $("#SpouseInfo").hide();
+            });
+        });
+
+        $(function () {
+            var fekAccepted = @Html.Raw(Json.Encode(Model.IsFEKDocumentApproved));
+            var colorClass = "";
+
+            if (fekAccepted != null)
+                colorClass = fekAccepted ? "btn btn-primary btn-success" : "btn btn-danger cancel";
+            $("#FEKDocumentName").addClass(colorClass);
+
+            var colorClass = "";
+            var maritalStatusAccepted = @Html.Raw(Json.Encode(Model.IsMaritalStatusDocumentApproved));
+
+            if (maritalStatusAccepted != null)
+                colorClass = maritalStatusAccepted ? "btn btn-primary btn-success" : "btn btn-danger cancel";
+            $("#MaritalStatusDocumentName").addClass(colorClass);
+
+            var colorClass = "";
+            var pensionDocAlbaniaAccepted = @Html.Raw(Json.Encode(Model.IsPensionAlbaniaDocumentApproved));
+
+            if (pensionDocAlbaniaAccepted != null)
+                colorClass = pensionDocAlbaniaAccepted ? "btn btn-primary btn-success" : "btn btn-danger cancel";
+            $("#PensionDocumentAlbaniaName").addClass(colorClass);
+
+            var colorClass = "";
+            var spousePensionDocAlbaniaAccepted = @Html.Raw(Json.Encode(Model.IsSpousePensionDocumentApproved));
+
+            if (spousePensionDocAlbaniaAccepted != null)
+                colorClass = spousePensionDocAlbaniaAccepted ? "btn btn-primary btn-success" : "btn btn-danger cancel";
+            $("#SpousePensDocumentName").addClass(colorClass);
+        });
+
+        $(function () {
+            var action = @Html.Raw(Json.Encode(ViewData["Action"]));
+            if (action == "save") {
+                alert("Η αίτηση σας έχει αποθηκευτεί");
+            }
+            //else if (action == "submit") {
+            //    alert("Η αίτησή σας έχει υποβληθεί. Κατόπιν ελέγχου θα ενημερωθείτε μέσω email για την απόφαση. Μπορείτε να ενημερωθείτε για την απόφαση και από το μενού «οι αιτήσεις μου»");
+            //}
+        });
+
+        $(function () {
+            var datePickerDisabled = @Html.Raw(Json.Encode(Model.IsInFinalStatus));
+            $("#PensionStartDateAlbaniaApplicant").data("kendoDatePicker").enable(!datePickerDisabled);
+            $("#PensionStartDateAlbaniaSpouse").data("kendoDatePicker").enable(!datePickerDisabled);
+        });
+    </script>
+}

@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DCD1C58C-58FD-4C76-B55D-ED812C67B11B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NEE.Service</RootNamespace>
+    <AssemblyName>NEE.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="NEE.Database">
+      <HintPath>..\NEE.Database\obj\Debug\NEE.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin.Gsis">
+      <HintPath>..\packages_manual\Owin.Gsis.1.0.0-CI-20181012-130903\lib\net461\Owin.Gsis.dll</HintPath>
+    </Reference>
+    <Reference Include="Refit, Version=4.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Refit.4.6.48\lib\net461\Refit.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.6.0.1\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationMapper.cs" />
+    <Compile Include="AppService.ApplicationSubmittedDetails.cs" />
+    <Compile Include="AppService.ChangeDistrict.cs" />
+    <Compile Include="AppService.CancelApplication.cs" />
+    <Compile Include="AppService.cs" />
+    <Compile Include="AppService.DictionaryRetriever.cs" />
+    <Compile Include="AppService.FinalSubmitApplication.cs" />
+    <Compile Include="AppService.GetApplication.cs" />
+    <Compile Include="AppService.RejectNonEligibleApplication.cs" />
+    <Compile Include="AppService.UploadFile.cs" />
+    <Compile Include="AppService.SaveApplication.cs" />
+    <Compile Include="AppService.ValidateApplication.cs" />
+    <Compile Include="AppService.ValidateIBAN.cs" />
+    <Compile Include="Authorization\ServiceAuthorization.cs" />
+    <Compile Include="Core\ApplicationIdentityRequest.cs" />
+    <Compile Include="Core\WebUIContext.cs" />
+    <Compile Include="Core\ServiceContext.cs" />
+    <Compile Include="Core\NEEServiceBase.cs" />
+    <Compile Include="FileService\AuthenticatedHttpClientHandler.cs" />
+    <Compile Include="FileService\FileService.cs" />
+    <Compile Include="FileService\FileServiceClient.cs" />
+    <Compile Include="FileService\IFileServiceApi.cs" />
+    <Compile Include="Helpers\ApplicationConfigurationHelper.cs" />
+    <Compile Include="Helpers\ListMapperHelper.cs" />
+    <Compile Include="Helpers\NEEAppDBIdHelper.cs" />
+    <Compile Include="PaymentService.cs" />
+    <Compile Include="PaymentService.GetPaymentsData.cs" />
+    <Compile Include="PaymentService.GetPaymentTransactions.cs" />
+    <Compile Include="PaymentService.GetPaymentTransactionsMaster.cs" />
+    <Compile Include="PersonService.GetMaritalStatusInfo.cs" />
+    <Compile Include="PersonService.GetIncomeMobileValueInfo.cs" />
+    <Compile Include="PersonService.GetPropertyValueInfo.cs" />
+    <Compile Include="PersonService.GetEfkaInfo.cs" />
+    <Compile Include="PersonService.GetErganiInfo.cs" />
+    <Compile Include="PersonService.GetCitizenRegistryInfo.cs" />
+    <Compile Include="PersonService.GetEDTOInfo.cs" />
+    <Compile Include="PersonService.GetOtherBenefitsInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PersonService.cs" />
+    <Compile Include="Repositories\ApplicationRepository.cs" />
+    <Compile Include="Repositories\SupportRepository.cs" />
+    <Compile Include="Repositories\ErrorLogRepository.cs" />
+    <Compile Include="RuleProviders\ApplicationApprovalRuleProvider.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationSpousePensionAlbaniaUploaded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationMaritalStatusUploaded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationPensionAlbaniaUploaded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationFEKUploaded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationIbanUnsupported.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationSpousePensionSumExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationSpousePensionFromAlbaniaExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationPensionSumExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationPensionFromAlbaniaExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationBenefitForOmogeneisExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationDisabilityBenefitsExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationA21BenefitExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationHousingAssistanceBenefitExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationHousingBenefitExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationPensionExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationSpousePensionExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationErganhRecordFound.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationIbanNotFound.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationIbanNotOwned.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationAADERealEstateExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationAADEVehicleExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationEdtoNotExpatriate.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationAADEFamilyIncomeExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationAADEIncomeExceeded.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationAgeBelow67.cs" />
+    <Compile Include="RuleProviders\Rules\ApplicationValidationIbanNotValid.cs" />
+    <Compile Include="SupportService.GetFaqs.cs" />
+    <Compile Include="SupportService.cs" />
+    <Compile Include="AppService.GetOpekaDistrict.cs" />
+    <Compile Include="UserService.AllowLogin.cs" />
+    <Compile Include="UserService.AuthorizeUser.cs" />
+    <Compile Include="UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NEE.Core\NEE.Core.csproj">
+      <Project>{d546b4f7-8069-41c6-be8e-9551be8db05a}</Project>
+      <Name>NEE.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XServices.CitizenRegistry\XServices.CitizenRegistry.csproj">
+      <Project>{3B3AE480-19E7-4EC5-9EE3-120AE5F636C9}</Project>
+      <Name>XServices.CitizenRegistry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XServices.Gsis\XServices.Gsis.csproj">
+      <Project>{40D27D81-1665-463C-BD1C-16D7AC52F811}</Project>
+      <Name>XServices.Gsis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XServices.NotificationCenter\XServices.NotificationCenter.csproj">
+      <Project>{5CD11075-800A-4AFF-ABF5-F0B32AAE8053}</Project>
+      <Name>XServices.NotificationCenter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XServices.Efka\XServices.Efka.csproj">
+      <Project>{7BCE25DD-00B7-4F86-A386-F9A27064AB5A}</Project>
+      <Name>XServices.Efka</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XServices.Ergani\XServices.Ergani.csproj">
+      <Project>{31A31FB6-2430-46D5-A6D4-F9B3FB84F012}</Project>
+      <Name>XServices.Ergani</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XServices.Iban\XServices.Iban.csproj">
+      <Project>{C032D0C6-146A-4CDB-8201-0FCC13739050}</Project>
+      <Name>XServices.Iban</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XServices.Idika\XServices.Idika.csproj">
+      <Project>{23F262BC-A906-4948-AA69-744C0039257D}</Project>
+      <Name>XServices.Idika</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XServices.KED\XServices.Edto.csproj">
+      <Project>{6D5539E4-F0F3-4784-981E-FC769CB5087A}</Project>
+      <Name>XServices.Edto</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="PersonService.GetAmkaRegistryInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <Compile Include="AppService.GetApplicationOwner.cs" />
+    <Compile Include="AppService.CreateApplication.cs" />
+    <Compile Include="AppService.SearchApplication.cs" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets'))" />
+    <Error Condition="!Exists('..\packages\Refit.4.6.48\build\net461\refit.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Refit.4.6.48\build\net461\refit.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />
+  <Import Project="..\packages\Refit.4.6.48\build\net461\refit.targets" Condition="Exists('..\packages\Refit.4.6.48\build\net461\refit.targets')" />
+</Project>

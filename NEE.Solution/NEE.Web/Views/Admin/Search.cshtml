@@ -1,0 +1,144 @@
+﻿@model NEE.Web.Models.Admin.SearchViewModel
+
+@{
+    ViewBag.Title = "Αναζήτηση Αιτήσεων Επιδόματος NEE";
+}
+
+<h2>Αναζήτηση</h2>
+
+@using (Html.BeginForm("Search", "Admin", FormMethod.Post, new { @id = "searchForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.Id)
+                @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @placeholder = "xxxx-xxxx-xxxx-xxxx" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.AMKA)
+                @Html.TextBoxFor(m => m.AMKA, new { @class = "form-control", @placeholder = "AMKA" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.AFM)
+                @Html.TextBoxFor(m => m.AFM, new { @class = "form-control", @placeholder = "AΦΜ" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.IBAN)
+                @Html.TextBoxFor(m => m.IBAN, new { @class = "form-control", @placeholder = "IBAN" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.LastName)
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Επώνυμο (να ξεκινάει με)" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "Όνομα (να ξεκινάει με)" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.MobilePhone)
+                @Html.TextBoxFor(m => m.MobilePhone, new { @class = "form-control", @placeholder = "Κινητό" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.HomePhone)
+                @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control", @placeholder = "Σταθερό" })
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.City)
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control", @placeholder = "Πόλη" })
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.Zip)
+                @Html.TextBoxFor(m => m.Zip, new { @class = "form-control", @placeholder = "Τ.Κ." })
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:10px;">
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.StatesList)
+                @Html.DropDownListFor(x => Model.StateId, new SelectList(Model.StatesList, "StateId", "State"), htmlAttributes: new { @class = "form-control", id = "SelectState" })
+            </div>
+            <div class="col-md-6" style="margin-top:30px;">
+
+                @Html.LabelFor(m => m.SearchInAppPerson)
+                @Html.CheckBoxFor(m => m.SearchInAppPerson)
+            </div>
+
+        </div>
+
+    </div>
+    <br />
+    <fieldset>
+        <div class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-6">
+            <button type="submit" name="command" value="SearchApplications" class="btn btn-primary form-control" id="SearchApplicationsBtn"><i class="glyphicon glyphicon-search"></i> Αναζήτηση</button>
+        </div>
+        <div class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-6">
+            <button type="submit" name="command" value="ClearFields" class="btn btn-primary form-control"><i class="glyphicon glyphicon-remove"></i> Καθαρισμός</button>
+        </div>
+    </fieldset>
+}
+
+@if (Model.HasResults)
+{
+
+    <br />
+    if (Model.Total == 0)
+    {
+        <h3>Δε βρέθηκαν πρόσωπα με τα κριτήρια που επιλέξατε στις αιτήσεις</h3>
+    }
+    else
+    {
+        if (Model.Total == 1)
+        {
+            <h3>Βρέθηκε 1 πρόσωπο που πληροί τα στοιχεία αναζήτησης σε αίτηση</h3>
+        }
+        else
+        {
+            if (Model.Results.Count == Model.Total)
+            {
+                <h3>Βρέθηκαν @Model.Total.ToString("#,##0") πρόσωπα που πληρούν τα στοιχεία αναζήτησης σε αιτήσεις (σε φθίνουσα σειρά)</h3>
+            }
+            else
+            {
+                <h3>Βρέθηκαν @Model.Total.ToString("#,##0") πρόσωπα που πληρούν τα στοιχεία αναζήτησης, εμφανίζονται οι @Model.Results.Count.ToString("#,##0") πιο πρόσφατες εγγραφές (σε φθίνουσα σειρά)</h3>
+            }
+        }
+
+
+        @Html.Partial("_SearchResultTable", Model)
+    }
+}
+else if (IsPost && Model.HasResults)
+{
+    <h3>Δεν βρέθηκαν πρόσωπα με τα κριτήρια που επιλέξατε στις αιτήσεις</h3>
+
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function keypressHandler(e) {
+            if (e.which == 13) {
+                e.preventDefault(); //stops default action: submitting form
+                $(this).blur();
+                $('#SearchApplicationsBtn').focus().click();
+            }
+            $('#searchForm').keypress(keypressHandler);
+        });        
+    </script>
+}
+

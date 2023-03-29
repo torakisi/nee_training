@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:tns="http://gsis.ggps.interoperability/ErganiInterface" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="erganiInterface" targetNamespace="http://gsis.ggps.interoperability/ErganiInterface" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy xmlns:wssecurity="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" wssecurity:Id="Http-UsernameToken-Policy">
+    <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+      <wsp:Policy>
+        <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+          <wsp:Policy />
+        </sp:UsernameToken>
+      </wsp:Policy>
+    </sp:SupportingTokens>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://gsis.ggps.interoperability/ErganiInterface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="checkSynergasiaEntryEmplRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="checkSynergasiaEntryEmplInputRecord" type="tns:checkSynergasiaEntryEmplInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="auditRecord">
+        <xs:sequence>
+          <xs:element name="auditTransactionId" type="xs:string" />
+          <xs:element name="auditTransactionDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="auditUnit" type="xs:string" />
+          <xs:element minOccurs="0" name="auditProtocol" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserId" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserIp" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkSynergasiaEntryEmplInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkSynergasiaEntryEmplResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="checkSynergasiaEntryEmplOutputRecord" type="tns:checkSynergasiaEntryEmplReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkSynergasiaEntryEmplReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" name="synergasia" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="errorRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="errorCode" type="xs:string" />
+          <xs:element minOccurs="0" name="errorDescr" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkSynergasiaEntryEgdixRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="checkSynergasiaEntryEgdixInputRecord" type="tns:checkSynergasiaEntryEgdixInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkSynergasiaEntryEgdixInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkSynergasiaEntryEgdixResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="checkSynergasiaEntryEgdixOutputRecord" type="tns:checkSynergasiaEntryEgdixReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="checkSynergasiaEntryEgdixReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" name="synergasia" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmployerForEodyRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getEmployerForEodyInputRecord" type="tns:getEmployerForEodyInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmployerForEodyInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmployerForEodyResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getEmployerForEodyOutputRecord" type="tns:getEmployerForEodyReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmployerForEodyReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" name="doc" type="tns:currentOver20Array" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="currentOver20Array">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="currentOver20" type="tns:currentOver20Record" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="currentOver20Record">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="employerTaxNumber" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmploymentRelationshipRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getEmploymentRelationshipInputRecord" type="tns:getEmploymentRelationshipInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmploymentRelationshipInput">
+        <xs:sequence>
+          <xs:element name="refdate" type="xs:string" />
+          <xs:element name="afm" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmploymentRelationshipResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getEmploymentRelationshipOutputRecord" type="tns:getEmploymentRelationshipReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmploymentRelationshipReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" name="doc" type="tns:sev01Array" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sev01Array">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="sev" nillable="true" type="tns:sev01Record" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sev01Record">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="kind" type="xs:int" />
+          <xs:element minOccurs="0" name="typos" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmploymentRelationshipEgdixRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getEmploymentRelationshipEgdixInputRecord" type="tns:getEmploymentRelationshipEgdixInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmploymentRelationshipEgdixInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmploymentRelationshipEgdixResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getEmploymentRelationshipEgdixOutputRecord" type="tns:getEmploymentRelationshipEgdixReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmploymentRelationshipEgdixReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" name="doc" type="tns:supportArray" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="supportArray">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="support" nillable="true" type="tns:supportRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="supportRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="afm" type="xs:string" />
+          <xs:element minOccurs="0" name="supporttype" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmployeeRelationRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getEmployeeRelationInputRecord" type="tns:getEmployeeRelationInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmployeeRelationInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmployeeRelationResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getEmployeeRelationOutputRecord" type="tns:getEmployeeRelationReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEmployeeRelationReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" name="doc" type="tns:currentArray" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="currentArray">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="current" nillable="true" type="tns:currentRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="currentRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="employerTaxNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="employerName" type="xs:string" />
+          <xs:element minOccurs="0" name="employeeTaxNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="employeeSalary" type="xs:decimal" />
+          <xs:element minOccurs="0" name="employeeHourSalary" type="xs:decimal" />
+          <xs:element minOccurs="0" name="employeeWeekHours" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="checkSynergasiaEntryEmplRequest" nillable="true" type="tns:checkSynergasiaEntryEmplRequest" />
+      <xs:element name="checkSynergasiaEntryEmplResponse" nillable="true" type="tns:checkSynergasiaEntryEmplResponse" />
+      <xs:element name="checkSynergasiaEntryEgdixRequest" nillable="true" type="tns:checkSynergasiaEntryEgdixRequest" />
+      <xs:element name="checkSynergasiaEntryEgdixResponse" nillable="true" type="tns:checkSynergasiaEntryEgdixResponse" />
+      <xs:element name="getEmployerForEodyRequest" nillable="true" type="tns:getEmployerForEodyRequest" />
+      <xs:element name="getEmployerForEodyResponse" nillable="true" type="tns:getEmployerForEodyResponse" />
+      <xs:element name="getEmploymentRelationshipRequest" nillable="true" type="tns:getEmploymentRelationshipRequest" />
+      <xs:element name="getEmploymentRelationshipResponse" nillable="true" type="tns:getEmploymentRelationshipResponse" />
+      <xs:element name="getEmploymentRelationshipEgdixRequest" nillable="true" type="tns:getEmploymentRelationshipEgdixRequest" />
+      <xs:element name="getEmploymentRelationshipEgdixResponse" nillable="true" type="tns:getEmploymentRelationshipEgdixResponse" />
+      <xs:element name="getEmployeeRelationRequest" nillable="true" type="tns:getEmployeeRelationRequest" />
+      <xs:element name="getEmployeeRelationResponse" nillable="true" type="tns:getEmployeeRelationResponse" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getEmployeeRelation">
+    <wsdl:part name="getEmployeeRelationRequest" element="tns:getEmployeeRelationRequest" />
+  </wsdl:message>
+  <wsdl:message name="getEmploymentRelationshipResponse">
+    <wsdl:part name="getEmploymentRelationshipResponse" element="tns:getEmploymentRelationshipResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEmploymentRelationship">
+    <wsdl:part name="getEmploymentRelationshipRequest" element="tns:getEmploymentRelationshipRequest" />
+  </wsdl:message>
+  <wsdl:message name="getEmployeeRelationResponse">
+    <wsdl:part name="getEmployeeRelationResponse" element="tns:getEmployeeRelationResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEmploymentRelationshipEgdixResponse">
+    <wsdl:part name="getEmploymentRelationshipEgdixResponse" element="tns:getEmploymentRelationshipEgdixResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkSynergasiaEntryEgdixResponse">
+    <wsdl:part name="checkSynergasiaEntryEgdixResponse" element="tns:checkSynergasiaEntryEgdixResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEmploymentRelationshipEgdix">
+    <wsdl:part name="getEmploymentRelationshipEgdixRequest" element="tns:getEmploymentRelationshipEgdixRequest" />
+  </wsdl:message>
+  <wsdl:message name="checkSynergasiaEntryEmplResponse">
+    <wsdl:part name="checkSynergasiaEntryEmplResponse" element="tns:checkSynergasiaEntryEmplResponse" />
+  </wsdl:message>
+  <wsdl:message name="checkSynergasiaEntryEgdix">
+    <wsdl:part name="checkSynergasiaEntryEgdixRequest" element="tns:checkSynergasiaEntryEgdixRequest" />
+  </wsdl:message>
+  <wsdl:message name="checkSynergasiaEntryEmpl">
+    <wsdl:part name="checkSynergasiaEntryEmplRequest" element="tns:checkSynergasiaEntryEmplRequest" />
+  </wsdl:message>
+  <wsdl:message name="getEmployerForEodyResponse">
+    <wsdl:part name="getEmployerForEodyResponse" element="tns:getEmployerForEodyResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEmployerForEody">
+    <wsdl:part name="getEmployerForEodyRequest" element="tns:getEmployerForEodyRequest" />
+  </wsdl:message>
+  <wsdl:portType name="erganiInterface">
+    <wsdl:operation name="checkSynergasiaEntryEmpl">
+      <wsdl:input name="checkSynergasiaEntryEmpl" message="tns:checkSynergasiaEntryEmpl" />
+      <wsdl:output name="checkSynergasiaEntryEmplResponse" message="tns:checkSynergasiaEntryEmplResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="checkSynergasiaEntryEgdix">
+      <wsdl:input name="checkSynergasiaEntryEgdix" message="tns:checkSynergasiaEntryEgdix" />
+      <wsdl:output name="checkSynergasiaEntryEgdixResponse" message="tns:checkSynergasiaEntryEgdixResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getEmployerForEody">
+      <wsdl:input name="getEmployerForEody" message="tns:getEmployerForEody" />
+      <wsdl:output name="getEmployerForEodyResponse" message="tns:getEmployerForEodyResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getEmploymentRelationship">
+      <wsdl:input name="getEmploymentRelationship" message="tns:getEmploymentRelationship" />
+      <wsdl:output name="getEmploymentRelationshipResponse" message="tns:getEmploymentRelationshipResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getEmploymentRelationshipEgdix">
+      <wsdl:input name="getEmploymentRelationshipEgdix" message="tns:getEmploymentRelationshipEgdix" />
+      <wsdl:output name="getEmploymentRelationshipEgdixResponse" message="tns:getEmploymentRelationshipEgdixResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeeRelation">
+      <wsdl:input name="getEmployeeRelation" message="tns:getEmployeeRelation" />
+      <wsdl:output name="getEmployeeRelationResponse" message="tns:getEmployeeRelationResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="erganiInterfaceSoapBinding" type="tns:erganiInterface">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:operation name="checkSynergasiaEntryEgdix">
+      <soap:operation soapAction="checkSynergasiaEntryEgdix" style="document" />
+      <wsdl:input name="checkSynergasiaEntryEgdix">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="checkSynergasiaEntryEgdixResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkSynergasiaEntryEmpl">
+      <soap:operation soapAction="checkSynergasiaEntryEmpl" style="document" />
+      <wsdl:input name="checkSynergasiaEntryEmpl">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="checkSynergasiaEntryEmplResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmployerForEody">
+      <soap:operation soapAction="getEmployerForEody" style="document" />
+      <wsdl:input name="getEmployerForEody">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getEmployerForEodyResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmploymentRelationship">
+      <soap:operation soapAction="getEmploymentRelationship" style="document" />
+      <wsdl:input name="getEmploymentRelationship">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getEmploymentRelationshipResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmploymentRelationshipEgdix">
+      <soap:operation soapAction="getEmploymentRelationshipEgdix" style="document" />
+      <wsdl:input name="getEmploymentRelationshipEgdix">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getEmploymentRelationshipEgdixResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEmployeeRelation">
+      <soap:operation soapAction="getEmployeeRelation" style="document" />
+      <wsdl:input name="getEmployeeRelation">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getEmployeeRelationResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="erganiInterface">
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:port name="erganiInterfacePort" binding="tns:erganiInterfaceSoapBinding">
+      <soap:address location="https://test.gsis.gr/esbpilot/erganiService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

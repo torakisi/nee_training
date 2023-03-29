@@ -1,0 +1,83 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@{
+    var showExpanded = false;
+    string latestIbanInfo = "";
+    string readonlyClass = "";
+    if (Model.ApplicationContactInfo.LatestIbanChange != null)
+    {
+        try
+        {
+            latestIbanInfo = $"<hr /> <span>Τελευταία Ενημέρωση IBAN: <strong>{Model.ApplicationContactInfo.LatestIbanChange.ModifiedAt.ToShortDateString()} {Model.ApplicationContactInfo.LatestIbanChange.ModifiedAt.ToShortTimeString()}</strong> από <strong>{(String.IsNullOrEmpty(Model.ApplicationContactInfo.LatestIbanChange.OriginalValue) ? "κενή τιμή " : Model.ApplicationContactInfo.LatestIbanChange.OriginalValue)}</strong> σε <strong>{(String.IsNullOrEmpty(Model.ApplicationContactInfo.LatestIbanChange.CurrentValue) ? "κενή τιμή " : Model.ApplicationContactInfo.LatestIbanChange.CurrentValue)}</strong> </span>";
+        }
+        catch (Exception)
+        {
+        }
+
+    }
+    if (Model.State == NEE.Core.Contracts.Enumerations.AppState.Rejected || 
+        Model.State == NEE.Core.Contracts.Enumerations.AppState.Approved ||
+        Model.State == NEE.Core.Contracts.Enumerations.AppState.Canceled)
+    {
+        readonlyClass = "idika-readonly invisible";
+    }
+    var luxClass = "idika-readonly invisible";
+}
+<h3>Προσωπικά Στοιχεία Αιτούντος</h3>
+<fieldset>
+    <legend></legend>
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.LastName).FormGroup("col-md-4").ReadOnly()
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.LastNameBirth).FormGroup("col-md-4").ReadOnly()
+        <div class="@readonlyClass">
+            @Html.IdikaHtml().FieldFor(m => m.AddressInfo.Street).FormGroup("col-md-4")
+        </div>
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.FirstName).FormGroup("col-md-4").ReadOnly()
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.Nationality).FormGroup("col-md-4").ReadOnly()
+        <div class="@readonlyClass">
+            @Html.IdikaHtml().FieldFor(m => m.AddressInfo.StreetNumber).FormGroup("col-md-4")
+        </div>
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.FatherName).FormGroup("col-md-4").ReadOnly()
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.DateOfBirth).FormGroup("col-md-4").ReadOnly()
+        <div class="@readonlyClass">
+            @Html.IdikaHtml().FieldFor(m => m.AddressInfo.Zip).FormGroup("col-md-4")
+        </div>
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.MotherName).FormGroup("col-md-4").ReadOnly()
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.BirthCountry).FormGroup("col-md-4").ReadOnly()
+        <div class="@readonlyClass">
+            @Html.IdikaHtml().FieldFor(m => m.AddressInfo.PostalNumber).FormGroup("col-md-4")
+        </div>
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.AFM).FormGroup("col-md-4").ReadOnly()
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.IdDocument).FormGroup("col-md-4").ReadOnly()
+        @Html.IdikaHtml().FieldFor(m => m.AddressInfo.Municipality).FormGroup("col-md-4").ReadOnly()
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.AMKA).FormGroup("col-md-4").ReadOnly()
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.Passport).FormGroup("col-md-4").ReadOnly()
+    <div class="panel col-md-4" style="padding-left: 0px">
+        <div class="collapse-next" data-toggle="collapse-next" style="padding-left: 0px">
+            <div class="@luxClass">
+                @Html.IdikaHtml().FieldFor(m => m.AddressInfo.City).FormGroup("col-md-11")
+                <i style="padding-top: 30px; padding-right: 10px" class="fa @(showExpanded ? "fa-chevron-down" : "fa-chevron-right") pull-right"></i>
+            </div>
+        </div>
+        <div class="panel-collapse collapse @(showExpanded ? "in" : "")">
+            <div class="@luxClass">
+                @Html.IdikaHtml().FieldFor(m => m.AddressInfo.MunicipalUnit).FormGroup("col-md-12")
+                @Html.IdikaHtml().FieldFor(m => m.AddressInfo.Region).FormGroup("col-md-12")
+                @Html.IdikaHtml().FieldFor(m => m.AddressInfo.RegionalUnit).FormGroup("col-md-12")
+                @Html.IdikaHtml().FieldFor(m => m.AddressInfo.Commune).FormGroup("col-md-12")
+            </div>
+        </div>
+    </div>
+
+
+</fieldset>
+<fieldset>
+    <legend></legend>
+    <div class="@readonlyClass">
+        <div class="idika-field-form-group form-group">
+            @Html.IdikaHtml().FieldFor(m => m.ApplicationContactInfo.IBAN).FormGroup().InfoMessage($"Ο IBAN είναι υποχρεωτικός και πρέπει να ανήκει στον/ην αιτούντα/ούσα.{latestIbanInfo}").PrefixIcon("fa fa-credit-card fa-fw")
+            @Html.IdikaHtml().FieldFor(m => m.ApplicationContactInfo.Email).FormGroup().InfoMessage("Το email είναι ένα σημαντικό στοιχείο που θα επιτρέψει την επικοινωνία με τον/ην αιτούντα/ούσα. Παρακαλούμε συμπληρώστε το και βεβαιωθείτε ότι είναι σωστό.").PrefixIcon("fa fa-envelope fa-fw")
+            @Html.IdikaHtml().FieldFor(m => m.ApplicationContactInfo.HomePhone).FormGroup().InfoMessage("Παρακαλώ συμπληρώστε το τηλέφωνο της οικίας σας.").PrefixIcon("fa fa-phone fa-fw")
+            @Html.IdikaHtml().FieldFor(m => m.ApplicationContactInfo.MobilePhone).FormGroup().InfoMessage("Το κινητό τηλέφωνο είναι ένα σημαντικό στοιχείο που θα επιτρέψει την επικοινωνία με τον/ην αιτούντα/ούσα. Παρακαλούμε συμπληρώστε το και βεβαιωθείτε ότι είναι σωστό.").PrefixIcon("fa fa-mobile fa-fw")
+        </div>
+    </div>
+</fieldset>

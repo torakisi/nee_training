@@ -1,0 +1,107 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@{ 
+    var actionsDisabled = ((!Model.CanBeFinalSubmitted) || !ViewBag.CanEditResults);
+    var luxClass = "";
+    if (actionsDisabled)
+    {
+        luxClass = "idika-readonly invisible";
+    }
+}
+
+<h3>Ενέργειες Υποβολής</h3>
+<legend></legend>
+<div style="padding-bottom: 50px; padding-top: 20px" class="@luxClass">
+    <div class="idika-field-form-group form-group">
+        @Html.CheckBoxFor(m => m.DeclarationLaw1599, new { @checked = Model.DeclarationLaw1599 })
+        @Html.DisplayNameFor(m => m.DeclarationLaw1599)
+    </div>
+</div>
+<div class="btn-group">
+    <button disabled="@actionsDisabled" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Ενέργειες...">
+        <i class="glyphicon glyphicon"></i> Ενέργειες <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" style="background-color: whitesmoke;">
+        <li>
+            <div class="idika-form-action-button">
+                <button type="submit" name="command" value="ValidateSave" class="btn confirm" id="saveBtn"
+                        title="Μπορείτε να ελέγξετε αν έχετε συμπληρώσει σωστά την αίτηση σας πριν την υποβάλλετε. Η αίτησή σας θα αποθηκευτεί προσωρινά."
+                        confirm-dialog
+                        confirm-title="Αποθήκευση" confirm-prompt="η αίτηση σας θα αποθηκευτεί προσωρινά. Μπορείτε να την επιλέξετε από το μενού «οι αιτήσεις μου». Αν θέλετε να υποβάλλετε την αίτησή σας για έλεγχο επιλέξτε «υποβολή»."
+                        confirm-cancel-text="Άκυρο" confirm-ok-text="Οκ">
+                    <i class="glyphicon"></i> Αποθήκευση
+                </button>
+            </div>
+        </li>
+
+        @if (Model.CanBeFinalSubmitted && !Model.LockedByKK)
+        {
+            <li>
+                <div class="idika-form-action-button">
+                    <button type="submit" name="command" value="ValidateSaveFinalSubmit" class="btn confirm"
+                            title="Μπορείτε να υποβάλλετε την αίτησή σας για το επίδομα."
+                            confirm-dialog
+                            confirm-title="Οριστική Υποβολή" confirm-prompt="Η αίτηση σας θα υποβληθεί οριστικά. Συμβουλευτείτε τις επισημάνσεις πριν υποβάλλετε την αίτησή σας. ΔΕΝ ΣΥΝΙΣΤΑΤΑΙ ΥΠΟΒΟΛΗ ΑΝ ΥΠΑΡΧΟΥΝ ΑΙΤΙΕΣ ΜΗ ΕΓΚΡΙΣΗΣ."
+                            confirm-cancel-text="Άκυρο" confirm-ok-text="Υποβολή">
+                        <i class="glyphicon"></i> Υποβολή
+                    </button>
+                </div>
+            </li>
+        }
+
+        @if (Model.IsEditableApplication && !Model.IsInFinalStatus && !Model.LockedByKK)
+        {
+            <li>
+                <div class="idika-form-action-button">
+                    <button type="submit" name="command" value="CancelReturn" class="btn cancel" formnovalidate
+                            title="Μπορείτε να ακυρώσετε την αίτησή σας. Η αίτησή σας δεν θα αποθηκευτεί."
+                            confirm-cancel-dialog
+                            confirm-title="Ακύρωση" confirm-prompt="Θέλετε να γίνει Ακύρωση της αίτησης &quot;&lt;b&gt;@Model.Id&lt;/b&gt;&quot; ;<br /><br />Η αίτηση θα μεταβεί μόνιμα σε κατάσταση &quot;<b>Ακυρωμένη</b>&quot;.<br /><br /><div class=&quot;alert alert-danger&quot;>ΠΡΟΣΟΧΗ: η ενέργεια αυτή είναι ΑΜΕΤΑΚΛΗΤΗ.</div>Η δημιουργία νέας αίτησης παραμένει εφικτή από τη σχετική επιλογή του μενού."
+                            confirm-cancel-text="Πίσω στην Αίτηση" confirm-ok-text="Ακύρωση της Αίτησης">
+                        <i class="glyphicon"></i> Ακύρωση
+                    </button>
+                </div>
+            </li>
+        }
+
+        @if (Model.CanPrintWholeApplication)
+        {
+            <li>
+                <button id="btnPrint" type="submit" name="command" value="PrintWholeApplication" class="btn btn-primary" formnovalidate>
+                    <i class="glyphicon glyphicon-print"></i> Εκτύπωση
+                </button>
+
+                <a id="btnPrintApp" class="btn btn-primary" style="display:none" target="_blank" href="@Url.Action("PrintWholeApplication", "Printing", new { id = Model.Id })">
+                    <i class="glyphicon glyphicon-print"></i> Εκτύπωση
+                </a>
+            </li>
+        }
+        @*<li>
+                <div class="padding-top-5">
+                    <button id="btnPayments" type="submit" name="command" value="GoToPayments" class="btn btn-primary" formnovalidate>
+                        <i class="glyphicon glyphicon-euro"></i> Στοιχεία Πληρωμών
+                    </button>
+                </div>
+            </li>
+
+            @if (Model.IsNormalUser)
+            {
+                if (!string.IsNullOrEmpty(ViewBag.ReturnUrl))
+                {
+                    <li>
+                        <a href=@ViewBag.ReturnUrl class="btn btn-primary" role="button"><i class="fa fa-reply"></i> Επιστροφή</a>
+                    </li>
+                }
+
+                @Html.HiddenFor(m => m.ReturnUrl)
+            }
+            else
+            {
+                <li>
+                    <div style="padding-top: 5px; width: 250px;">
+                        <button type="submit" name="command" value="BackInManageApplications" class="btn btn-primary" formnovalidate><i class="fa fa-reply"></i> Επιστροφή</button>
+                    </div>
+                </li>
+            }*@
+    </ul>
+</div>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:tns="http://gsis.ggps.interoperability/notificationCenterElementsInterface" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="notificationCenterElementsInterface" targetNamespace="http://gsis.ggps.interoperability/notificationCenterElementsInterface" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy xmlns:wssecurity="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" wssecurity:Id="Http-UsernameToken-Policy">
+    <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+      <wsp:Policy>
+        <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+          <wsp:Policy />
+        </sp:UsernameToken>
+      </wsp:Policy>
+    </sp:SupportingTokens>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://gsis.ggps.interoperability/notificationCenterElementsInterface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="getNncIdentityExtRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getNncIdentityExtInputRecord" type="tns:getNncIdentityExtInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="auditRecord">
+        <xs:sequence>
+          <xs:element name="auditTransactionId" type="xs:string" />
+          <xs:element name="auditTransactionDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="auditUnit" type="xs:string" />
+          <xs:element minOccurs="0" name="auditProtocol" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserId" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserIp" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNncIdentityExtInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNncIdentityExtResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getNncIdentityExtOutputRecord" type="tns:getNncIdentityExtReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNncIdentityExtReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="countryCode" type="xs:string" />
+          <xs:element minOccurs="0" name="countryDescr" type="xs:string" />
+          <xs:element minOccurs="0" name="addressStreet" type="xs:string" />
+          <xs:element minOccurs="0" name="addressNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="addressCity" type="xs:string" />
+          <xs:element minOccurs="0" name="addressZipCode" type="xs:string" />
+          <xs:element minOccurs="0" name="region" type="xs:string" />
+          <xs:element minOccurs="0" name="regionalUnit" type="xs:string" />
+          <xs:element minOccurs="0" name="municipality" type="xs:string" />
+          <xs:element minOccurs="0" name="municipalUnit" type="xs:string" />
+          <xs:element minOccurs="0" name="commune" type="xs:string" />
+          <xs:element minOccurs="0" name="locality" type="xs:string" />
+          <xs:element minOccurs="0" name="telephone" type="xs:string" />
+          <xs:element minOccurs="0" name="countryCode2" type="xs:string" />
+          <xs:element minOccurs="0" name="countryDescr2" type="xs:string" />
+          <xs:element minOccurs="0" name="addressStreet2" type="xs:string" />
+          <xs:element minOccurs="0" name="addressNumber2" type="xs:string" />
+          <xs:element minOccurs="0" name="addressCity2" type="xs:string" />
+          <xs:element minOccurs="0" name="addressZipCode2" type="xs:string" />
+          <xs:element minOccurs="0" name="region2" type="xs:string" />
+          <xs:element minOccurs="0" name="regionalUnit2" type="xs:string" />
+          <xs:element minOccurs="0" name="municipality2" type="xs:string" />
+          <xs:element minOccurs="0" name="municipalUnit2" type="xs:string" />
+          <xs:element minOccurs="0" name="commune2" type="xs:string" />
+          <xs:element minOccurs="0" name="locality2" type="xs:string" />
+          <xs:element minOccurs="0" name="telephone2" type="xs:string" />
+          <xs:element minOccurs="0" name="mobile" type="xs:string" />
+          <xs:element minOccurs="0" name="email" type="xs:string" />
+          <xs:element minOccurs="0" name="epikForeisFlag" type="xs:string" />
+          <xs:element minOccurs="0" name="epidForeisFlag" type="xs:string" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="errorRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="errorCode" type="xs:string" />
+          <xs:element minOccurs="0" name="errorDescr" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNncIdentityRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getNncIdentityInputRecord" type="tns:getNncIdentityInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNncIdentityInput">
+        <xs:sequence>
+          <xs:element name="afm" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNncIdentityResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getNncIdentityOutputRecord" type="tns:getNncIdentityReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getNncIdentityReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="countryCode" type="xs:string" />
+          <xs:element minOccurs="0" name="countryDescr" type="xs:string" />
+          <xs:element minOccurs="0" name="addressStreet" type="xs:string" />
+          <xs:element minOccurs="0" name="addressNumber" type="xs:string" />
+          <xs:element minOccurs="0" name="addressCity" type="xs:string" />
+          <xs:element minOccurs="0" name="addressZipCode" type="xs:string" />
+          <xs:element minOccurs="0" name="telephone" type="xs:string" />
+          <xs:element minOccurs="0" name="countryCode2" type="xs:string" />
+          <xs:element minOccurs="0" name="countryDescr2" type="xs:string" />
+          <xs:element minOccurs="0" name="addressStreet2" type="xs:string" />
+          <xs:element minOccurs="0" name="addressNumber2" type="xs:string" />
+          <xs:element minOccurs="0" name="addressCity2" type="xs:string" />
+          <xs:element minOccurs="0" name="addressZipCode2" type="xs:string" />
+          <xs:element minOccurs="0" name="telephone2" type="xs:string" />
+          <xs:element minOccurs="0" name="mobile" type="xs:string" />
+          <xs:element minOccurs="0" name="email" type="xs:string" />
+          <xs:element minOccurs="0" name="epikForeisFlag" type="xs:string" />
+          <xs:element minOccurs="0" name="epidForeisFlag" type="xs:string" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getNncIdentityExtRequest" nillable="true" type="tns:getNncIdentityExtRequest" />
+      <xs:element name="getNncIdentityExtResponse" nillable="true" type="tns:getNncIdentityExtResponse" />
+      <xs:element name="getNncIdentityRequest" nillable="true" type="tns:getNncIdentityRequest" />
+      <xs:element name="getNncIdentityResponse" nillable="true" type="tns:getNncIdentityResponse" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getNncIdentityExtResponse">
+    <wsdl:part name="getNncIdentityExtResponse" element="tns:getNncIdentityExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="getNncIdentityExt">
+    <wsdl:part name="getNncIdentityExtRequest" element="tns:getNncIdentityExtRequest" />
+  </wsdl:message>
+  <wsdl:message name="getNncIdentity">
+    <wsdl:part name="getNncIdentityRequest" element="tns:getNncIdentityRequest" />
+  </wsdl:message>
+  <wsdl:message name="getNncIdentityResponse">
+    <wsdl:part name="getNncIdentityResponse" element="tns:getNncIdentityResponse" />
+  </wsdl:message>
+  <wsdl:portType name="notificationCenterElementsInterface">
+    <wsdl:operation name="getNncIdentityExt">
+      <wsdl:input name="getNncIdentityExt" message="tns:getNncIdentityExt" />
+      <wsdl:output name="getNncIdentityExtResponse" message="tns:getNncIdentityExtResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getNncIdentity">
+      <wsdl:input name="getNncIdentity" message="tns:getNncIdentity" />
+      <wsdl:output name="getNncIdentityResponse" message="tns:getNncIdentityResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="notificationCenterElementsInterfaceSoapBinding" type="tns:notificationCenterElementsInterface">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:operation name="getNncIdentityExt">
+      <soap:operation soapAction="getNncIdentityExt" style="document" />
+      <wsdl:input name="getNncIdentityExt">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getNncIdentityExtResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNncIdentity">
+      <soap:operation soapAction="getNncIdentity" style="document" />
+      <wsdl:input name="getNncIdentity">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getNncIdentityResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="notificationCenterElementsInterface">
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:port name="notificationCenterElementsInterfacePort" binding="tns:notificationCenterElementsInterfaceSoapBinding">
+      <soap:address location="https://test.gsis.gr/esbpilot/notificationCenterElementsService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

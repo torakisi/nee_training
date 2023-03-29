@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://www.idika.gov.gr/AMKAWEBSERVICES/AFM2DATA/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://www.idika.gov.gr/AMKAWEBSERVICES/AFM2DATA/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="https://www.idika.gov.gr/AMKAWEBSERVICES/AFM2DATA/">
+      <s:element name="AFM2D">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user_ed" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password_ed" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amka" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="afm" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AFM2DResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AFM2DResult" type="tns:WS_Response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WS_Response">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="STATUS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MESSAGE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RECORDS" type="tns:ArrayOfDetails" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Details" nillable="true" type="tns:Details" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Details">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AMKA_ARXIKOS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AMKA_ISXYWN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EPWN_GEN_GR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EPWN_GEN_LAT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EPWN_TREX_GR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EPWN_TREX_LAT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ONOM_GR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ONOM_LAT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PATR_GR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PATR_LAT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KWD_FYLOY" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HMNIA_GEN" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="XWRA_GR_GEN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="XWRA_GR_YPHKOOT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ARIQ_TAYTOT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KWD_EIDOYS_TAYTOT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KWD_PLASM_HMNIAS_GEN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DHMOS_GEN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KWD_NOMOY_GEN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MHTR_GR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MHTR_LAT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EPWN_SYZYGOY_GR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EPWN_SYZYGOY_LAT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ONOM_SYZYGOY_GR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ONOM_SYZYGOY_LAT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ODOS_ARIQ_DIEYQ" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TAXYKWD" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DHMOS_DIEYQ" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KWD_NOMOY_DIEYQ" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="XWRA_GR_DIEYQ" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="THLEF1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="THLEF2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AFM" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="END_QANATOY" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HMNIA_QANATOY" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ETOS_EKDOSHS_TAYTOT" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="HMNIA_KATAXWR" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="HMNIA_METAB" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="EMMESA_MELH">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user_ed" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password_ed" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amka" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EMMESA_MELHResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EMMESA_MELHResult" type="tns:WS_Melh_Response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WS_Melh_Response">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="STATUS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MESSAGE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RECORDS" type="tns:ArrayOfMelh_Details" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMelh_Details">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Melh_Details" nillable="true" type="tns:Melh_Details" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Melh_Details">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PARENT_AMKA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MEMBER_AMKA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MEMBER_TYPE" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FIND_AMESA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user_ed" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password_ed" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amka" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FIND_AMESAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FIND_AMESAResult" type="tns:WS_Melh_Response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AFM2DSoapIn">
+    <wsdl:part name="parameters" element="tns:AFM2D" />
+  </wsdl:message>
+  <wsdl:message name="AFM2DSoapOut">
+    <wsdl:part name="parameters" element="tns:AFM2DResponse" />
+  </wsdl:message>
+  <wsdl:message name="EMMESA_MELHSoapIn">
+    <wsdl:part name="parameters" element="tns:EMMESA_MELH" />
+  </wsdl:message>
+  <wsdl:message name="EMMESA_MELHSoapOut">
+    <wsdl:part name="parameters" element="tns:EMMESA_MELHResponse" />
+  </wsdl:message>
+  <wsdl:message name="FIND_AMESASoapIn">
+    <wsdl:part name="parameters" element="tns:FIND_AMESA" />
+  </wsdl:message>
+  <wsdl:message name="FIND_AMESASoapOut">
+    <wsdl:part name="parameters" element="tns:FIND_AMESAResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="AFM2D">
+      <wsdl:input message="tns:AFM2DSoapIn" />
+      <wsdl:output message="tns:AFM2DSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EMMESA_MELH">
+      <wsdl:input message="tns:EMMESA_MELHSoapIn" />
+      <wsdl:output message="tns:EMMESA_MELHSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FIND_AMESA">
+      <wsdl:input message="tns:FIND_AMESASoapIn" />
+      <wsdl:output message="tns:FIND_AMESASoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AFM2D">
+      <soap:operation soapAction="https://www.idika.gov.gr/AMKAWEBSERVICES/AFM2DATA/AFM2D" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EMMESA_MELH">
+      <soap:operation soapAction="https://www.idika.gov.gr/AMKAWEBSERVICES/AFM2DATA/EMMESA_MELH" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FIND_AMESA">
+      <soap:operation soapAction="https://www.idika.gov.gr/AMKAWEBSERVICES/AFM2DATA/FIND_AMESA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AFM2D">
+      <soap12:operation soapAction="https://www.idika.gov.gr/AMKAWEBSERVICES/AFM2DATA/AFM2D" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EMMESA_MELH">
+      <soap12:operation soapAction="https://www.idika.gov.gr/AMKAWEBSERVICES/AFM2DATA/EMMESA_MELH" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FIND_AMESA">
+      <soap12:operation soapAction="https://www.idika.gov.gr/AMKAWEBSERVICES/AFM2DATA/FIND_AMESA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://www.idika.gov.gr/webservices/amka/AFM2DATA/Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="http://www.idika.gov.gr/webservices/amka/AFM2DATA/Service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

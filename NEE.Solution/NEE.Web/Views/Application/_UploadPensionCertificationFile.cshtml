@@ -1,0 +1,94 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@{
+    Layout = null;
+}
+
+<fieldset>
+    <div class="form-group col-md-12">
+        <input type="file" accept="application/pdf" id="uploadFile" name="FileUpload" class="file" style="visibility:hidden">
+        <div class="input-group col-xs-12">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>
+            <input type="text" class="form-control" disabled placeholder="Επιλογή αρχείου">
+            <span class="input-group-btn">
+                <button class="browse btn btn-primary" type="button" disabled="@Model.FileUploadDisabled"><i class="fa fa-upload"></i> Προσθήκη</button>
+            </span>
+        </div>
+        @Model.PensionDocumentAlbaniaName
+    </div>
+    <div class="form-group">
+        <div class="col-md-12" style="padding-left: 230px;">
+            <button type="submit" name="command" value="PensionAlbaniaUpload" id="uploadBtn" disabled class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Αποθήκευση</button>
+        </div>
+    </div>
+
+    @if (Model.PensionDocumentAlbaniaId != null)
+    {
+        <div class="form-group">
+            <div class="col-md-12" style="padding-left: 255px; padding-top: 15px">
+                <button type="submit" CausesValidation="False" name="command" value="FileDownload" id="PensionDocumentAlbaniaName" class="btn btn-primary" onclick="window.open('@Url.Action("GetDocumentById", "Application", new {appId = Model.Id, fileId = Model.PensionDocumentAlbaniaId })')"><i class="glyphicon glyphicon-download"></i> Προβολή</button>
+            </div>
+        </div>
+        if (Model.IsAdminUser && Model.IsPensionAlbaniaDocumentApproved == null && ViewBag.CanEditResults && Model.CanBeFinalSubmitted)
+        {
+            <div class="form-group">
+                <div class="col-md-12" style="padding-left: 279px; padding-top: 15px">
+                    <button type="submit" name="command" value="ApprovePensionAlbania" id="approveBtn"
+                            class="btn btn-primary btn-success" title="Αποδοχή εγγράφου"
+                            confirm-dialog
+                            confirm-title="Αποδοχή εγγράφου" confirm-prompt="Είστε σίγουρος ότι έχετε καταχωρήσει τα σωστά στοιχεία σύμφωνα με τη βεβαίωση συνταξιοδότησης από Αλβανία;"
+                            confirm-cancel-text="Ακύρωση" confirm-ok-text="Οκ">
+                        <i class="glyphicon glyphicon-ok"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger cancel"
+                            data-toggle="modal"
+                            data-target="#rejectPensionAlbaniaModal"
+                            name="@Model.IsRequiredRejectReason" value="true">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </button>
+                </div>
+            </div>
+        }
+    }
+</fieldset>
+
+<div id="rejectPensionAlbaniaModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Απόρριψη εγγράφου</h4>
+            </div>
+            <div class="modal-body">
+
+                @Html.HiddenFor(m => m.ReturnUrl)
+                Παρακαλώ συμπληρώστε αιτία απόρριψης
+                <br>
+                <br>
+
+                <div id="errorMessageReject" class="alert alert-warning hidden">
+                    <font color="black"><i class="glyphicon glyphicon-warning-sign"></i> <b>Παρακαλώ συμπληρώστε αιτία απόρριψης!</b></font>
+                </div>
+
+                <div>
+
+                    @Html.TextAreaFor(m => m.PensionRejectionReason, 3, 400, new { @id = "pensionRejectionReason", maxlength = 500, @class = "form-control", required = "required", data_val_required = "test", data_val = "true", value = "" })
+                    @Html.ValidationMessageFor(m => m.PensionRejectionReason, "", new { @class = "text-danger  " })
+                </div>
+                <i>μέχρι 500 χαρακτήρες</i>
+
+                <br>
+                <br>
+
+                <div class="alert alert-danger">Η αιτία απόρριψης είναι <b>υποχρεωτική</b>.</div>
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ακύρωση</button>
+                <button id="rejectBtn" type="submit" class="btn btn-danger cancel" name="command" value="RejectPensionAlbania">
+                    <i class="glyphicon glyphicon-remove"></i> Απόρριψη εγγράφου
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

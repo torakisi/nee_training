@@ -1,0 +1,36 @@
+﻿@model NEE.Web.Models.Payments.PaymentsViewModel
+
+@using NEE.Core
+@using NEE.Web.Models.Core
+
+@{
+
+}
+
+@using (Html.BeginForm("InsertPistosiXreosi", "Payments", FormMethod.Post, new { @id = "InsertPistosiXreosiForm" }))
+{
+    if (Model.InsertPistosiXreosiFormData.ServiceResultSuccess)
+    {
+        <div class="alert alert-success" id="successAlertDiv">
+            Η εισαγωγή ήταν επιτυχής.
+        </div>
+    }
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <fieldset>
+        <input name="Id" type="hidden" value="@Model.Id" />
+        <input name="AFM" type="hidden" value="@Model.AFM" />
+        <input name="InsertPistosiXreosiFormData.PaymentTransactionType" type="hidden" value="@Model.InsertPistosiXreosiFormData.PaymentTransactionType" />
+
+        @Html.IdikaHtml().FieldFor(m => m.InsertPistosiXreosiFormData.AFM).ReadOnly(true).FormGroup("col-md-6")
+        @Html.IdikaHtml().FieldFor(m => m.InsertPistosiXreosiFormData.Id).ReadOnly(true).FormGroup("col-md-6")
+
+        @Html.IdikaHtml().FieldFor(m => m.InsertPistosiXreosiFormData.Reason).FormGroup("col-md-12")
+        @Html.IdikaHtml().FieldFor(m => m.InsertPistosiXreosiFormData.Amount).FormGroup("col-md-12").PrefixIcon("glyphicon glyphicon-euro")
+    </fieldset>
+}
+
+
+

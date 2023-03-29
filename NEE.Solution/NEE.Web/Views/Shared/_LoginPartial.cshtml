@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNet.Identity
+@using NEE.Core.Security
+
+@if (Request.IsAuthenticated)
+{
+	
+	using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+	{
+		@Html.AntiForgeryToken()
+
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<span style="line-height: 21px; position: relative; display: block; padding: 10px 15px; padding-top: 12px; padding-bottom: 12px; color:azure">
+					<i class="fa fa-user"></i> @User.Identity.GetNEEUserDisplayName()
+				</span>
+			</li>
+			<li><a href="javascript:document.getElementById('logoutForm').submit()">Έξοδος</a></li>
+		</ul>
+	}
+}
+else
+{
+	<ul class="nav navbar-nav navbar-right">
+
+		<li>@Html.ActionLink("Είσοδος με διαπιστευτήρια TaxisNet", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
+
+	</ul>
+}
+@*<div class="pull-right" style="margin-right: 5px;">
+		@Html.EnvironmentInfo()
+		@if (Html.IsDEBUG())
+		{
+			<div style="text-align: center; background-color: red; font-size: large; margin: 4px; border: 1px solid black;">
+				@Html.ActionLink("DEBUG-TEST", "Index", "DebugTest") :
+				<strong title="WARNING: this is the current DB schema/user you are using!">@Html.ConnectionStringInfo()</strong>
+			</div>
+		}
+		@*else if (Html.IsStaging() && Request.IsAuthenticated && (User.IsInRole("DEV_Team") || User.IsInRole("Administrators")))
+		{
+			<div style="text-align: center; background-color: red; font-size: large; margin: 4px; border: 1px solid black;">
+				@Html.ActionLink("STAGING-TEST", "Index", "DebugTest") : <strong title="WARNING: this is the current DB schema/user you are using!">@Html.ConnectionStringInfo()</strong>
+			</div>
+		}
+	</div>*@

@@ -1,0 +1,40 @@
+﻿@using NEE.Core.Security
+@if (Request.IsAuthenticated)
+{
+
+    using (Html.BeginForm("LogOff", "AdminAccount", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <span style="line-height: 21px; position: relative; display: block; padding: 10px 15px; padding-top: 12px; padding-bottom: 12px; color:azure">
+                    <i class="fa fa-user"></i> @*@User.Identity.GetNEEUserDisplayName()*@
+                    @if (User.Identity.GetNEEUserType() == NEEUserHelper.NEEUserType.Normal)
+                    {
+                        @Html.ActionLink(User.Identity.GetNEEUserDisplayName(), "Index", "Manage", null, new { Style = "color:White" })
+                    }
+                    else
+                    {
+                        @User.Identity.GetNEEUserDisplayName()
+                    }
+                </span>
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Έξοδος</a></li>
+        </ul>
+    }
+
+    @*<script>
+            appInsights.setAuthenticatedUserContext("@(User.Identity.GetNEEUserName())");
+        </script>*@
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Σύνδεση", "Login", "AdminAccount", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+
+    @*<script>
+            appInsights.clearAuthenticatedUserContext();
+        </script>*@
+}

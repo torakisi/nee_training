@@ -1,0 +1,15 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@using NEE.Web.Models.Core;
+
+<ul>
+    @foreach (RemarkViewModel remark in Model.Remarks.OrderByDescending(x => x.Severity))
+    {
+        if (remark.ReasonForNoApproval)
+        {
+            <li>
+                @remark.Message
+            </li>
+        }
+    }
+</ul>

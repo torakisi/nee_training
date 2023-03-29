@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D546B4F7-8069-41C6-BE8E-9551BE8DB05A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NEE.Core</RootNamespace>
+    <AssemblyName>NEE.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BO\Application.cs" />
+    <Compile Include="BO\ApplicationLog.cs" />
+    <Compile Include="BO\ApplicationOwner.cs" />
+    <Compile Include="BO\ApplicationParticipation.cs" />
+    <Compile Include="BO\CanCreateNewResult.cs" />
+    <Compile Include="BO\ChangeLog.cs" />
+    <Compile Include="BO\Faq.cs" />
+    <Compile Include="BO\ErrorLog.cs" />
+    <Compile Include="BO\Metadata\AddressBase.cs" />
+    <Compile Include="BO\PaymentsWebView.cs" />
+    <Compile Include="BO\PaymentTransactions.cs" />
+    <Compile Include="BO\Person.cs" />
+    <Compile Include="BO\AppFile.cs" />
+    <Compile Include="BO\Remark.cs" />
+    <Compile Include="BO\SearchApplication.cs" />
+    <Compile Include="BO\StateChange.cs" />
+    <Compile Include="BO\ZipCodes.cs" />
+    <Compile Include="Contracts\Enumerations\AppRenewalStatus.cs" />
+    <Compile Include="Contracts\Enumerations\OpekaDistricts.cs" />
+    <Compile Include="Contracts\Enumerations\AppState.cs" />
+    <Compile Include="Contracts\Enumerations\ChangeLogTypes.cs" />
+    <Compile Include="Contracts\Enumerations\DeathStatus.cs" />
+    <Compile Include="Contracts\Enumerations\DocumentCategory.cs" />
+    <Compile Include="Contracts\Enumerations\ErrorCategory.cs" />
+    <Compile Include="Contracts\Enumerations\ErrorLogSource.cs" />
+    <Compile Include="Contracts\Enumerations\Gender.cs" />
+    <Compile Include="Contracts\Enumerations\GetApplicationUse.cs" />
+    <Compile Include="Contracts\Enumerations\IbanValidationServiceResult.cs" />
+    <Compile Include="Contracts\Enumerations\IdentificationNumberType.cs" />
+    <Compile Include="Contracts\Enumerations\MaritalStatus.cs" />
+    <Compile Include="Contracts\Enumerations\MemberRelationship.cs" />
+    <Compile Include="Contracts\Enumerations\MemberState.cs" />
+    <Compile Include="Contracts\Enumerations\PaymentResult.cs" />
+    <Compile Include="Contracts\Enumerations\PaymentTransactionType.cs" />
+    <Compile Include="Contracts\Enumerations\RemarkSelection.cs" />
+    <Compile Include="Contracts\Enumerations\RemarkType.cs" />
+    <Compile Include="Contracts\Enumerations\ServiceAction.cs" />
+    <Compile Include="Contracts\Enumerations\WebUIAction.cs" />
+    <Compile Include="Contracts\IErrorLogger.cs" />
+    <Compile Include="Contracts\NEEServiceRequestBase.cs" />
+    <Compile Include="Contracts\NEEServiceResponseBase.cs" />
+    <Compile Include="Contracts\NEESeverities.cs" />
+    <Compile Include="Contracts\XServiceBase.cs" />
+    <Compile Include="Contracts\XServiceRequestBase.cs" />
+    <Compile Include="Contracts\XServiceResponseBase.cs" />
+    <Compile Include="Exceptions\ApplicationMaintainanceModeException.cs" />
+    <Compile Include="Exceptions\XSRemoteCallFailed.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Helpers\AsyncHelper.cs" />
+    <Compile Include="Helpers\AttributeHelpers.cs" />
+    <Compile Include="Helpers\DecimalExtensions.cs" />
+    <Compile Include="Helpers\Email.cs" />
+    <Compile Include="Helpers\Iban.cs" />
+    <Compile Include="Helpers\INEEAppIdCreator.cs" />
+    <Compile Include="Helpers\MobilePhone.cs" />
+    <Compile Include="Helpers\WebServiceConnectionString.cs" />
+    <Compile Include="Helpers\Afm.cs" />
+    <Compile Include="Helpers\Amka.cs" />
+    <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\Option.cs" />
+    <Compile Include="Helpers\StringValueObject.cs" />
+    <Compile Include="Helpers\ValueObject.cs" />
+    <Compile Include="Helpers\DefaultDbSchemaHelper.cs" />
+    <Compile Include="Helpers\YearCounter.cs" />
+    <Compile Include="NEEConstants.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rules\ApplicationValidationRule.cs" />
+    <Compile Include="Rules\IRuleProvider.cs" />
+    <Compile Include="Rules\Rule.cs" />
+    <Compile Include="Rules\RuleProvider.cs" />
+    <Compile Include="Security\NEEAfmUserHelper.cs" />
+    <Compile Include="Security\INEECurrentUserContext.cs" />
+    <Compile Include="Security\NEEUserHelper.cs" />
+    <Compile Include="Time.cs" />
+    <Compile Include="Validation\NEEValidationAttributes.cs" />
+    <Compile Include="Validation\ServiceErrorMessages.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

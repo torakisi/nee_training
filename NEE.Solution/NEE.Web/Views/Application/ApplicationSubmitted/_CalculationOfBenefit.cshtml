@@ -1,0 +1,54 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@using NEE.Core;
+@using NEE.Core.Helpers
+
+@{
+    var baseAmount = NEEConstants.NEEAmountBasic;
+}
+
+<div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead style="background-color: aliceblue;">
+                <tr>
+                    <th scope="col"></th>
+                    <th style="text-align: center;" scope="col">Πλήθος</th>
+                    <th style="text-align: right;" scope="col">Ποσό</th>
+                    <th style="text-align: right;" scope="col">Σύνολο</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: left;">Ελάχιστο Ποσό επιδόματος</td>
+                    <td style="text-align: center;"></td>
+                    <td style="text-align: right;">@baseAmount.DisplayAsCurrencyAmountFormatted()</td>
+                    <td style="text-align: right;">@baseAmount.DisplayAsCurrencyAmountFormatted()</td>
+                </tr>
+                
+                <tr>
+                    <td>Τελικό Ποσό Επιδόματος</td>
+                    <td style="text-align: center;"></td>
+                    <td></td>
+                    <td style="text-align: right; font-weight: 800;">@Model.BenefitAmount.DisplayAsCurrencyAmountFormatted()</td>
+                </tr>
+            </tbody>
+            <tfoot style="background-color: lightgray">
+                
+            </tfoot>
+        </table>
+    </div>
+
+    <div>
+        <ul>
+            <li>
+                To ποσό των <span style="font-weight: 800">@Model.BenefitAmount.DisplayAsCurrencyAmountFormatted()</span> υπολογίζεται μηνιαία.
+            </li>
+            <li>
+                Το παραπάνω ποσό θα καταβάλλεται στο IBAN: <span style="font-weight: 800">@Model.ApplicationContactInfo.IBAN</span>
+            </li>
+        </ul>
+    </div>
+
+</div>
+

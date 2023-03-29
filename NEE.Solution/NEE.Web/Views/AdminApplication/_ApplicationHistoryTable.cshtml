@@ -1,0 +1,85 @@
+﻿@model NEE.Web.Models.AdminApplicationViewModels.FindViewModel
+
+@using NEE.Core
+@using NEE.Core.BO
+@using NEE.Web.Models.Core
+@using NEE.Core.Contracts
+
+@{
+
+    ViewBag.Title = "Αιτήσεις Επιδόματος Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας";
+
+}
+
+@using (Html.BeginForm("ManageApplications", "Application", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <h2 class="page-header">@ViewBag.Title</h2>
+
+    <table class="table table-hover table-bordered table-condensed table-responsive member-table">
+        <thead>
+            <tr class="bg-primary">
+                <th scope="col">Ημ/νια καταχώρησης</th>
+                <th scope="col">Κωδικός Αίτησης</th>
+                <th scope="col">Κατάσταση</th>
+                <th scope="col">Συμμετοχή στην Αίτηση</th>
+                <th scope="col">ΑΦΜ Αιτούντος/Αιτούσας</th>
+                <th scope="col">Ονοματεπώνυμο Αιτούντος/Αιτούσας</th>
+                <th scope="col">Επιπλέον Πληροφορίες</th>
+                <th scope="col">Ενέργειες</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Results.Applications.ApplicationOwner.GetActiveParticipations().Any())
+            {
+                foreach (ApplicationParticipation applicationParticipation in Model.Results.Applications.ApplicationOwner.GetActiveParticipations().OrderByDescending(x => x.CreatedAt))
+                {
+                    var rowClass = "";
+                    if (applicationParticipation.State == NEE.Core.Contracts.Enumerations.AppState.Canceled)
+                    {
+                        rowClass = "Deleted";
+                    }
+                    <tr class="@rowClass">
+                        <th scope="row" class="text-nowrap">@applicationParticipation.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")</th>
+                        <td class="text-nowrap">@applicationParticipation.ApplicationId</td>
+                        <td>@applicationParticipation.State.GetDisplayName()</td>
+                        <td>@applicationParticipation.Relationship.GetDisplayName()</td>
+                        <td>@applicationParticipation.ApplicantAFM</td>
+
+                        <td>@applicationParticipation.GetFullName</td>
+                        <td>
+                            
+                        </td>
+                        <td>
+
+                            @if (Model.Results.Applications.ApplicationOwner.CanEditApplication(applicationParticipation))
+                            {
+                                <button type="submit" name="command" value="EditApplication:@applicationParticipation.ApplicationId:@Model.GetUrlForFind()" class="btn btn-primary btn-xs btn-block" formnovalidate>
+                                    <i class="fa fa-edit"></i> Επεξεργασία
+                                </button>
+
+                            }
+                            else if (Model.Results.Applications.ApplicationOwner.CanViewApplication(applicationParticipation))
+                            {
+                                <button type="submit" name="command" value="ViewApplicationReadOnly:@applicationParticipation.ApplicationId:@Model.GetUrlForFind()" class="btn btn-primary btn-xs btn-block" formnovalidate>
+                                    <i class="fa fa-eye"></i> Προβολή
+                                </button>
+                            }                           
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8"> Δεν βρέθηκαν αιτήσεις που να σας αφορούν</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+}
+

@@ -1,0 +1,229 @@
+﻿@model NEE.Web.Models.Payments.PaymentsViewModel
+
+@using NEE.Core
+@using NEE.Web.Models.Core
+
+@{
+    ViewBag.Title = $"Στοιχεία Πληρωμών";
+
+    string returnUrl = null;
+
+    if (Model.CanGoBackToApplication)
+    {
+        returnUrl = Url.Action("Edit", "Application", new { Id = Model.Id }, protocol: Request.Url.Scheme);
+    }
+
+}
+
+@if (Model.CanGoBackToApplication)
+{
+    <a href=@returnUrl class="btn btn-primary" role="button" style="margin-bottom:20px;"><i class="fa fa-reply"></i> Επιστροφή</a>
+}
+
+@if (Model.CanPerformActions)
+{
+    using (Html.BeginForm("Search", "Payments", FormMethod.Post, new { @id = "searchPaymentsForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <fieldset>
+            <legend></legend>
+            @Html.IdikaHtml().FieldFor(m => m.AFM).FormGroup()
+            @Html.IdikaHtml().FieldFor(m => m.Id).FormGroup()
+
+            <button type="submit" id="searchBtn" class="btn btn-default pull-right">
+                <i class="fa fa-search"></i> Αναζήτηση
+            </button>
+
+        </fieldset>
+    }
+}
+
+
+<div style="margin-bottom: 20px">
+
+</div>
+
+@using (Html.BeginForm("", "Payments", FormMethod.Post, new { @id = "paymentsForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <h2 class="page-header">@ViewBag.Title</h2>
+
+    <table class="table table-hover table-bordered table-condensed table-responsive member-table">
+        <thead>
+            <tr>
+                <th style="text-align: center" scope="col">Αίτηση</th>
+                <th style="text-align: center" scope="col">ΑΦΜ</th>
+                <th style="text-align: center" scope="col">Αιτιολογία</th>
+                <th style="text-align: center" scope="col">Εκκαθάριση</th>
+                <th style="text-align: center" scope="col">Ποσό</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.PaymentTransactionsById.Any())
+            {
+                <tr>
+                    <td colspan="5" style="text-align: center">
+                        Δεν βρέθηκαν εγγραφές
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (KeyValuePair<string, List<PaymentTransactionsViewModel>> groupItem in Model.PaymentTransactionsById)
+                {
+                    <tr>
+                        <td colspan="5" style="font-weight: bold; background-color: antiquewhite">
+                            @groupItem.Key
+                        </td>
+                    </tr>
+
+                    foreach (PaymentTransactionsViewModel paymentTransactionView in groupItem.Value)
+                    {
+                        <tr style="text-align: center; @((paymentTransactionView.Type == NEE.Core.Contracts.Enumerations.PaymentTransactionType.Pistosi)?"background-color: #E1FAD9":"background-color: LightCoral")">
+                            <td>
+                                @paymentTransactionView.Id
+                            </td>
+                            <td>
+                                @paymentTransactionView.AFM
+                            </td>
+                            <td>
+                                @paymentTransactionView.Reason
+                            </td>
+                            <td>
+                                @if (paymentTransactionView.Confirmed)
+                                {
+                                    <i class="glyphicon glyphicon-ok" style="color: green;"></i>
+                                }
+                            </td>
+                            <td>
+                                @paymentTransactionView.Amount.FmtEuros()
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+
+
+        </tbody>
+        <tfoot>
+            @if (Model.CanPerformActions)
+            {
+                if (!string.IsNullOrEmpty(Model.AFM) || !string.IsNullOrEmpty(Model.Id))
+                {
+                    <tr>
+                        <td colspan="6" align="right">
+                            @if (Model.CanAddDebit)
+                            {
+                                <button type="button" id="xreosiBtn" class="btn btn-danger" formnovalidate data-toggle="modal" data-id="@Model.Id" data-afm="@Model.AFM" data-target="#xreosiPistosiModal">
+                                    <i class="fa fa-minus"></i> Χρέωση
+                                </button>
+                            }
+
+                            @if (Model.CanAddCredit)
+                            {
+                                <button type="button" id="pistosiBtn" class="btn btn-success" data-toggle="modal" data-id="@Model.Id" data-afm="@Model.AFM" data-target="#xreosiPistosiModal">
+                                    <i class="fa fa-plus"></i> Πίστωση
+                                </button>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tfoot>
+    </table>
+
+    @Html.Partial("Payments/_ApplicationPaymentsHistory", Model.PaymentsWebView)
+
+}
+
+
+<div id="xreosiPistosiModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="xreosiPistosiModalLabel">Χρέωση/Πίστωση</h4>
+            </div>
+            <div class="modal-body" id="xreosiPistosiModalBody">
+                @Html.Partial("_InsertPistosiXreosiForm", Model)
+            </div>
+            <div class="modal-footer">
+                <button id="submitXreosiPistosiButton" type="button" class="btn btn-danger cancel">
+                    <i id="submitXreosiPistosiActionDescriptionGlyphicon" class="fa"></i> <span id="submitXreosiPistosiActionDescription"></span>
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Άκυρο</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+		$(function () {
+			$('#xreosiBtn').off('click').on('click', function () {
+				var applicationId = $(this).data('id');
+				var afm = $(this).data('afm');
+				resetInsertXreosiPistosiForm(applicationId, afm, 2);
+				$('.modal-title').html('Προσθήκη Χρέωσης');
+				$('#submitXreosiPistosiActionDescription').html('Προσθήκη Χρέωσης');
+				$('#submitXreosiPistosiActionDescriptionGlyphicon').removeClass('fa-plus').addClass('fa-minus');
+
+				$('#submitXreosiPistosiButton').removeClass('btn-success').addClass('btn-danger');
+			});
+
+			$('#pistosiBtn').off('click').on('click', function () {
+				var applicationId = $(this).data('id');
+				var afm = $(this).data('afm');
+
+				resetInsertXreosiPistosiForm(applicationId, afm, 1);
+
+				$('.modal-title').html('Προσθήκη Πίστωσης');
+				$('#submitXreosiPistosiActionDescription').html('Προσθήκη Πίστωσης');
+				$('#submitXreosiPistosiActionDescriptionGlyphicon').removeClass('fa-minus').addClass('fa-plus');
+
+				$('#submitXreosiPistosiButton').removeClass('btn-danger').addClass('btn-success');
+			});
+
+			function resetInsertXreosiPistosiForm(applicationId, afm, type) {
+				$('#xreosiPistosiModalBody').html("");
+
+				$.ajax({
+					url: '@Html.Raw(@Url.Action("InsertPistosiXreosiForm", "Payments", new { afm = "__afm__", applicationId = "__applicationId__", paymentTransactionType = "__paymentTransactionType__"}))'
+						.replace("__applicationId__", applicationId)
+						.replace("__afm__", afm)
+						.replace("__paymentTransactionType__", type),
+					type: 'POST',
+				}).done(function (response) {
+					if (response.ResultSuccess == true) {
+						$('#xreosiPistosiModalBody').html(response.PartialViewResult);
+					}
+				});
+			}
+
+			$('#submitXreosiPistosiButton').off('click').on('click', function (event) {
+				event.preventDefault(); //prevent default action
+				var post_url = $("#InsertPistosiXreosiForm").attr("action"); //get form action url
+				var request_method = $("#InsertPistosiXreosiForm").attr("method"); //get form GET/POST method
+				var form_data = $("#InsertPistosiXreosiForm").serialize(); //Encode form elements for submission
+
+				$.ajax({
+					url: post_url,
+					type: request_method,
+					data: form_data
+				}).done(function (response) {
+					if (response.ResultSuccess == true) {
+						$('#searchPaymentsForm').submit();
+					} else {
+						$('#xreosiPistosiModalBody').html(response.PartialViewResult);
+					}
+				});
+			});
+		});
+    </script>
+}

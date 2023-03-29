@@ -1,0 +1,18 @@
+﻿@model Object
+
+@using NEE.Core
+
+@{
+	var htmlAttributesDefault = new { };
+	var htmlAttributesDefined = ViewData["htmlAttributes"] ?? new { };
+	var htmlAttributes = Html.MergeHtmlAttributes(htmlAttributesDefined, htmlAttributesDefault);
+	var value = ViewData.TemplateInfo.FormattedModelValue;
+	var text = value.ToString();
+
+	if (value.GetType() == typeof(bool)) { text = ((bool)value ? "<i class=\"fa fa-check-square\"></i> ΝΑΙ" : "<i class=\"fa fa-check-square-o\"></i> ΟΧΙ"); }
+	if (value.GetType().IsEnum)
+	{
+		text = ((Enum)value).GetDisplayName() ?? value.ToString();
+	}
+}
+<div class="form-control @htmlAttributes["class"] display-template-object">@Html.Raw(text)</div>

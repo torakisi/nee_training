@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Αρχική Σελίδα";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Εφαρμογή Υποβολής Αίτησης</h3>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <div class="hidden-xs hidden-sm">
+            <img src="~/Content/images/r_idika.png" />
+        </div>
+        <div class="hidden-md hidden-lg">
+            <img src="~/Content/images/r_idika300x.png" />
+        </div>
+        <br />
+        <br />
+        <div class="hidden-xs hidden-sm" style="padding-left:20px;padding-bottom:10px">
+            @Html.ActionLink("Είσοδος", "Login", "Account", new { afm = "", amka = "" }, new { @class = "btn btn-primary btn-entry-lg" })
+        </div>
+
+        <div class="hidden-md hidden-lg" style="padding-left:10px;padding-bottom:10px">
+            @Html.ActionLink("Είσοδος", "Login", "Account", new { afm = "", amka = "" }, new { @class = "btn btn-primary btn-entry-sm" })
+        </div>
+    </div>
+
+</div>

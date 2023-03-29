@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="Εφαρμογή Ηλεκτρονικών Αιτήσεων για το 'Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας'">
+    <meta name="keywords" content="Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας, Επίδομα Στέγασης, Επίδομα, Κοινωνικά Επιδόματα, Επίδομα Ενοικίου, Προνοιακό Επίδομα, ΗΔΙΚΑ, Ηλεκτρονική Διακυβέρνηση, Κοινωνική Ασφάλιση">
+    <title>@ViewBag.Title - Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας</title>
+
+
+    @Styles.Render("~/Content/css/font-awesome")
+    @Styles.Render("~/Content/kendo/2019.1.115/css")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">*@
+
+    <script>_js_root_url = "@(Url.Content("~/"))";</script>
+    @*<script type = 'text/javascript' >
+                var appInsights=window.appInsights||function(config)
+                {
+                        function r(config){ t[config] = function(){ var i = arguments; t.queue.push(function(){ t[config].apply(t, i)})} }
+                        var t = { config:config},u=document,e=window,o='script',s=u.createElement(o),i,f;for(s.src=config.url||'//az416426.vo.msecnd.net/scripts/a/ai.0.js',u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=['Event','Exception','Metric','PageView','Trace','Ajax'];i.length;)r('track'+i.pop());return r('setAuthenticatedUserContext'),r('clearAuthenticatedUserContext'),config.disableExceptionTracking||(i='onerror',r('_'+i),f=e[i],e[i]=function(config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t['_' + i](config, r, u, e, o),s}),t
+                }({
+                        instrumentationKey:'855f01e1-54d3-48be-9319-9d1fa7e0c0ba'
+                });
+
+                window.appInsights=appInsights;
+                appInsights.trackPageView();
+        </script>*@
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        @Html.Partial("_AppHeaderPartial")
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                        <div class="hb-logo-menu hidden-sm hidden-xs"></div>
+                        <div class="hb-logo-menu-sm hidden-md hidden-lg"></div>
+                    </a>
+                }
+                else 
+                { 
+                    <a class="navbar-brand" href="@Url.Action("ManageApplications", "Application")">
+                        <div class="hb-logo-menu hidden-sm hidden-xs"></div>
+                        <div class="hb-logo-menu-sm hidden-md hidden-lg"></div>
+                    </a>
+                }
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Οι Αιτήσεις μου", "ManageApplications", "Application")</li>
+                        <li>@Html.ActionLink("Στοιχεία Πληρωμών", "Index", "Payments")</li>
+                    }
+                    <li>@Html.ActionLink("Πληροφορίες", "Info", "Home")</li>
+                    @*<li>@Html.ActionLink("Σχετικά", "About", "Home")</li>*@
+                    <li>@Html.ActionLink("Συχνές Ερωτήσεις", "Faqs", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <br />
+    <div class="empty-space"></div>
+    @Html.Partial("_FooterPartial")
+    @Html.Partial("_LoaderPartial")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/neeApplication")
+    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/kendo")
+    @Scripts.Render("~/bundles/editSupport")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

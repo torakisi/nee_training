@@ -1,0 +1,35 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@using NEE.Core;
+@using NEE.Web.Models.Core;
+
+@{
+    var latestStateHistory = Model.ChangeStateLog
+        .Where(x => x.ChangedState == Model.State)
+        .OrderByDescending(x => x.ChangedAt)
+        .FirstOrDefault();
+}
+
+@if (latestStateHistory != null)
+{
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Ημερομηνία Αλλαγής
+                    </th>
+                    <th>
+                        Λόγος
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@latestStateHistory.ChangedAt.ToShortDateString()</td>
+                    <td>@latestStateHistory.ChangeReason</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+}

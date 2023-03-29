@@ -1,0 +1,144 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@using NEE.Core
+@using NEE.Web.Models.Core
+
+@{
+    var showExpanded = true;
+    var captionMsg = "";
+}
+
+<br />
+<br />
+<div class="application-user-info small">
+    <div class="panel panel-primary">
+        <div class="panel-heading collapse-next" data-toggle="collapse-next">
+            <span class="capt">Ιστορικό @captionMsg</span>
+            <span class="id_state">
+                <span class="id">@Model.Id </span>
+                <span class="state">@Model.State.GetDisplayName()</span>
+                @if (Model.BenefitAmount > 0)
+                {
+                    <span class="amount">@Html.DisplayFor(x => x.BenefitAmount)</span>
+                }
+            </span>
+            <i class="fa @(showExpanded ? "fa-chevron-down" : "fa-chevron-right") pull-right"></i>
+        </div>
+        <div class="panel-collapse collapse @(showExpanded ? "in" : "")">
+            <div class="panel-body">
+
+                <table class="table table-hover table-bordered table-condensed table-responsive member-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ημ/νία Μεταβολής</th>
+                            <th scope="col">Ημ/νία Αναφοράς</th>
+                            <th scope="col">Πράξη</th>
+                            <th scope="col">Χρήστης</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (ChangeStateHistoryModel change in Model.ChangeStateLog.OrderBy(x => x.ChangedAt).ThenBy(x => x.ChangedState))
+                        {
+                            <tr>
+                                <th scope="row">@change.ChangedAt.ToString("dd/MM/yyyy HH:mm:ss")</th>
+                                <td>@(change.ReferenceDate.HasValue ? change.ReferenceDate.Value.ToString("dd/MM/yyyy HH:mm:ss") : change.ChangedAt.ToString("dd/MM/yyyy HH:mm:ss"))</td>
+                                <td>
+                                    @change.ChangedState.GetDisplayName()
+                                    @if (!string.IsNullOrWhiteSpace(change.ChangeReason))
+                                    {
+                                        var title = "";
+                                        if (change.ChangedState == NEE.Core.Contracts.Enumerations.AppState.Suspended)
+                                        {
+                                            title = "Λόγος Αναστολής";
+                                        }
+                                        else if (change.ChangedState == NEE.Core.Contracts.Enumerations.AppState.Recalled)
+                                        {
+                                            title = "Λόγος Ανάκλησης";
+                                        }
+                                        else if (change.ChangedState == NEE.Core.Contracts.Enumerations.AppState.Canceled)
+                                        {
+                                            title = "Λόγος Ακύρωσης";
+                                        }
+                                        <div class="info">
+                                            <b>@title:</b> @change.ChangeReason
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    @if (change.ShowUserFullName)
+                                    {
+                                        @change.FullUsername
+                                    }
+                                    else
+                                    {
+                                        @change.ChangedBy
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+
+                        @if (Model.ModifiedAt != null)
+                        {
+                            <tr>
+                                <th scope="row">@Model.ModifiedAt.ToString("dd/MM/yyyy HH:mm:ss")</th>
+                                <td>-</td>
+                                <td>Τελευταία Ενημέρωση</td>
+                                <td>
+                                    @if (Model.ShowUserFullName)
+                                    {
+                                        @Model.FullUsername
+                                    }
+                                    else
+                                    {
+                                        @Model.ModifiedBy
+                                    }
+
+
+                                </td>
+                            </tr>
+                        }
+
+                        @if (Model.ApplicationContactInfo.LatestIbanChange != null)
+                        {
+                            <tr>
+                                <th scope="row">@Model.ApplicationContactInfo.LatestIbanChange.ModifiedAt.ToString("dd/MM/yyyy HH:mm:ss")</th>
+                                <td>-</td>
+                                <td>
+                                    <span>
+                                        Τελευταία Ενημέρωση IBAN:
+                                        @*<strong>
+                                                @Model.ApplicationContactInfo.LatestIbanChange.ModifiedAt.ToShortDateString() @Model.ApplicationContactInfo.LatestIbanChange.ModifiedAt.ToShortTimeString()
+                                            </strong>*@
+                                        από
+                                        <strong>
+                                            @(String.IsNullOrEmpty(Model.ApplicationContactInfo.LatestIbanChange.OriginalValue) ? "κενή τιμή " : Model.ApplicationContactInfo.LatestIbanChange.OriginalValue)
+                                        </strong>
+                                        σε
+                                        <strong>
+                                            @(String.IsNullOrEmpty(Model.ApplicationContactInfo.LatestIbanChange.CurrentValue) ? "κενή τιμή " : Model.ApplicationContactInfo.LatestIbanChange.CurrentValue)
+                                        </strong>
+                                    </span>
+                                </td>
+                                <td>
+                                    @Model.ApplicationContactInfo.LatestIbanChange.User
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

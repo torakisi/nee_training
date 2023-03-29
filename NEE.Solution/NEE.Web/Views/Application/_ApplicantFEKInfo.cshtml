@@ -1,0 +1,25 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@{
+    var luxClass = "";
+    if (!Model.CanBeFinalSubmitted || Model.LockedByKK)
+    {
+        luxClass = "idika-readonly invisible";
+    }
+}
+
+<h3>Στοιχεία ΦΕΚ / Απόφαση Πολιτογράφησης</h3>
+<fieldset>
+    <legend></legend>
+    <div class="@luxClass">
+        <div class="idika-field-form-group form-group col-md-4" style="padding-top: 30px">
+            @Html.IdikaHtml().FieldFor(m => m.EDTOInfo.ProvidedFEKDocument, new SelectList(Model.YesNoList, Model.EDTOInfo.ProvidedFEKDocument))
+        </div>
+        <div class="idika-field-form-group form-group col-md-4" style="padding-top: 30px">
+        </div>
+        @if (true) //(Model.IsAdminUser)
+        {
+            @Html.Partial("_UploadFEKFile", Model)
+        }
+    </div>
+</fieldset>

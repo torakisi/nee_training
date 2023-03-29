@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:tns="http://gsis.ggps.interoperability/salaryEmpInfoInterface" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="salaryEmpInfoInterface" targetNamespace="http://gsis.ggps.interoperability/salaryEmpInfoInterface" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy xmlns:wssecurity="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" wssecurity:Id="Http-UsernameToken-Policy">
+    <sp:SupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+      <wsp:Policy>
+        <sp:UsernameToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+          <wsp:Policy />
+        </sp:UsernameToken>
+      </wsp:Policy>
+    </sp:SupportingTokens>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://gsis.ggps.interoperability/salaryEmpInfoInterface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="getSalaryEmpInfoRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getSalaryEmpInfoInputRecord" type="tns:getSalaryEmpInfoInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="auditRecord">
+        <xs:sequence>
+          <xs:element name="auditTransactionId" type="xs:string" />
+          <xs:element name="auditTransactionDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="auditUnit" type="xs:string" />
+          <xs:element minOccurs="0" name="auditProtocol" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserId" type="xs:string" />
+          <xs:element minOccurs="0" name="auditUserIp" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getSalaryEmpInfoInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="amka" type="xs:string" />
+          <xs:element minOccurs="0" name="afm" type="xs:string" />
+          <xs:element minOccurs="0" name="monthFrom" type="xs:decimal" />
+          <xs:element minOccurs="0" name="yearFrom" type="xs:decimal" />
+          <xs:element minOccurs="0" name="monthTo" type="xs:decimal" />
+          <xs:element minOccurs="0" name="yearTo" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getSalaryEmpInfoResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getSalaryEmpInfoOutputRecord" type="tns:getSalaryEmpInfoReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getSalaryEmpInfoReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="afmCheck" type="xs:string" />
+          <xs:element minOccurs="0" name="amkaAfmCheck" type="xs:string" />
+          <xs:element minOccurs="0" name="amkaCheck" type="xs:string" />
+          <xs:element minOccurs="0" name="salaries" type="tns:salaries" />
+          <xs:element minOccurs="0" name="success" type="xs:boolean" />
+          <xs:element minOccurs="0" name="error" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="salaries">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:salaryRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="salaryRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="fMonth" type="xs:string" />
+          <xs:element minOccurs="0" name="fSalary" type="xs:string" />
+          <xs:element minOccurs="0" name="fYear" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="errorRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="errorCode" type="xs:string" />
+          <xs:element minOccurs="0" name="errorDescr" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="requestPensionsOpekaRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="requestPensionsOpekaInputRecord" type="tns:requestPensionsOpekaInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="requestPensionsOpekaInput">
+        <xs:sequence>
+          <xs:element name="amkaId" type="xs:string" />
+          <xs:element name="dateFrom" type="xs:string" />
+          <xs:element name="dateTo" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="requestPensionsOpekaResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="requestPensionsOpekaOutputRecord" type="tns:requestPensionsOpekaReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="requestPensionsOpekaReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="pensions" type="tns:pensionsOpeka" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="pensionsOpeka">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:pensionOpekaRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="pensionOpekaRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="error" type="xs:string" />
+          <xs:element minOccurs="0" name="success" type="xs:boolean" />
+          <xs:element minOccurs="0" name="createdBy" type="xs:string" />
+          <xs:element minOccurs="0" name="creationDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="amkaId" type="xs:string" />
+          <xs:element minOccurs="0" name="taxationId" type="xs:string" />
+          <xs:element minOccurs="0" name="name" type="xs:string" />
+          <xs:element minOccurs="0" name="surname" type="xs:string" />
+          <xs:element minOccurs="0" name="fatherName" type="xs:string" />
+          <xs:element minOccurs="0" name="month" type="xs:decimal" />
+          <xs:element minOccurs="0" name="year" type="xs:decimal" />
+          <xs:element minOccurs="0" name="grossAmntBasic" type="xs:decimal" />
+          <xs:element minOccurs="0" name="grossAmntEpik" type="xs:decimal" />
+          <xs:element minOccurs="0" name="sid" type="xs:decimal" />
+          <xs:element minOccurs="0" name="status" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getSalaryPensEmpInfoRequest">
+        <xs:sequence>
+          <xs:element name="auditRecord" type="tns:auditRecord" />
+          <xs:element name="getSalaryPensEmpInfoInputRecord" type="tns:getSalaryPensEmpInfoInput" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getSalaryPensEmpInfoInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="amka" type="xs:string" />
+          <xs:element minOccurs="0" name="afm" type="xs:string" />
+          <xs:element minOccurs="0" name="monthFrom" type="xs:decimal" />
+          <xs:element minOccurs="0" name="yearFrom" type="xs:decimal" />
+          <xs:element minOccurs="0" name="monthTo" type="xs:decimal" />
+          <xs:element minOccurs="0" name="yearTo" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getSalaryPensEmpInfoResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="getSalaryPensEmpInfoOutputRecord" type="tns:getSalaryPensEmpInfoReturn" />
+          <xs:element minOccurs="0" name="callSequenceId" type="xs:decimal" />
+          <xs:element minOccurs="0" name="callSequenceDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="errorRecord" type="tns:errorRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getSalaryPensEmpInfoReturn">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="afmCheck" type="xs:string" />
+          <xs:element minOccurs="0" name="amkaAfmCheck" type="xs:string" />
+          <xs:element minOccurs="0" name="amkaCheck" type="xs:string" />
+          <xs:element minOccurs="0" name="pensions" type="tns:pensions" />
+          <xs:element minOccurs="0" name="success" type="xs:boolean" />
+          <xs:element minOccurs="0" name="error" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="pensions">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:pensionRecord" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="pensionRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="fMonth" type="xs:string" />
+          <xs:element minOccurs="0" name="fSalary" type="xs:string" />
+          <xs:element minOccurs="0" name="fYear" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getSalaryEmpInfoRequest" nillable="true" type="tns:getSalaryEmpInfoRequest" />
+      <xs:element name="getSalaryEmpInfoResponse" nillable="true" type="tns:getSalaryEmpInfoResponse" />
+      <xs:element name="requestPensionsOpekaRequest" nillable="true" type="tns:requestPensionsOpekaRequest" />
+      <xs:element name="requestPensionsOpekaResponse" nillable="true" type="tns:requestPensionsOpekaResponse" />
+      <xs:element name="getSalaryPensEmpInfoRequest" nillable="true" type="tns:getSalaryPensEmpInfoRequest" />
+      <xs:element name="getSalaryPensEmpInfoResponse" nillable="true" type="tns:getSalaryPensEmpInfoResponse" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getSalaryPensEmpInfo">
+    <wsdl:part name="getSalaryPensEmpInfoRequest" element="tns:getSalaryPensEmpInfoRequest" />
+  </wsdl:message>
+  <wsdl:message name="requestPensionsOpeka">
+    <wsdl:part name="requestPensionsOpekaRequest" element="tns:requestPensionsOpekaRequest" />
+  </wsdl:message>
+  <wsdl:message name="requestPensionsOpekaResponse">
+    <wsdl:part name="requestPensionsOpekaResponse" element="tns:requestPensionsOpekaResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSalaryPensEmpInfoResponse">
+    <wsdl:part name="getSalaryPensEmpInfoResponse" element="tns:getSalaryPensEmpInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSalaryEmpInfoResponse">
+    <wsdl:part name="getSalaryEmpInfoResponse" element="tns:getSalaryEmpInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSalaryEmpInfo">
+    <wsdl:part name="getSalaryEmpInfoRequest" element="tns:getSalaryEmpInfoRequest" />
+  </wsdl:message>
+  <wsdl:portType name="salaryEmpInfoInterface">
+    <wsdl:operation name="getSalaryEmpInfo">
+      <wsdl:input name="getSalaryEmpInfo" message="tns:getSalaryEmpInfo" />
+      <wsdl:output name="getSalaryEmpInfoResponse" message="tns:getSalaryEmpInfoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="requestPensionsOpeka">
+      <wsdl:input name="requestPensionsOpeka" message="tns:requestPensionsOpeka" />
+      <wsdl:output name="requestPensionsOpekaResponse" message="tns:requestPensionsOpekaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getSalaryPensEmpInfo">
+      <wsdl:input name="getSalaryPensEmpInfo" message="tns:getSalaryPensEmpInfo" />
+      <wsdl:output name="getSalaryPensEmpInfoResponse" message="tns:getSalaryPensEmpInfoResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="salaryEmpInfoInterfaceSoapBinding" type="tns:salaryEmpInfoInterface">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:operation name="getSalaryEmpInfo">
+      <soap:operation soapAction="getSalaryEmpInfo" style="document" />
+      <wsdl:input name="getSalaryEmpInfo">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getSalaryEmpInfoResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="requestPensionsOpeka">
+      <soap:operation soapAction="requestPensionsOpeka" style="document" />
+      <wsdl:input name="requestPensionsOpeka">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="requestPensionsOpekaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSalaryPensEmpInfo">
+      <soap:operation soapAction="getSalaryPensEmpInfo" style="document" />
+      <wsdl:input name="getSalaryPensEmpInfo">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getSalaryPensEmpInfoResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="salaryEmpInfoInterface">
+    <wsp:PolicyReference URI="#Http-UsernameToken-Policy" />
+    <wsdl:port name="salaryEmpInfoInterfacePort" binding="tns:salaryEmpInfoInterfaceSoapBinding">
+      <soap:address location="https://test.gsis.gr/esbpilot/salaryEmpInfoService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

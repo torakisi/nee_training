@@ -1,0 +1,306 @@
+﻿body {
+    padding-top: 50px;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dashboard-content {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.label-noapprove {
+    background-color: #b424f7;
+}
+
+.label-noapproveKK {
+    background-color: #ff0000;
+}
+
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+
+/*.form-control.k-widget
+{
+    padding: 0;
+    width: 100%;
+    height: auto;
+}
+.k-picker-wrap > .form-control {
+    float: none;
+}*/
+
+
+.combo-header-hb {
+    background-color: white;
+    height: 73px;
+    background-image: url(../Content/images/opeka-logo.png);
+    background-position-y: 0px;
+    background-repeat: no-repeat;
+}
+.hb-logo-menu {
+    width: 40px;
+    height: 45px;
+    border: none;
+    /*background-image: url(../Content/images/hb-logo-c-sm.png);*/
+    /*temp fix*/
+    /*background-image: url(../Content/images/hb-white-xsm.png);*/
+    background-image: url(../Content/images/house-door.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: white;
+    /*margin-top:-12px;*/
+}
+
+.hb-logo-menu-sm {
+    width: 86px;
+    height: 45px;
+    border: none;
+    /*background-image: url(../Content/images/hb-logo-c-sm.png);*/
+    /*temp fix*/
+    /*background-image: url(../Content/images/hb-white-xs.png);*/
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-color: white;*/
+    /*margin-top:-12px;*/
+}
+
+.footerGroup {
+    /*background-image: url(../Content/images/footer-bg.png);*/
+    background-color: #d4e6ef;
+    background-repeat: repeat-x;
+    background-position-y: bottom;
+    padding-bottom: 70px;
+}
+
+.footerUp {
+    background: none;
+    background-repeat: repeat;
+}
+    .footerUp p {
+        color: #0b2338;
+    }
+
+    .footerUp h4 {
+        color: #0b2338;
+    }
+
+    .footerUp h5 {
+        color: #0b2338;
+    }
+    .footerUp a {
+        color: #0b2338;
+        font-size: small;
+    }
+    .dark-blue {
+        color: #0b2338;
+    }
+    .footerDown {
+    background: #0b2338;
+    /*background-image: url(../../Content/images/footer-bg.png);*/
+}
+
+    .footerDown p {
+        margin: 16px 0px;
+    }
+
+.wrapper {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
+    margin-bottom: 40px;
+}
+
+footer {
+    flex: none;
+    color: white;
+}
+
+    footer a {
+        color: #cecaca;
+    }
+
+        footer a:hover,
+        footer a:focus {
+            color: #fff;
+        }
+
+    footer h4 {
+        margin-top: 32px;
+    }
+
+.latestPosts li:not(:last-child) {
+    border-bottom: 1px dotted #fff;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.alert-createdByKK {
+    background-color: #7eba1d;
+    border-color: #74a91f;
+    color: #ffffff;
+}
+
+
+.navbar-brand {
+    float: left;
+    padding: 0px 15px;
+    font-size: 19px;
+    line-height: 21px;
+    height: 45px;
+}
+
+.empty-space {
+    flex: 1;
+    padding-top: 1%;
+}
+
+.deleteSys {
+    color: #fff;
+    background-color: #e99002;
+    border-color: #d08002;
+}
+
+    .deleteSys:hover {
+        color: #fff;
+        background-color: #b67102;
+        border-color: #935b01;
+    }
+
+.consentM {
+    color: #fff;
+    background-color: #d08002;
+    border-color: #d08002;
+}
+
+.consentM:hover {
+    color: #fff;
+    background-color: #d08002;
+    border-color: #d08002;
+}
+
+.text-remark {
+    color: #898585;
+}
+
+a.text-remark:hover,
+a.text-remark:focus {
+    color: #a7a7a7;
+}
+
+
+.dei-info {
+    background-image: url(../Content/images/dei-sample.png);
+    width: 300px;
+    background-repeat: no-repeat;
+}
+
+.kea-source {
+    background-image: url(../Content/images/kea-sm.png);
+    background-repeat: no-repeat;
+    background-position-y: center;
+ }
+.aade-source {
+    background-image: url(../Content/images/aade-sm.png);
+    background-repeat: no-repeat;
+    background-position-y: center;
+}
+
+.yeka {
+    padding-left: 40px;
+    background-image: url(../Content/images/coat_of_arms_gr32.png);
+    background-position-x: left;
+    background-position-y: top;
+    background-repeat: no-repeat;
+    font-size:13px;
+    min-height:32px;
+}
+
+.idika-logo-w {
+    padding-left: 55px;
+    background-image: url(../Content/images/idika-logo-w-xsm.png);
+    background-size:auto;
+    background-position-x: 15px;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    min-height: 24px;
+}
+
+:target {
+	display: block;
+	position: relative;
+	top: -120px;
+	visibility: hidden;
+}
+
+.CellWithComment {
+    position: relative;
+}
+
+.CellComment {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    border: 1px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    top: 20px;
+    left: 20px;
+}
+
+.CellWithComment:hover span.CellComment {
+    display: block;
+}
+
+.alert-dark {
+	color: #1b1e21;
+	background-color: #d6d8d9;
+	border-color: #c6c8ca;
+}
+
+.alert-primary {
+	color: #004085;
+	background-color: #cce5ff;
+	border-color: #b8daff;
+}
+
+.btn-entry-lg {
+    width:150px;
+}
+.btn-entry-sm {
+    width: 100px;
+}
+
+.alert-no-margin-bottom {
+	margin-bottom: 0px !important;
+}

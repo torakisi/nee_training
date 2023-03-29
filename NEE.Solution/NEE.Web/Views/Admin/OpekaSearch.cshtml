@@ -1,0 +1,114 @@
+﻿@model NEE.Web.Models.Admin.SearchViewModel
+
+@{
+    ViewBag.Title = "Διαχείριση Αιτήσεων Επιδόματος ΒΗ (Χρήστες ΟΠΕΚΑ)";
+}
+
+<h2>Διαχείριση Αιτήσεων</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    var appId = "2303-1016-0987-1943";
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.ApplicationOriginList)
+                @Html.DropDownListFor(x => Model.ApplicationOrigin, new SelectList(Model.ApplicationOriginList), htmlAttributes: new { @class = "form-control", id = "SelectApplicationOrigin" })
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.StatesList)
+                @Html.DropDownListFor(x => Model.StateId, new SelectList(Model.StatesList.Where(s => s.StateId == 6 || s.StateId == 7), "StateId", "State"), htmlAttributes: new { @class = "form-control", id = "SelectState" })
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.DistrictsList)
+                @Html.DropDownListFor(x => Model.DistrictIdFilter, new SelectList(Model.DistrictsList, "DistrictId", "District"), htmlAttributes: new { @class = "form-control", id = "SelectDistrictFilter" })
+            </div>
+        </div>
+    </div>
+    <br />
+    <fieldset>
+        <div class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-6">
+            <button type="submit" name="command" value="OpekaSearchApplications" class="btn btn-primary form-control"><i class="glyphicon glyphicon-search"></i> Αναζήτηση</button>
+        </div>
+        <div class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-6">
+            <button type="submit" name="command" value="ClearFields" class="btn btn-primary form-control"><i class="glyphicon glyphicon-remove"></i> Καθαρισμός</button>
+        </div>
+    </fieldset>
+    <fieldset id="selectDistrict" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Επιλογή περιφέρειας ΟΠΕΚΑ</h4>
+                </div>
+                <div class="modal-body">
+                    <td class="text-nowrap fit-width" style="width:1%;vertical-align:middle;">
+                        <div>
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.LabelFor(m => m.DistrictsList)
+                            @Html.DropDownListFor(x => Model.DistrictId, new SelectList(Model.DistrictsList, "DistrictId", "District"), htmlAttributes: new { @class = "form-control", id = "SelectDistrict" })
+                        </div>
+                    </td>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Ακύρωση</button>
+                        <button type="submit" class="btn btn-primary btn-success" name="command" value="SelectDistrict:@appId">
+                            <i class="glyphicon glyphicon-ok"></i> Επιλογή
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+        }
+
+        @if (Model.HasResults)
+        {
+
+            <br />
+            if (Model.Total == 0)
+            {
+                <h3>Δε βρέθηκαν πρόσωπα με τα κριτήρια που επιλέξατε στις αιτήσεις</h3>
+            }
+            else
+            {
+                if (Model.Total == 1)
+                {
+                    <h3>Βρέθηκε 1 πρόσωπο που πληροί τα στοιχεία αναζήτησης σε αίτηση</h3>
+                }
+                else
+                {
+                    if (Model.Results.Count == Model.Total)
+                    {
+                        <h3>Βρέθηκαν @Model.Total.ToString("#,##0") πρόσωπα που πληρούν τα στοιχεία αναζήτησης σε αιτήσεις (σε φθίνουσα σειρά)</h3>
+                    }
+                    else
+                    {
+                        <h3>Βρέθηκαν @Model.Total.ToString("#,##0") πρόσωπα που πληρούν τα στοιχεία αναζήτησης, εμφανίζονται οι @Model.Results.Count.ToString("#,##0") πιο πρόσφατες εγγραφές (σε φθίνουσα σειρά)</h3>
+                    }
+                }
+
+
+                @Html.Partial("_SearchResultTable", Model)
+            }
+        }
+        else if (IsPost && Model.HasResults)
+        {
+            <h3>Δεν βρέθηκαν πρόσωπα με τα κριτήρια που επιλέξατε στις αιτήσεις</h3>
+
+        }
+@section Scripts
+{
+    <script type="text/javascript">
+        $(".selectDistrictBtn").on('click', function () {
+            var currentRow = $(this).closest('tr').find('td');
+            var appId = $(currentRow).eq(1).text();
+            $("#Id").val(appId.trim());
+        });
+
+        $(function () {
+            $('#SelectDistrictFilter').val(@TempData["UserDistrict"]);
+        });
+    </script>
+}

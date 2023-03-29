@@ -1,0 +1,85 @@
+﻿.combo-header {
+    background-color: white;
+    height: 73px;
+    /*background-image: url(../../images/Home/logo-top.png);*/
+    background-position-x: 0px;
+    background-position-y: 0px;
+    background-repeat: no-repeat;
+}
+/*
+.opeka-header {
+    background-color: white;
+    height: 73px;
+    background-image: url(../../images/Home/kea/opeka-logo.png);
+    background-position-x: 16px;
+    background-position-y: 0px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.kea-header {
+    background-color: white;
+    height: 73px;
+    background-image: url(../../images/Home/kea/logo.png);
+    background-position-x: 49px;
+    background-position-y: 20px;
+    background-repeat: no-repeat;
+}
+*/
+
+.kea-home-back {
+    position: absolute;
+    left: 0;
+    top: 45px;
+    width: 100%;
+    height: 496px;
+    background-image: url(../../images/Home/kea/home_back_layer.jpg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.kea-home-front {
+    width: 100%;
+    height: 421px;
+    background-image: url(../../images/Home/kea/home_front_layer.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin-bottom: -54px;
+}
+
+.kea-footer {
+    background-color: white;
+    min-height: 107px;
+    border-top: 1px solid silver;
+    margin-top: 50px;
+    padding-left: 33px;
+    padding-right: 33px;
+    padding-top: 27px;
+}
+
+.kea-logos {
+    width: 198px;
+    height: 64px;
+    xborder: 1px solid red;
+    background-image: url(../../images/Home/kea/logos_ipourgio_ee.png);
+    background-repeat: no-repeat;
+}
+
+.idika-logo {
+    width: 125px;
+    height: 60px;
+    margin-left: 12px;
+    xborder: 1px solid red;
+    background-image: url(../../images/Home/LogoIDIKA.jpg);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.container.body-content { padding-top:73px; }
+.label {
+	display: inline-block;
+}
+

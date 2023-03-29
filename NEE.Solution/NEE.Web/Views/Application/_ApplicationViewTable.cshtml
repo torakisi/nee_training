@@ -1,0 +1,110 @@
+﻿@model NEE.Web.Models.ApplicationViewModels.ApplicationManagementViewModel
+
+@using NEE.Core
+@using NEE.Core.BO
+@*@using NEE.Web.Models.Core*@
+@using NEE.Core.Contracts
+
+@{
+
+    ViewBag.Title = "Οι Αιτήσεις μου";
+    var canCreateNew = Model.ApplicationOwner.CanCreateNew(DateTime.Now).CanCreateNew;
+    var canCreateNewReason = Model.ApplicationOwner.CanCreateNew(DateTime.Now).Reason;
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <h2 class="page-header">@ViewBag.Title</h2>
+
+    <table class="table table-hover table-bordered table-condensed table-responsive member-table">
+        <thead>
+            <tr class="bg-primary">
+                <th scope="col">Ημ/νία Καταχώρησης</th>
+                <th scope="col">Κωδικός Αίτησης</th>
+                <th scope="col">Κατάσταση</th>
+                <th scope="col">Συμμετοχή στην Αίτηση</th>
+                <th scope="col">ΑΦΜ Αιτούντος/Αιτούσας</th>
+                <th scope="col">Ονοματεπώνυμο Αιτούντος/Αιτούσας</th>
+                <th scope="col">Επιπλέον Πληροφορίες</th>
+                <th scope="col">Ενέργειες</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.ApplicationOwner.GetActiveParticipations().Any())
+            {
+                foreach (ApplicationParticipation applicationParticipation in Model.ApplicationOwner.GetActiveParticipations().OrderByDescending(x => x.CreatedAt))
+                {
+                    var rowClass = "";
+                    if (applicationParticipation.State == NEE.Core.Contracts.Enumerations.AppState.Canceled)
+                    {
+                        rowClass = "Deleted";
+                    }
+                    <tr class="@rowClass">
+                        <th scope="row" class="text-nowrap">@applicationParticipation.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")</th>
+                        <td class="text-nowrap">@applicationParticipation.ApplicationId</td>
+                        <td>@applicationParticipation.State.GetDisplayName()</td>
+                        <td>@applicationParticipation.Relationship.GetDisplayName()</td>
+                        <td>@applicationParticipation.ApplicantAFM</td>
+                        <td>@applicationParticipation.GetFullName</td>
+
+                        <td>
+                            @if (applicationParticipation.IsApplicationCreatedByKK)
+                            {
+                                <span>Η αίτηση έχει <strong>δημιουργηθεί</strong> από Κέντρο Κοινότητας/Δήμο.</span>
+                            }
+                            else if (applicationParticipation.IsApplicationModifiedByKK)
+                            {
+                                <span>Η αίτηση έχει <strong>τροποποιηθεί</strong> από Κέντρο Κοινότητας/Δήμο.</span>
+                            }
+                        </td>
+
+                        <td>
+                            @if (Model.ApplicationOwner.CanEditApplication(applicationParticipation))
+                            {
+                                <button type="submit" name="command" value="EditApplication:@applicationParticipation.ApplicationId" class="btn btn-primary btn-xs btn-block" formnovalidate>
+                                    <i class="fa fa-edit"></i> Επεξεργασία
+                                </button>
+                            }
+                            else if (Model.ApplicationOwner.CanViewApplication(applicationParticipation))
+                            {
+                                <button type="submit" name="command" value="ViewApplicationReadOnly:@applicationParticipation.ApplicationId" class="btn btn-primary btn-xs btn-block" formnovalidate>
+                                    <i class="fa fa-eye"></i> Προβολή
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8"> Δε βρέθηκαν αιτήσεις που να σας αφορούν</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    if (canCreateNew)
+    {
+        var x = 1;
+    }
+
+    if (canCreateNew)
+    {
+        <button type="submit" name="command" value="CreateNewApplication:@Model.ApplicationOwner.Owner.AFM:@Model.ApplicationOwner.Owner.AMKA" class="btn btn-primary" formnovalidate>
+                <i class="fa fa-plus-circle"></i> Νέα Αίτηση
+            </button>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <span>
+                @canCreateNewReason
+            </span>
+        </div>
+    }
+}

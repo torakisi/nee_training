@@ -1,0 +1,31 @@
+﻿@model bool?
+@{
+    var htmlAttributesDefault = new { @class = "idika-editor-Bool-RadioList" };
+    var htmlAttributesDefined = ViewData["htmlAttributes"] ?? new { };
+    var htmlAttributes = Html.MergeHtmlAttributes(htmlAttributesDefined, htmlAttributesDefault);
+    var htmlClass = htmlAttributes["class"];
+
+    var type = ViewData.ModelMetadata.ModelType;
+    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+    {
+        type = type.GenericTypeArguments.First();
+    };
+}
+
+<div class="@htmlClass">
+
+    <div class="btn-group" role="group" data-toggle="buttons">
+        @foreach (var value in new bool[] { false, true })
+        {
+            var name = ViewData.TemplateInfo.HtmlFieldPrefix;
+            var id = TagBuilder.CreateSanitizedId($"{name}_{type}_{value}");
+            var isChecked = value.Equals(Model);
+            var displayName = value ? "ΝΑΙ" : "ΟΧΙ";
+            <label for="@id" class="btn btn-default @(isChecked ? " active" : "")">
+                @Html.RadioButton("", value, isChecked, new { id = id })
+                <i class="fa fa-idika-checkbox"></i> @displayName
+            </label>
+        }
+    </div>
+
+</div>

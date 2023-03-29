@@ -1,0 +1,54 @@
+﻿@model NEE.Web.Models.ApplicationViewModels.ApplicationManagementViewModel
+
+@using NEE.Core
+@*@using NEE.Web.Models.Core*@
+@using NEE.Core.Contracts
+
+@{
+    ViewBag.Title = "Αιτήσεις για Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h3>Στοιχεία Προσώπου</h3>
+<fieldset>
+    <legend></legend>
+    <div class="form-group col-md-2 col-xs-6">
+        @Html.Label("AMKA", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.ApplicationOwner.Owner.AMKA, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+    <div class="form-group col-md-2 col-xs-6">
+        @Html.Label("ΑΦΜ", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.ApplicationOwner.Owner.AFM, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+
+    <div class="form-group col-md-4 col-xs-6">
+        @Html.Label("Επώνυμο", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.ApplicationOwner.Owner.LastName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+    <div class="form-group col-md-4 col-xs-6">
+        @Html.Label("Όνομα", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.ApplicationOwner.Owner.FirstName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+
+    <div class="form-group col-md-offset-4 col-md-4 col-xs-6">
+        @Html.Label("Επώνυμο (Λατινικά)", htmlAttributes: new { @class = "control -label" })
+        @Html.EditorFor(model => model.ApplicationOwner.Owner.LastNameEN, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+    <div class="form-group col-md-4 col-xs-6">
+        @Html.Label("Όνομα(Λατινικά)", htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.ApplicationOwner.Owner.FirstNameEN, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+
+</fieldset>
+
+
+<div class="alert alert-danger" role="alert">
+    Ελέγξτε ότι <strong> τα στοιχεία σας όπως εμφανίζονται είναι σωστά! </strong><br />
+    Αν δεν είναι, πρέπει να μεταβείτε σε ΚΕΠ για ενημέρωση του ΑΜΚΑ. <strong>
+        Δεν επιτρέπεται να προχωρήσετε σε αίτηση για Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας όσο ο ΑΜΚΑ δεν είναι ενημερωμένος.
+    </strong>
+</div>
+
+@Html.Partial("_ApplicationViewTable", Model)

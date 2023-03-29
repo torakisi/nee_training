@@ -1,0 +1,45 @@
+﻿@using NEE.Core.Security
+
+<div class="combo-header-hb">
+    <div class="pull-right" style="margin-right: 5px;">
+        @if (Html.IsDEBUG())
+        {
+            <div style="text-align: center; background-color: red; font-size: large; margin: 4px; border: 1px solid black;">
+                @Html.ActionLink("DEBUG-TEST", "Index", "DebugTest") : <strong title="WARNING: this is the current DB schema/user you are using!">@Html.ConnectionStringInfo()</strong>
+                @*@Html.ActionLink("Toggle", "Toggle", "DebugTest")*@
+            </div>
+        }
+        else if (Html.IsStaging() && Request.IsAuthenticated && (User.IsInRole("DEV_Team") || User.IsInRole("Administrators")))
+        {
+            <div style="text-align: center; background-color: red; font-size: large; margin: 4px; border: 1px solid black;">
+                @Html.ActionLink("STAGING-TEST", "Index", "DebugTest") : <strong title="WARNING: this is the current DB schema/user you are using!">@Html.ConnectionStringInfo()</strong>
+            </div>
+        }
+
+        @if (Request.IsAuthenticated)
+        {
+            <div class="pull-right" style="color: black; font-weight: bold; margin-top: -18px; margin-right: 8px;" title="@User.Identity.GetNEEUserTooltip()">
+                <i class="fa fa-user"></i>
+                @if (User.Identity.GetNEEUserType() == NEEUserHelper.NEEUserType.Normal)
+                {
+                    @Html.ActionLink(User.Identity.GetNEEUserDisplayName(), "Index", "Manage")
+                }
+                else
+                {
+                    @User.Identity.GetNEEUserDisplayName()
+                }
+            </div>
+        }
+        else if (Html.IsAdminEnabled())
+        {
+            <div class="pull-right" style="color: black; font-weight: bold; margin-top: -28px; margin-right: 8px;">
+                @Html.ActionLink("Διαχείριση Αιτήσεων (Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας)", "Login", "AdminAccount")
+            </div>
+        }
+
+    </div>
+</div>
+
+
+
+

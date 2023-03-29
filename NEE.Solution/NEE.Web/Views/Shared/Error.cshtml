@@ -1,0 +1,27 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<table style="margin-top: 20px;">
+    <tr>
+        <td style="width:1%; padding-right: 20px;">
+            <h1 class="text-danger"><i class="fa fa-exclamation-circle fa-2x"></i></h1>
+        </td>
+        <td>
+            @{
+                if (String.IsNullOrEmpty(ViewBag.errorMessage) || ViewBag.errorMessage.Contains("Unhandled"))
+                {
+                    <h3 class="text-danger">Παρουσιάστηκε μη αναμενόμενο λάθος κατά την εκτέλεση της τελευταίας εργασίας. Παρακαλούμε δοκιμάστε πάλι σε λίγο.</h3>
+                    @Html.Raw(ViewBag.errorDescription)
+                }
+                else
+                {
+                    <h3 class="text-danger">@Html.Raw(ViewBag.errorMessage)</h3>
+                    @Html.Raw(ViewBag.errorDescription)
+                }
+            }
+        </td>
+    </tr>
+</table>

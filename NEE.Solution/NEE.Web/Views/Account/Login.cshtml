@@ -1,0 +1,35 @@
+﻿@using Microsoft.Owin.Security
+
+@{
+    ViewBag.Title = "Σύνδεση με Λογαριασμό TaxisNet";
+
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+}
+<br />
+<h2>@ViewBag.Title.</h2>
+<br />
+<h4>Για την πρόσβαση στην Εφαρμογή Υποβολής Αίτησης απαιτείται πιστοποίηση μέσω του συστήματος TAXIS της Γενικής Γραμματείας Πληροφοριακών Συστημάτων:</h4>
+<br />
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <section id="socialLoginForm">
+            @using (Html.BeginForm("Authorize", "Account"))
+            {
+                @Html.AntiForgeryToken()
+                <div id="socialLoginList">
+                    <p>
+                        @*@foreach (AuthenticationDescription p in loginProviders)
+                        {
+                            if (p.AuthenticationType == "Gsis.OAuth2")
+                            {
+                                <button type="submit" class="btn btn-primary btn-lg" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Συνέχεια στο TaxisNet"><i class="glyphicon glyphicon-triangle-right"></i> Συνέχεια στο TaxisNet</button>
+                            }
+                        }*@
+                        <button type="submit" class="btn btn-primary btn-lg" title="Συνέχεια στο TaxisNet"><i class="glyphicon glyphicon-triangle-right"></i> Συνέχεια στο TaxisNet</button>
+                    </p>
+                </div>
+            }
+        </section>
+    </div>
+</div>

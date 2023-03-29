@@ -1,0 +1,161 @@
+﻿body {
+    background-color: #E5E5E5;
+    margin:0;
+}
+
+.dashboard-content {
+    position: absolute;
+    top: 41px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    
+}
+
+.dashboard-header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    /*background-color: #3E3E3E;*/
+    background-color: #0b2338;
+    position: static;
+    top: 0px;
+    height: 41px;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    color: white;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    font-weight: 600;
+    font-family: 'Segoe UI','Helvetica Neue',Helvetica,Verdana,sans-serif;
+}
+    .dashboard-header .dashboard-title {
+        font-family: 'Segoe UI','Helvetica Neue',Helvetica,Verdana,sans-serif;
+    }
+        .dashboard-header .dashboard-title #working-mode-title {
+            color: #9A9A9A;
+            padding-left: 5px;
+        }
+    .dashboard-header a {
+        color: white;
+        text-decoration: none;
+    }
+    .dashboard-header div {
+        display: inline-flex;
+        height: 100%;
+        align-items: center;
+    }
+    .dashboard-header .dashboard-toolbar {
+        position: relative;
+        margin-left: 40px;
+        font-size: 11px;
+    }
+
+    .dashboard-header #designer-mode-button {
+        height: 100%;
+        width: 105px;
+        padding: 13px 10px 13px 45px;
+    }
+        .dashboard-header #designer-mode-button:hover {
+            background-color: #5b5b5b;
+        }
+
+        .dashboard-header #designer-mode-button.dx-state-disabled {
+            background-color: transparent;
+            color: #818181;
+            cursor: auto;
+        }
+
+    .dashboard-header #designer-mode-button svg {
+        width: 26px;
+        height: 26px;
+        position: absolute;
+        left: 10px;
+        top: 7px;
+    }
+        .dashboard-header #designer-mode-button.dx-state-disabled svg .editDashboardIcon {
+            fill: #818181;
+        }
+
+    .dashboard-header .dashboard-toolbar-button {
+        cursor: default;
+    }
+
+    .dashboard-header .dashboard-device-switch {
+        margin-left: 17px;
+    }
+        .dashboard-header .dashboard-device-switch a {
+            padding: 5px 10px;
+            display: inline-block;
+            background-color: #5B5B5B;
+        }
+
+            .dashboard-header .dashboard-device-switch a:hover {
+                background-color: #737373;
+            }
+            .dashboard-header .dashboard-device-switch a.dx-state-selected {
+                background-color: #579ADD;
+                color: white;
+            }
+
+    .dashboard-header #info-button {
+        padding: 0 29px;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    }
+        .dashboard-header #info-button:hover svg path {
+            fill: #579add;
+        }
+    .dashboard-header #info-button svg {
+        width: 24px;
+    }
+
+.phone-wrapper {
+    background-color: #515151;
+    border-radius: 5px;
+    width: 330px;
+    height: 520px;
+    padding: 65px 10px;
+    margin: 40px auto;
+    box-sizing: content-box;
+}
+
+    .phone-wrapper iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+.qr-wrapper {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+}
+
+    .qr-wrapper img {
+        width: 200px;
+        height: 200px;
+        border: 0;
+    }
+
+#dashboardControl .dx-dashboard-panel-extension .dx-dashboard-title-panel {
+    display: none;
+}
+#dashboardControl .dx-dashboard-panel-extension .dx-dashboard-dashboard-list {
+    top: 0;
+}
+
+#colorSchemeIcon .dx_gray {
+    fill: inherit;
+}
+.dx-dashboard-surface {
+    /*background-image: url(../Content/images/footer-bg.png);*/
+    background-color: #d4e6ef;
+    background-repeat: repeat-x;
+    background-position-y: bottom;
+}

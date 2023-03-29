@@ -1,0 +1,99 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@{
+    ViewBag.Title = "Αποτελέσματα Υποβολής Αίτησης Επιδόματος NEE";
+
+    var printSubmit = ViewBag.PrintSubmit;
+
+    var activeStates = new List<NEE.Core.Contracts.Enumerations.AppState>()
+{
+    NEE.Core.Contracts.Enumerations.AppState.Rejected,
+    NEE.Core.Contracts.Enumerations.AppState.Approved,
+    NEE.Core.Contracts.Enumerations.AppState.Suspended
+    };
+
+}
+
+@using (Html.BeginForm("ApplicationSubmitted", "Application", FormMethod.Post, new { @id = "submitForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    if (Model.State == NEE.Core.Contracts.Enumerations.AppState.Approved)
+    {
+        <div style="font-size: x-large; margin-top:10px; margin-bottom: 15px;">
+            Η αίτησή σας έχει <span style="color: darkgreen; font-weight: 400">εγκριθεί</span>.
+        </div>
+        <hr />
+
+        @*@Html.Partial("~/Views/Application/ApplicationSubmitted/_CalculationOfBenefit.cshtml", Model)*@
+    }
+    else if (Model.State == NEE.Core.Contracts.Enumerations.AppState.Rejected)
+    {
+        <div style="font-size: x-large; margin-top:10px; margin-bottom: 15px;">
+            Η αίτησή σας έχει <span style="color: red; font-weight: 400">απορριφθεί</span>.
+        </div>
+        <hr />
+
+        @Html.Partial("ApplicationSubmitted/_RejectionReasons", Model)
+    }
+    else if (Model.State == NEE.Core.Contracts.Enumerations.AppState.Recalled)
+    {
+        <div style="font-size: x-large; margin-top:10px; margin-bottom: 15px;">
+            Η αίτησή σας έχει <span style="color: red; font-weight: 400">ανακληθεί</span>.
+        </div>
+        <hr />
+
+        @Html.Partial("ApplicationSubmitted/_ChangedApplicationStateReason", Model)
+    }
+    else if (Model.State == NEE.Core.Contracts.Enumerations.AppState.Submitted)
+    {
+        <div style="font-size: x-large; margin-top:10px; margin-bottom: 15px;">
+            Η αίτησή σας έχει <span style="color: darkgreen; font-weight: 400">υποβληθεί </span>επιτυχώς. Κατόπιν ελέγχου θα ενημερωθείτε μέσω email για την απόφαση. Μπορείτε να ενημερωθείτε για την απόφαση και από το μενού «οι αιτήσεις μου».
+        </div>
+        <hr />
+    }
+    else if (Model.State == NEE.Core.Contracts.Enumerations.AppState.PendingDocumentsApproval)
+    {
+        <div style="font-size: x-large; margin-top:10px; margin-bottom: 15px;">
+            Η αίτησή σας έχει υποβληθεί επιτυχώς και βρίσκεται σε κατάσταση <span style="color: darkgreen; font-weight: 400"> αναμονής ελέγχου δικαιολογητικών</span>. Κατόπιν ελέγχου θα ενημερωθείτε μέσω email για την απόφαση. Μπορείτε να ενημερωθείτε για την απόφαση και από το μενού «οι αιτήσεις μου».
+        </div>
+        <hr />
+    }
+    else if (Model.State == NEE.Core.Contracts.Enumerations.AppState.RejectedDocuments)
+    {
+        <div style="font-size: x-large; margin-top:10px; margin-bottom: 15px;">
+            Μετά τον 1ο έλεγχο, έχετε καταχωρήσει έγγραφα σε εκκρεμότητα. Ο πολίτης πρέπει να προσκομίσει εντός 2 μηνών τα σωστά δικαιολογητικά. Αν δεν γίνει κάποια ενέργεια εντός 2 μηνών, η αίτηση ακυρώνεται αυτόματα.
+        </div>
+        <hr />
+    }
+
+    <br />
+    <br />
+    @Html.HiddenFor(m => m.ReturnUrl)
+    <button type="submit" name="command" value="BackInEdit" class="btn btn-primary" formnovalidate><i class="fa fa-reply"></i> Επιστροφή στην Αίτηση</button>
+
+    if (false) //temp fix
+               //if (activeStates.Contains(Model.State) || (Model.State == NEE.Core.Contracts.Enumerations.AppState.Recalled && Model.CanPrintRecallAct))
+    {
+        <button id="btnPrint" type="submit" name="command" value="PrintApplication" class="btn btn-primary" formnovalidate>
+            <i class="glyphicon glyphicon-print"></i> Εκτύπωση
+        </button>
+
+        <a id="btnPrintActual1" class="btn btn-primary" style="display:none" target="_blank" href="@Url.Action("PrintApplication", "Printing", new { id = Model.Id })">
+            <i class="glyphicon glyphicon-print"></i> Εκτύπωση
+        </a>
+    }
+}
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+			$(function () {
+        if ('@printSubmit' == 'True') {
+					$("#btnPrintActual1")[0].click();
+				}
+      });
+
+    </script>
+}

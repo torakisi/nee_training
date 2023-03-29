@@ -1,0 +1,134 @@
+﻿@model NEE.Web.Models.AdminApplicationViewModels.FindViewModel
+
+@using NEE.Core.Contracts
+
+@{
+    ViewBag.Title = "Αναζήτηση Προσώπου - Αιτήσεων";
+
+    var personFound = (Model.Results?.LastName != null);
+    var hasApplications = (Model.Results?.Applications?.ApplicationOwner?.GetParticipations().Count > 0);
+
+    var canCreateNew = Model.Results?.Applications?.ApplicationOwner?.CanCreateNew(DateTime.Now).CanCreateNew ?? false;
+    var canCreateNewReason = Model.Results?.Applications?.ApplicationOwner?.CanCreateNew(DateTime.Now).Reason;
+}
+<h2 class="page-header">@ViewBag.Title</h2>
+
+<fieldset>
+
+    <div class="alert alert-info" role="alert">
+        Συμπληρώστε τον ΑΜΚΑ και τον ΑΦΜ του προσώπου που αιτείται Επίδομα και επιλέξτε [Αναζήτηση].<br />
+        Εφόσον ο ΑΜΚΑ και ο ΑΦΜ που συμπληρώσατε αντιστοιχούν σε κάποιο πρόσωπο, θα εμφανιστούν το επώνυμο και το όνομά του.<br />
+        Σε περίπτωση που τα στοιχεία που θα εμφανιστούν δεν είναι ορθά, θα πρέπει να γίνει διόρθωσή τους σε ΚΕΠ. <br />
+        <strong>
+            Δεν επιτρέπεται να προχωρήσετε σε αίτηση Επιδόματος Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας όσο ο ΑΜΚΑ δεν είναι ενημερωμένος.
+        </strong>
+    </div>
+    @using (Html.BeginForm("Find", "AdminApplication", FormMethod.Post, new { @id = "findForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(false, "")
+
+        <div class="form-group col-lg-3 col-md-3 col-sm-4 col-xs-6">
+            @Html.LabelFor(model => model.Amka, htmlAttributes: new { @class = "control-label " })
+            @Html.EditorFor(model => model.Amka, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group col-lg-3 col-md-3 col-sm-4 col-xs-6">
+            @Html.LabelFor(model => model.Afm, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Afm, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+        </div>
+        <div class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-6">
+            @Html.Label("Submit", htmlAttributes: new { @class = "control-label", @style = "visibility: hidden;" })
+            <button type="submit" class="btn btn-success form-control" id="FindApplicationsBtn"><i class="glyphicon glyphicon-search"></i> Αναζήτηση</button>
+        </div>
+    }
+</fieldset>
+
+@if (personFound)
+{
+    <h3>Στοιχεία Προσώπου</h3>
+    <fieldset>
+        <legend></legend>
+        <div class="form-group col-md-2 col-xs-6">
+            @Html.LabelFor(model => model.Results.AMKA, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Results.AMKA, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        </div>
+        <div class="form-group col-md-2 col-xs-6">
+            @Html.LabelFor(model => model.Results.AFM, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Results.AFM, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        </div>
+
+        <div class="form-group col-md-4 col-xs-6">
+            @Html.LabelFor(model => model.Results.LastName, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Results.LastName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        </div>
+        <div class="form-group col-md-4 col-xs-6">
+            @Html.LabelFor(model => model.Results.FirstName, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Results.FirstName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        </div>
+
+        <div class="form-group col-md-offset-4 col-md-4 col-xs-6">
+            @Html.LabelFor(model => model.Results.LastNameEN, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Results.LastNameEN, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        </div>
+        <div class="form-group col-md-4 col-xs-6">
+            @Html.LabelFor(model => model.Results.FirstNameEN, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Results.FirstNameEN, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        </div>
+
+    </fieldset>
+
+    <div class="alert alert-danger" role="alert">
+        Πρέπει <strong> να επιβεβαιώσετε </strong> ότι το πρόσωπο που έχετε μπροστά σας είναι ο/η <strong>
+            @Html.DisplayFor(model => model.Results.FirstName) @Html.DisplayFor(model => model.Results.LastName) (@Html.DisplayFor(model => model.Results.FirstNameEN) @Html.DisplayFor(model => model.Results.LastNameEN)).
+        </strong> <br />
+
+    </div>
+}
+
+
+@if (hasApplications)
+{
+    @Html.Partial("_ApplicationHistoryTable", Model)
+}
+
+@if (personFound)
+{
+    if (canCreateNew)
+    {
+
+        using (Html.BeginForm("ManageApplications", "Application", FormMethod.Post))
+        {
+            @Html.Hidden("AFM", Model.Afm, new { @id = "AFM" })
+            @Html.Hidden("AMKA", Model.Amka, new { @id = "AMKA" })
+            @Html.AntiForgeryToken()
+
+            <button type="submit" name="command" value="CreateNewApplication:@Model.Afm:@Model.Amka:@Model.GetUrlForFind()" class="btn btn-primary" formnovalidate>
+                <i class="fa fa-plus-circle"></i> Νέα Αίτηση
+            </button>
+        }
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">
+            @canCreateNewReason
+        </div>
+    }
+}
+<div style="padding-top:20px;">
+</div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function keypressHandler(e) {
+            if (e.which == 13) {
+                e.preventDefault(); //stops default action: submitting form
+                $(this).blur();
+                $('#FindApplicationsBtn').focus().click();
+            }
+            $('#findForm').keypress(keypressHandler);
+        });
+    </script>
+}

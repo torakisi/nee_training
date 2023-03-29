@@ -1,0 +1,47 @@
+﻿@model NEE.Web.Models.AdminAccount.AdminLoginViewModel
+@{
+    ViewBag.Title = "Διαχείριση Αιτήσεων για το Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας";
+}
+
+<h3>@ViewBag.Title</h3>
+<br />
+<h5>Η εφαρμογή απευθύνεται αποκλειστικά σε <b>Εξουσιοδοτημένους Χρήστες</b> Δήμων/Κέντρων Κοινότητας:</h5>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "AdminAccount", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary()
+                <div class="form-group" style="margin-top:30px;">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope dark-blue"></i></span>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Χρήστης (email)" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock dark-blue"></i></span>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Κωδικός Πρόσβασης" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Σύνδεση" class="btn btn-primary" />
+                    </div>
+                </div>
+                <p style="padding-top:20px">
+                    @Html.ActionLink("Ξεχάσατε τον Κωδικό Πρόσβασής σας;", "ForgotPassword")
+                </p>
+                <br />
+            }
+        </section>
+    </div>
+</div>

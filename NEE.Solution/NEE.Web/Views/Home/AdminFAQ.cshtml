@@ -1,0 +1,65 @@
+﻿@model List<Faq>
+
+@using NEE.Core.BO;
+@{
+    ViewBag.Title = "Συχνές Ερωτήσεις και Απαντήσεις";
+    Dictionary<string, List<Faq>> dic = new Dictionary<string, List<Faq>>();
+    if (Model != null)
+    {
+
+        foreach (Faq faq in Model.Where(x => !x.DisableQ && x.FAQForAdmin).OrderBy(x => x.SectionOrder))
+        {
+            if (dic.ContainsKey(faq.SectionTitle))
+            {
+                dic[faq.SectionTitle].Add(faq);
+            }
+            else
+            {
+                List<Faq> faqs = new List<Faq>();
+                faqs.Add(faq);
+                dic.Add(faq.SectionTitle, faqs);
+            }
+        }
+    }
+
+}
+
+
+<h2>Συχνές Ερωτήσεις και Απαντήσεις (FAQ)</h2>
+
+<div class="container">
+    @if (Model != null)
+    {
+        foreach (KeyValuePair<string, List<Faq>> faqs in dic)
+        {
+            int i = 1;
+            <h3>@faqs.Key</h3>
+            foreach (Faq faq in faqs.Value.OrderBy(x => x.Order))
+            {
+
+                <div style="margin-bottom: 15px; padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px;border: 1px solid #ccc!important;">
+                    <div class="" style="white-space: normal; text-align: left; margin-bottom:5px;" data-toggle="collapse" data-target="#faq-@faq.Id">
+                        <b>@i. @Html.Raw(faq.Title)</b>
+                    </div>
+                    @*<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">@faq.Title</button>*@
+                    <div style="text-align: justify; padding: 10px;" id="faq-@faq.Id" class="collapse in">
+                        @Html.Raw(faq.Description)
+                    </div>
+                </div>
+
+                i = i + 1;
+            }
+            <hr />
+        }
+    }
+    else
+    {
+        <div>
+            <p>
+                <h3>Δεν Βρέθηκαν συχνές ερωτήσεις</h3>
+            </p>
+        </div>
+    }
+
+
+</div>

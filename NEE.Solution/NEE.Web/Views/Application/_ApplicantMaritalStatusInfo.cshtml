@@ -1,0 +1,29 @@
+﻿@model NEE.Web.Models.Core.ApplicationViewModel
+
+@{
+    var luxClass = "";
+    var readOnlyClass = "idika-readonly invisible";
+    if (!Model.IsAdminUser || !Model.CanBeFinalSubmitted)
+    {
+        luxClass = "idika-readonly invisible";
+    }
+}
+
+<h3>Οικογενειακή Κατάσταση</h3>
+<fieldset>
+    <legend></legend>
+    <div class="@luxClass">
+        @Html.IdikaHtml().FieldFor(m => m.ApplicantPersonalInfo.MaritalStatus, Model.AddressInfo.MaritalStatusList).FormGroup("col-md-4").Id("MaritalStatus")
+        @Html.HiddenFor(m => m.ApplicantPersonalInfo.MaritalStatus)
+    </div>
+    <div class="@readOnlyClass">
+        <div class="idika-field-form-group form-group col-md-4" style="padding-top: 30px">
+            @Html.CheckBoxFor(m => m.ApplicantPersonalInfo.UnknownMaritalStatus, new { @checked = Model.ApplicantPersonalInfo.UnknownMaritalStatus, @style = "margin-right: 10px; height: 25px; width: 10%" })
+            @Html.DisplayNameFor(m => m.ApplicantPersonalInfo.UnknownMaritalStatus)
+        </div>
+    </div>
+    @if (Model.ApplicantPersonalInfo.UnknownMaritalStatus)
+    {
+        @Html.Partial("_UploadMaritalStatusFile", Model)
+    }
+</fieldset>

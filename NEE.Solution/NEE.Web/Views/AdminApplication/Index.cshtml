@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Διαχείριση Αιτήσεων Επιδόματος Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας";
+}
+
+<h2 class="page-header">@ViewBag.Title</h2>
+<br />
+<div class="alert alert-info" role="alert">
+    Από την επιλογή [Νέα Αίτηση] μπορείτε να αναζητήσετε πρόσωπα και αιτήσεις του επιδόματος με βάση τον ΑΜΚΑ και τον ΑΦΜ τους. <br />
+    <br />
+    <strong>Προσοχή:</strong> οι αναζητήσεις βάσει ΑΜΚΑ και ΑΦΜ καταγράφονται. Επιτρέπεται να κάνετε αναζητήσεις προσώπων μόνο εφόσον αιτούνται Επίδομα Κοινωνικής Αλληλεγγύης Ανασφάλιστων Υπερηλίκων σε μέλη της ελληνικής μειονότητας της Αλβανίας.
+</div>
+
+@Html.ActionLink("Νέα Αίτηση", "Find", "AdminApplication", new { amka = "", afm = "" }, new { @class = "btn btn-primary" })
+
+@Html.ActionLink("Αναζήτηση ", "Search", "Admin", new { amka = "", afm = "" }, new { @class = "btn btn-primary" })
+
+
+<br />
+<br />
+
+
+
+<style type="text/css">
+
+    ul {
+        list-style: none;
+    }
+
+
+
+    .Announcements {
+        padding: 3px 15px 3px 35px;
+        color: #787878;
+        text-align: justify;
+    }
+
+    .glyphicon-bell {
+        color: red;
+        color-rendering: optimizeSpeed
+    }
+
+    .glyphicon-arrow-right {
+        color: #5bc0de;
+    }
+
+
+    .AnnouncementContent {
+        font-size: 14px;
+        padding: 3px 15px 3px 35px;
+        margin-right: 5px;
+        text-align: justify;
+        line-height: 1.4em;
+    }
+</style>
