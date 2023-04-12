@@ -4,13 +4,16 @@ using NEE.Service.Core;
 using NEE.Web.AuthorizeAttributes;
 using NEE.Web.Code;
 using NEE.Web.Models.Admin;
+using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI;
 
 namespace NEE.Web.Controllers
 {
@@ -48,13 +51,16 @@ namespace NEE.Web.Controllers
                 Id = req.Id,
                 SearchInAppPerson = req.SearchInAppPerson,
                 StateId = req.StateId,
-                Results = new List<SearchViewModel.SearchResultTableViewModel>()
+                Results = new List<SearchViewModel.SearchResultTableViewModel>(),
             };
-
+            
             var resSearch = await _gsAppService.SearchApplicationAsync(req);
             //error sto view issuccessfull
-            res.Results = resSearch.ApplicationSearchResults.MapList();
-
+            var resultsList = resSearch.ApplicationSearchResults.MapList();
+            res.Results = resultsList;
+            int pageSize = res.Results.Count() > 50 ? 50 : 5;
+            int pageNumber = (int)req.Page;
+            res.PagedResults = resultsList.ToPagedList(pageNumber, pageSize);
             res.Total = resSearch.Total;
             res.Skip = resSearch.Skip;
             res.Take = resSearch.Take;
@@ -175,10 +181,11 @@ namespace NEE.Web.Controllers
         [HttpGet]
         [NEERole(Roles = "OpekaNEEUsers")]
         [ActionName("OpekaSearch")]
-        public async Task<ActionResult> OpekaSearchGet(
-                                                  string SubmittedByKK,
-                                                  string SelState,
-                                                  string isSearched = "0")
+        public async Task<ActionResult> OpekaSearchGet(int? page,
+                                                  int? selState,
+                                                  bool submittedByKK = false,
+                                                  string isSearched = "0"
+                                                  )
         {
             SearchViewModel m = new SearchViewModel();
             ViewBag.UserDistrict = TempData["UserDistrict"];
@@ -189,16 +196,18 @@ namespace NEE.Web.Controllers
                     m.UserDistrictId = ViewBag.UserDistrict;                    
                     var reqSearch = new SearchApplicationsRequest
                     {
-                        SubmittedByKK = false,
+                        SubmittedByKK = submittedByKK,
                         StateId = 6,
                         Skip = m.Skip,
                         Take = m.Take,
-                        DistrictId = m.UserDistrictId ?? 0
+                        DistrictId = m.UserDistrictId ?? 0,
+                        Page = page ?? 1
                     };
                     m = await PerformSearch(reqSearch);
                     m.UserDistrictId = ViewBag.UserDistrict;
                     if (m.HasResults && m.Results.Count > 0)
                         m.CanEditResults = (m.UserDistrictId == (int)m.Results.FirstOrDefault().DistrictId);
+                    TempData["SubmittedByKK"] = submittedByKK;
                 }
                 catch (Exception ex)
                 {
@@ -251,7 +260,8 @@ namespace NEE.Web.Controllers
                                     StateId = m.StateId,
                                     DistrictId = m.DistrictIdFilter,
                                     Skip = m.Skip,
-                                    Take = m.Take
+                                    Take = m.Take,
+                                    Page = 1
                                 };
 
                                 m = await PerformSearch(reqSearch);
@@ -259,6 +269,7 @@ namespace NEE.Web.Controllers
                                 m.UserDistrictId = opekaDistrict;
                                 if (m.Results.Count > 0)
                                     m.CanEditResults = (m.UserDistrictId == (int)m.Results.FirstOrDefault().DistrictId);
+                                TempData["SubmittedByKK"] = m.SubmittedByKK;
                             }
                             catch (Exception ex)
                             {

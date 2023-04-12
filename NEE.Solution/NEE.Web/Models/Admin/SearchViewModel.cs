@@ -1,6 +1,7 @@
 ﻿using NEE.Core;
 using NEE.Core.Contracts.Enumerations;
 using NEE.Core.Validation;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -150,6 +151,7 @@ namespace NEE.Web.Models.Admin
             $"Βρέθηκαν {Total.ToString("#,##0")} πρόσωπα που πληρούν τα στοιχεία αναζήτησης, εμφανίζονται οι {Results.Count.ToString("#,##0")} πιο πρόσφατες εγγραφές";
 
         public List<SearchResultTableViewModel> Results { get; set; }
+        public IPagedList<SearchResultTableViewModel> PagedResults { get; set; }
 
         public string GetUrlForSearch()
         {

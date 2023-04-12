@@ -71,6 +71,8 @@ namespace NEE.Service
 		public int Skip { get; set; }
 		public int Take { get; set; }
 
+		public int? Page { get; set; }
+
 		public static int MAX_Take = 100;
 		public static int DEF_Take = 10;
 

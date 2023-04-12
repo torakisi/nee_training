@@ -31,7 +31,7 @@ namespace NEE.Service
 			try
 			{
 				//temp fix for Georgia
-				if (req.Application.AFM != "142818104")
+				if (req.Application.AFM != "142818104" && req.Application.AFM != "068933130")
 					req.Application.RejectNonEligibleApplication(_currentUserContext);
                 await repository.Save(req.Application, true);
             }

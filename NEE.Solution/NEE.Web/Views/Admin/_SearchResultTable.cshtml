@@ -1,4 +1,5 @@
 ﻿@model NEE.Web.Models.Admin.SearchViewModel
+@using PagedList.Mvc;
 
 @using (Html.BeginForm("ManageApplications", "Application", FormMethod.Post))
 {
@@ -30,7 +31,7 @@
         </thead>
         <tbody>
             @{
-                foreach (var app in Model.Results)
+                foreach (var app in Model.PagedResults)
                 {
                     var id = Model.Results.IndexOf(app) + 1;
 
@@ -56,23 +57,23 @@
                             <td class="" style="vertical-align:middle;">@app.DistrictName</td>
 
                         }
-                    <td class="text-nowrap fit-width" style="width:1%;vertical-align:middle;">
-                        @if (app.IsEditableApplicationSearch)
-                        {
-                            if (Model.CanEditResults)
+                        <td class="text-nowrap fit-width" style="width:1%;vertical-align:middle;">
+                            @if (app.IsEditableApplicationSearch)
                             {
-                                <button type="submit" name="command" value="EditApplication:@app.Id:@Model.GetUrlForSearch()" class="btn btn-primary btn-xs btn-block cancel"><i class="fa fa-edit"></i> Επεξεργασία</button>
+                                if (Model.CanEditResults)
+                                {
+                                    <button type="submit" name="command" value="EditApplication:@app.Id:@Model.GetUrlForSearch()" class="btn btn-primary btn-xs btn-block cancel"><i class="fa fa-edit"></i> Επεξεργασία</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" name="command" value="ViewApplicationReadOnly:@app.Id:@Model.GetUrlForSearch()" class="btn btn-primary btn-xs btn-block cancel"><i class="fa fa-eye"></i> Προβολή</button>
+                                }
                             }
-                            else
+                            else if (app.CanViewOnlyApplicationSearch)
                             {
                                 <button type="submit" name="command" value="ViewApplicationReadOnly:@app.Id:@Model.GetUrlForSearch()" class="btn btn-primary btn-xs btn-block cancel"><i class="fa fa-eye"></i> Προβολή</button>
                             }
-                        }
-                        else if (app.CanViewOnlyApplicationSearch)
-                        {
-                            <button type="submit" name="command" value="ViewApplicationReadOnly:@app.Id:@Model.GetUrlForSearch()" class="btn btn-primary btn-xs btn-block cancel"><i class="fa fa-eye"></i> Προβολή</button>
-                        }
-                    </td>
+                        </td>
                         @if (Model.IsOpekaUser && Model.IsCentralRegionUser)
                         {
                             <td>
@@ -89,7 +90,13 @@
             }
         </tbody>
     </table>
+    <br />
+
+
+    @Html.PagedListPager(Model.PagedResults, page => Url.Action("OpekaSearch",
+            new { page, submittedByKK = @TempData["SubmittedByKK"] }))
 }
 
+    
 
 
